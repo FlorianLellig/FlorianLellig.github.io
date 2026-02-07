@@ -80,7 +80,6 @@ const config = {
             position: 'left',
             label: 'Wirtschaftsinformatik',
           },
-          {to: '/blog', label: 'Blog', position: 'right'},
           {
             href: 'https://github.com/florianlellig',
             label: 'GitHub',
