@@ -11,6 +11,7 @@ const config = {
 
   organizationName: 'florianlellig',
   projectName: 'florianlellig.github.io',
+  deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
 
