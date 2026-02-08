@@ -37,4 +37,8 @@ Mit Annotationen, beginnend mit einem _@_, lassen sich Daten aufbereiten. Dies e
 Alternativ können Annotations auch direkt im Service mitdefiniert werden, dies wird jedoch meist schnell unübersichtlich.
 :::
 
+#### Die wichtigesten Vorteile
+- **Plattform-Adaptiv:** Das in CDS geschriebene Modell wird von Cap automatisch passend übersetzt, sodass es unabhängig davon läuft, ob man SAP HANA, PostgreSQL oder SQLite verwendet.
+- **Wiederverwendbarkeit:** SAP liefert viele vordefinierte Typen und Aspekte mit (z. B. cuid für automatische IDs oder managed für Zeitstempel), die einfach in das Modell importiertiert werden können.
+
 ### 1.4.1.2 - OData Schnittstellen
