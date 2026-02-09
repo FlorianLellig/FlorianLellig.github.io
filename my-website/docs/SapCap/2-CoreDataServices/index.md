@@ -1,3 +1,6 @@
+---
+sidebar_position: 4
+---
 # 2. Core Data Services (CDS)
 
 :::info

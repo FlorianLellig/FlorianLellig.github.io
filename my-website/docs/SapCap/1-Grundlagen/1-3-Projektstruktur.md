@@ -21,7 +21,7 @@ Das ist das Stammverzeichnis (Root) des Projekts. Alle projektbezogenen Daten un
 ## 1.3.2 - Datenbankschicht
 
 ```zsh
-├─ app/
+├─ db/
 ```
 
 In diesem Verzeichnis wird das Datenmodell definiert und gespeichert.
