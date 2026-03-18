@@ -123,3 +123,30 @@ public class User {
 ```
 
 In dem vorliegenden Beispiel wird eine User-Klasse erstellt, die wiederum in einer Methode eine Inner local Class beinhaltet. Aufgrund der Verschachtelung der Inneren Klasse innerhalb der Methode `registerMailAdress` ist diese auch NUR in diesem Scope erreichbar - außerhalb der Methode existiert keine Referenz und der Validator wäre unreachable.
+
+### 4 - Anonymous Classes (Anonyme Klassen)
+
+:::info
+Eine **Anonyme Klasse** ist eine Klasse _ohne Bezeichner_, die innerhalb einer anderen Klasse verschachtelt ist. Im Gegensatz zu den anderen Arten der inneren Klassen wird diese Klasse direkt aus einem Interface _"on the fly"_ umgesetzt. Dies macht einen Bezeichner überflüssig. 
+:::
+
+```java
+interface Geraet {
+    void einschalten();
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // Anonyme Klasse implementiert das Interface "on the fly"
+        Geraet radio = new Geraet() {
+            @Override
+            public void einschalten() {
+                System.out.println("Radio spielt: 'The Best of Java Hits'!");
+            }
+        };
+
+        radio.einschalten();
+    }
+}
+```
+In dem vorliegenden Beispiel wird eine Main-Klasse erstellt, die verschachtelt ein Interface als Grundlage für eine innere Klasse nutzt. Durch die direkte Implementierung der Methode des Interfaces kann man sich den Bezeichner, sprich den Namen der verschachtelten Klasse, die das Interface implementiert, sparen.
