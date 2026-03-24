@@ -85,7 +85,7 @@ public class Bankkonto {
 Bankkonto meinKonto = new Bankkonto();
 meinKonto.addMoney(500.0);
 
-Bankkonto.Zinsrechner meinZinsrechner = konto.new Zinsrechner();
+Bankkonto.Zinsrechner meinZinsrechner = meinKonto.new Zinsrechner();
 meinZinsrechner.berechneZinsen(5.0);
 ```
 
