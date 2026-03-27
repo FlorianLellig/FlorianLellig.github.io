@@ -12,7 +12,7 @@ Ein Netzwerk besteht aus mindestens zwei Teilnehmern/Systemen, die miteinander v
 
 Referenzmodelle ermöglichen es, gewisse _einheitliche Standards für die Kommunikation zwischen verschiedenen Teilnehmern festzulegen_. Sie sind essenziell, um _hardwareübergreifende Kommunikation über verschiedene Hersteller hinweg_ zu ermöglichen. Bevor sie exisitert haben, war eine Kommunikation zwischen unterschiedlichen Herstellern ohne Übersetzungshardware quasi unmöglich.
 
-### 2.1.2.1 TCP/IP Schichtenmodell
+### TCP/IP Schichtenmodell
 
 :::info
 TCP/IP steht für _Transmission Control Protocol/Internet Protocol_. Es wurde in den 70er Jahren für das Arparnet (Vorläufer des Internets) entwickelt.
@@ -43,7 +43,7 @@ Der Application Layer stellt alle Dienste und Funktionen für Benutzerinteraktio
 
 
 
-### 2.1.2.2 OSI Schichtenmodell
+### OSI Schichtenmodell
 :::info
 OSI steht für _Open System Internetconnect_. Es ist ein theoretisches Referenzmodell, was in den frühen 80er Jahren entwicklet worden ist.
 :::
@@ -52,7 +52,7 @@ OSI steht für _Open System Internetconnect_. Es ist ein theoretisches Referenzm
 
 Die Funktionsweise der Kommunikation über Netzwerke wird maßgeblich **vom sogenannten Manchaster Coding im Ethernet Protokoll** definiert.
 
-### 2.1.3.1 Manchester-Coding
+### Manchester-Coding
 
 Das Manchester Coding ist eine Technik, mit der **im klassischen Ethernet eine Kommunikation durchgeführt** wird. Statt eine `111` durch drei überdeckende, hochsummierende 1er zu realisieren wird der sogenannte **Flankenwechsel** zur Werteidentifikation genutzt. 
 
@@ -67,7 +67,7 @@ Die Besonderheit: Bei der Übertragung eines Bits wird dieser zuerst invertiert 
 #### Idle Betrieb
 Die Erkennung von Zuständen erfolgt durch **Potenzialunterschiede**. Erfolgt kein Potenzialunterschied zwischen 0,75 und 1,25 Bitzeiten, also zwischen dem Endzustand des Bit 1 und dem invertierten beginnenden Zustand von Bit 2, dann wird dies vom Empfänger als Idle Zustand gewertet.
 
-### 2.1.3.2 Synchonisation
+### Synchonisation
 Synchronisation bezeichnet im allgemeinen die **zeitliche Abstimmung von Vorgängen** - sie sollen dabei **zeitgleich** oder in einer (im Protokoll festgelegten) Reihenfolge **ablaufen**. 
 
 Im Kontext von technischen Kommunikationssystemen führt eine fehlerhafte Abstimmung von Takten schon bei minimalen Unterschieden zu Problemen bei der Feststellung, ob es sich bei einem Bit einer 0-er Folge um den 7. oder 8. Bit handelt.

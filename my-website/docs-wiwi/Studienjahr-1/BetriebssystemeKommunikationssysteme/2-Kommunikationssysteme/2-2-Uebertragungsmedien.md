@@ -6,7 +6,7 @@ Im folgenden werden die Übertragungsmedien in Leitergebundene und NICHT-Leiterg
 
 Leitergebundene Übertragungsmedien umfassen alle Übertragungsmedien, die aus einer physischen Verbindung bestehen (Kabel).
 
-### 2.2.1.1 Nicht metallische Leiter
+### Nicht metallische Leiter
 
 #### Lichtwellenleiter
 
@@ -16,7 +16,7 @@ Sie sind dabei aufgrund der Verwendung von Licht als Übertragungsmedium sowohl 
 
 Sie sind im Vergleich zu Kupferkablen ebenfalls dünner, flexibler und (deutlich) kostengünstiger.
 
-### 2.2.1.2 Metallische Leiter
+### Metallische Leiter
 
 #### Koaxialkabel
 
@@ -49,15 +49,15 @@ Ein S/UTP-Kabel verfügt nur über einen gemeinsamen Außenschirm.
 
 Leiterungebundene Übertragungsmedien umfassen grundsätzlich alle Übertragungsmedien, die nicht direkt auf physischen (Kabel-)Verbindungen aufbauen.
 
-### 2.2.2.1 Funk
+### Funk
 
 comming soon...
 
-### 2.2.2.2 Ultraschall
+### Ultraschall
 
 comming soon...
 
-### 2.2.2.3 Infrarot
+### Infrarot
 
 comming soon...
 
@@ -77,7 +77,7 @@ Der RJ-45 Stecker ist der weltweit standardisierte Stecker für Datenübertragun
 Damit eine korrekte Datenübertragung über die jeweiligen Pins möglich ist, muss der "Senden" Kanal beim Empfänger auf dem "Empfangen" Kanal ankommen. Daher müssen die Kabel (bzw. der Anschluss) entweder verdreht sein, oder es muss ein Switch oder ein anderes Gerät vorhanden sein, was die Signale Interpretiert bzw. die Kanäle intern tauscht. 
 :::
 
-### 2.2.3.1 PoE - Power over Ethernet
+### PoE - Power over Ethernet
 
 Power over Ethernet ist ein Verfahren, bei dem die standardmäßiug nicht genutzten Adern im RJ-45 Connector zur Stromversorgung eines Gerätes genutzt weden können. Dabei gilt:
 

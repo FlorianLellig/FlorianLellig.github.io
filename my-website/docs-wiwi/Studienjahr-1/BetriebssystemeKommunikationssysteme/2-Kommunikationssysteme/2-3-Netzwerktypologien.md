@@ -14,21 +14,21 @@ Netzwerktypologien beschreiben grundsätzlich, wie das Kommunikationsnetz aufgeb
 
 ## 2.3.2 Netzwerktypologiesysteme
 
-### 2.3.2.1 BUS-Typologie
+### BUS-Typologie
 
 ![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme4.png)
 
 - Alle Geräte sind an einem Kabel angeschlossen - man spricht von einer linearen Übertragung.
 - Bei der Datenübertragung hören alle Geräte zu, aber nur das adressierte Gerät verarbeitet.
 
-### 2.3.2.2 Stern-Typologie
+### Stern-Typologie
 
 ![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme5.png)
 
 - Fällt eine Verbindung aus, so bleibt das Netzwerk trotzdem weiterhin nutzbar
 - Durch den Switch im Zentrum kann der Datenverehr gut geregelt werden, um Kollisionen zu vermeiden
 
-### 2.3.2.3 Ring-Typologie
+### Ring-Typologie
 
 ![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme6.png)
 
@@ -36,7 +36,7 @@ Netzwerktypologien beschreiben grundsätzlich, wie das Kommunikationsnetz aufgeb
 - Fällt ein System aus, ist die Kommunikation unterbrochen
 - Schwer erweiterbar
 
-### 2.3.2.4 Maschen-Typologie
+### Maschen-Typologie
 
 ![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme7.png)
 
@@ -44,6 +44,6 @@ Netzwerktypologien beschreiben grundsätzlich, wie das Kommunikationsnetz aufgeb
 - Hohe Ausfallsicherheit
 - Hoher Verkabelungsaufwand und Komplexität
 
-### 2.3.2.5 Hybride Typologien
+### Hybride Typologien
 
 Hybride Typologien sind Kombinationen verschiedener Typologien zu einem größeren System. Es können z.B. zwei Stern-Typologien mit einer BUS-Typologie verbunden werden.
