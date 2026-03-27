@@ -143,9 +143,43 @@ public class SetIteratorDemo {
 Während ein normales `Hashset` seine Elemente völlig ungeordnet aufnimmt, ist ein TreeSet (die gängigste Implementierung von SortedSet) eine geordnete Sortierung aller Elemente. 
 
 #### Die natürliche Ordnung
-Innerhalb einer Menge erfolgt die Sortierung standardmäßig über die natürliche Ordnung. Diese beschreibt die inhärente Sortierlogik von Objekten, die ohne explizite Anweisung angewendet wird. Während diese Ordnung für bestehende Java-Klassen bereits definiert ist, muss sie für eigene Objekte explizit implementiert werden. Ein Objekt, das einer `SortedSet`-Implementierung hinzugefügt wird, setzt daher zwingend eine Sortierlogik voraus – üblicherweise durch die Implementierung des Comparable-Interfaces in der jeweiligen Klasse.
+- Die Sortierung innerhal einer Menge erfolgt **standardmäßig über die natürliche Ordnung**
+    - **Inhärente Sortierlogik von Objekten**, die ohne explizite Anweisung angewendet wird
+        - Bereits für bestehende Java-Klassen definiert
+        - Für eingene Objekte muss Sortierlogik **expliziet implementiert** werden
+- Objekt, das einer `SortedSet`-Implementierung hinzugefügt wird, **setzt zwingend eine Sortierlogik voraus** 
+    - Üblicherweise durch die Implementierung des `Comparable`-Interfaces in der jeweiligen Klasse.
+    - Bei jedem Einfügen eines Objekts zu einem Set wird dieses **mit den anderen bereits vorhandenen Objekten im Set verglichen**, um die richtige Position identifizieren zu können. 
+        - Für diesen automatischen Vergleich benötigt man das **`Comparable`-Interface**
+            
 
-Bei jedem Einfügen eines Objekts zu einem Set wird dieses mit den anderen bereits vorhandenen Objekten im Set verglichen, um die richtige Position identifizieren zu können. Für diesen automatischen Vergleich benötigt man das `Comparable`-Interface
+##### Beispiel für Natürliche Ordnung mit `comparable`-Interface
+```java
+public class Car implements Comparable {
+    public final int productionNumber;
+    public String color;
+    public String licensePlate;
+
+    public Car(int productionNumber, String color, String licenseplate) {
+        this.productionNumber = productionNumber;
+        this.color = color;
+        this.licensePlate = licensePlate;
+    }
+
+    // Die vom Interface geforderte Methode
+    public int compareTo (Car vCar) {
+        return this.productionNumber - vCar.productionNumber;
+    }
+}
+```
+
+:::tip
+Die Methode `compareTo()` liefert einen Integer als Rückgabewert. Dabei gilt:
+- `Wert < 0`: das aufgerufene Objekt ist **kleiner** als das übergebene Objekt
+- `Wert = 0`: das aufgerufene Objekt ist **gleich** dem übergebenen Objekt
+- `Wert > 0`: das aufgerufene Objekt ist **größer** als das übergebene Objekt
+:::
+
 
 #### Eigene Sortierungen
 Als Alternative 

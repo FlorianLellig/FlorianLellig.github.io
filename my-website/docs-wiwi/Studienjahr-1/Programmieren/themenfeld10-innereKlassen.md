@@ -150,3 +150,43 @@ public class Main {
 }
 ```
 In dem vorliegenden Beispiel wird eine Main-Klasse erstellt, die verschachtelt ein Interface als Grundlage für eine innere Klasse nutzt. Durch die direkte Implementierung der Methode des Interfaces kann man sich den Bezeichner, sprich den Namen der verschachtelten Klasse, die das Interface implementiert, sparen.
+
+## Lambda-Funktionen
+
+### Grundlagen
+
+- Funktion, die vom Prinzip her **ähnlich zu einer inneren anonymen Klasse** ist
+    - Ebenfalls Erstellung auf Basis eines Interfaces
+    - Lebt **im Kontext der Outher Class** und ist damit _quasi_ keine eigene Klasse
+
+:::warning
+Lambda Funktionen setzten **funktionale Interfaces** voraus, d.h.:
+- Interfaces mit genau _einer abstrakten Methode ohne default Implementierung_
+- Zusätzlich sind _static oder default Methoden im Interface erlaubt_
+:::
+
+- Die Lambda Funktion ist definiert als **()->{}**
+- Haben Zugriff auf den umliegenden Kontext der `final`-Variablen
+
+### Beispiel einer Lambda Expression
+
+```java
+public class LambdaExpression {
+    static void main(String[] args) {
+        // Im folgenden wird ein Lambda-Expression Test festgelegt, dieser kann später aufgerufen werden
+        Printable lambdaTest = (myMessage) -> {IO.println(myMessage);};
+
+        // Aufrufen der Lambda Expression
+        lambdaTest.printMessage("Test");
+    }
+
+}
+```
+
+:::note
+Damit dies funktioniert, wird ein Interface "Printable" vorausgesetzt:
+```java
+public interface Printable {
+    public void printMessage(String message);
+}
+```
