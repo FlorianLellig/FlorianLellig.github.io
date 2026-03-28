@@ -162,6 +162,7 @@ In dem vorliegenden Beispiel wird eine Main-Klasse erstellt, die verschachtelt e
 :::warning
 Lambda Funktionen setzten **funktionale Interfaces** voraus, d.h.:
 - Interfaces mit genau _einer abstrakten Methode ohne default Implementierung_
+    - Eine Methode innerhalb eines Interfaces ist **standardmäßig immer automatisch `public` und `abstract`**
 - Zusätzlich sind _static oder default Methoden im Interface erlaubt_
 :::
 

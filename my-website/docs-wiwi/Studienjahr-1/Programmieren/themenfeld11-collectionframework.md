@@ -169,6 +169,7 @@ public class Car implements Comparable {
     // Die vom Interface geforderte Methode
     public int compareTo (Car vCar) {
         return this.productionNumber - vCar.productionNumber;
+        // Sortiert Aufsteigend
     }
 }
 ```
@@ -182,9 +183,75 @@ Die Methode `compareTo()` liefert einen Integer als Rückgabewert. Dabei gilt:
 
 
 #### Eigene Sortierungen
-Als Alternative 
+Als Alternative zur natürlichen Ordnung, sprich der Ordnung die Standardmäßig angewendet wird, kann ebenfalls eine sperate `Comparator`-Klasse erstellt und genutzt werden.
+- Genauso wie die natürliche Ordnung **sortiert** die `Comparator`-Klasse **beim Einfügen von Elementen** in `Sets` oder `Maps`
+- Sortierung **übersteuert die natürliche Ordnung**
+- Eine `Comparator`-Klasse implementiert das `Comparator` Interface.
 
+:::note
+Das `Comparator`-Interface sieht wie folgt aus:
+```java
+@FunctionalInterface
+public interface Comparator<T> {
 
+    int compare(T o1, T o2);
 
+    // Hinweis: Im Originalcode folgen hier noch weitere Methoden 
+    // zur Implementierung, jedoch keine weitere abstract-Methode
 
+    // Equals wird von Object als Abstrakt übergeben, d.h. es zählt 
+    // im Comparator NICHT als abstrakte Methode
+}
+```
+Da es sich bei dem Comparator um ein **funktionales Interface** handelt, kann dieser ebenfalls **für `Lambda`-Expressions genutzt** werden.
+- Eine abstrakte Methode ohne default Implementierung!
+:::
 
+- Die Bewertung erfolgt ebenfalls über Vergleichswerte:
+    - Wert < 0: o1 liegt vor o2
+    - Wert = 0: o1 und o2 sind gleich
+    - Wert > 0: o1 liegt hinter o2
+
+Das folgende Beispiel zeigt einen Comparator, der die Elemente der Klasse `Car` (siehe _"Die natürliche Ordnung"_) absteigend (statt aufsteigend, wie die natürliche Ordnung vorsieht) sortiert.
+
+```java
+public class CarSorterDecending implements Comparator {
+    public int compare(Car v1, Car v2) {
+        // Absteigende Sortierung
+        return v2.productionNumber - v1.productionNumber;
+
+        // Wenn compare einen negativen Wert zurückgibt, dann wird v1 vor v2 einsortiert
+        // Wenn compare einen positiven Wert zurückgibt, dann wird v2 vor v1 einsortiert
+    }
+}
+```
+
+```java
+public class Demo {
+    public static void main (String[] args) {
+        TreeSet demo = new TreeSet<Car>(new CarSorterDecending());
+
+        demo.add(new Car(15, "Red", "SAB-C-977"));
+        demo.add(new Car(145, "Blue", "SAB-F-265"));
+
+        Iterator i = demo.iterator();
+        while (i.hasNext()) {
+            Car tempCar = i.next();
+            System.out.println("Car with Production number: " + tempCar.productionNumber);
+        }
+    }
+}
+```
+
+:::tip
+Alternativ kann die Sortierung auch mittels Lambda Expression realisiert werden - der Code wird dadurch kürzer:
+```java
+public class Demo {
+    public static void main (String[] args) {
+        TreeSet demo = new TreeSet<Car>((v1, v2)->{return v2.productionNumber - v1.productionNumber;});
+    }
+}
+```
+Hinweis: 
+ein Lambda **mit Geschweiften Klammern** benötigt ein vollwertiges return Statement, während hingegen ein Lambda **ohne geschweifte Klammern** kein return Statement braucht - der Return erfolgt hier automatisch. 
+:::
