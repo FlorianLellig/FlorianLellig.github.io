@@ -58,14 +58,18 @@ Das Manchester Coding ist eine Technik, mit der **im klassischen Ethernet eine K
 
 Die Besonderheit: Bei der Übertragung eines Bits wird dieser zuerst invertiert übertragen, sprich eine _null wird als eins_ und eine _eins als null_ übertragen. Später wird dann der eigentliche Bit mithilfe eines Potenzialunterschieds der Sprannung realisiert. Man unterteilt den BIt also quasi in zwei Hälften. Es gilt:
 - **Erste Hälfte des Bits:** Dient zur Vorbereitung (hier wird der eigentliche Bit invertiert)
-    - Dieser Flankenwechsel dient ebenfalls der Identifizierung eines Taktes zur Synchonisation (siehe Kapitel 2.1.3.2)
+    - Dieser Flankenwechsel dient ebenfalls der Identifizierung eines Taktes zur Synchonisation (siehe Kapitel "Synchonisation")
 - **Die Mitte des Bits:** Hier erfolgt ein Sprung - der sogenannte _Flankenwechsel_
     - Von _low_ zu _high_: Darstellung einer logischen "1"
     - Von _high_ zu _low_: Darstellung einer logischen "0"
 - **Zweite Hälfte des Bits:** Puffer zwischen Flankensprung und dem nächsten Invertierungsprozess.
 
+Im Folgenden sieht man ein Beispeil des Manchester Codings für die Bitfolge `100110`
+
+![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme10.svg)
+
 #### Idle Betrieb
-Die Erkennung von Zuständen erfolgt durch **Potenzialunterschiede**. Erfolgt kein Potenzialunterschied zwischen 0,75 und 1,25 Bitzeiten, also zwischen dem Endzustand des Bit 1 und dem invertierten beginnenden Zustand von Bit 2, dann wird dies vom Empfänger als Idle Zustand gewertet.
+Die Erkennung von Zuständen erfolgt durch **Potenzialunterschiede**. Erfolgt kein Potenzialunterschied zwischen 0,75 und 1,25 Bitzeiten NACH dem letzten Flankenwechsel, also zwischen dem invertierten beginnenden Zustand von Bit 2 und dem Endzustand des Bit 2, dann wird dies vom Empfänger als Idle Zustand gewertet.
 
 ### Synchonisation
 Synchronisation bezeichnet im allgemeinen die **zeitliche Abstimmung von Vorgängen** - sie sollen dabei **zeitgleich** oder in einer (im Protokoll festgelegten) Reihenfolge **ablaufen**. 
