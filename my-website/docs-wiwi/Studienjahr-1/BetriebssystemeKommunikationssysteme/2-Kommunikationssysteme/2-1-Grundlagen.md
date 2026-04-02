@@ -1,4 +1,4 @@
-# 2.1 - Grundlagen
+# 2.1 Grundlagen
 
 ## 2.1.1 Netzwerk - Basics
 
