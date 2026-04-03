@@ -79,6 +79,78 @@ JPanel beschreibt einen in anderen Sprachen typischerweise als Frame bezeichnete
 
 Panels stellen das Fundament des Layoutmanagers dar - daher sind sie unverzichtbar wenn man mit diesen arbeitet.
 
+```java
+public class JPanelDemo extends JFrame {
+    JPanelDemo() {
+        super("JPanel Demo");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
+        this.setLayout(new FlowLayout());                       // Layouts siehe nächster Abschnitt
+        this.setSize(500,500);
+
+        JPanel test = new JPanel(new FlowLayout());             // Layouts siehe nächster Abschnitt
+        test.add(new JLabel("Test"));
+        this.add(test);
+    }
+
+    static void main(String[] args) {
+        SwingUtilities.invokeLater(()->{
+            new JPanelDemo();
+        });
+    }
+}
+```
+
+### Panels mit Rahmen versehen
+- Rahmen sind prinzipiell erst einmal Klassen, die das Interface Border implementieren
+- Rahmen erzeugen:
+    - Prinzipiell kann jede Swing Komponente mit einem Rahmen versehen werden
+        - Erfolgt über die Methode `setBorder(Border b)`
+    - Rahmen sollte NICHT direkt über den Konstruktur sondern über `BorderFactory` erstellt werden. 
+
+#### Unterschiedliche Rahmentypen
+| Klasse | Rahmenart |
+| :--- | :--- |
+| **AbstractBorder** | eine abstrakte Klasse, die die Schnittstelle minimal implementiert |
+| **BevelBorder** | ein 3D-Rahmen, der eingelassen sein kann |
+| **CompoundBorder** | ein Rahmen, der andere Rahmen aufnehmen kann |
+| **EmptyBorder** | Rahmen, dem freier Platz zugewiesen werden kann |
+| **EtchedBorder** | noch deutlicher markierter Rahmen |
+| **LineBorder** | Rahmen in einer einfachen Farbe in gewünschter Dicke |
+| **MatteBorder** | Rahmen, bestehend aus Kacheln von Icons |
+| **SoftBevelBorder** | ein 3D-Rahmen mit besonderen Ecken |
+| **TitledBorder** | Rahmen mit String in einer gewünschten Ecke (Wichtig: Beim Erstellen einer `TitledBorder` wird zuerst ein normaler Rahmen erstellt, anschließend kann dieser dann einer `TitledBorder` zugeordnet werden) |
+
+#### Beispiel
+
+```java
+public class JPanelDemo extends JFrame {
+    JPanelDemo() {
+        super("JPanel Demo");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
+        this.setLayout(new FlowLayout());
+        this.setSize(500,500);
+
+        JPanel test = new JPanel(new FlowLayout());
+        test.add(new JLabel("Test"));
+        this.add(test);
+
+        Border newBorder1 = BorderFactory.createLineBorder(Color.BLACK, 5);
+        Border newBorder2 = BorderFactory.createTitledBorder(newBorder1, "Test");
+
+        test.setBorder(newBorder2);
+
+    }
+
+    static void main(String[] args) {
+        SwingUtilities.invokeLater(()->{
+            new JPanelDemo();
+        });
+    }
+}
+```
+
 ## Layoutmanager
 
 Layout ermöglichen es, die konkrete Anordnung von Elementen eines Containers nach bestemmten Verfahren festzulegen und zu definieren. Die Prinzipien des Swing-Layoutmanagers lassen sich auf viele andere GUI Toolkits übertragen und wird z.B. auch in QT (mit z.B. pyQT verwendet).
