@@ -268,3 +268,170 @@ public class GridLayoutExample extends JFrame {
 :::warning
 Werden mehr Elemente hinzugefügt als beim Layout erstellen festgelegt wurde (Elementanzahl > Reihenanzahl x Spaltenanzahl), dann öffnet sich standardmäßig eine neue Reihe.
 :::
+
+## Swing UI Komponenten
+
+### JLabel
+:::note
+`JLabel` ermöglicht es, Texte, Bilder und sogar HTML-Tags darzustellen
+:::
+
+```java
+public class JLabelExample extends JFrame {
+
+    JLabelExample() {
+        super("JFrame Example");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
+        this.setSize(500, 500);
+        this.setLayout(new FlowLayout());
+
+        JLabel myLabel1 = new JLabel("Demolabel:");
+        ImageIcon img = new ImageIcon("C:/test.jpg");
+        JLabel image = new JLabel(img);
+
+        this.add(myLabel1);
+        this.add(image);
+    }
+
+    static void main (String[] args) {
+        SwingUtilities.invokeLater(()->{
+            new JLabelExample();
+        });
+    }
+}
+```
+#### Unterschiedliche Arten von Textfeldern
+
+| Klasse | Eigenschaften & Methoden |
+| :--- | :--- |
+| **JTextField** | einfache Textfelder (überladener Konstruktor zur Vorbelegung mit String und/oder Breitenangabe; Angabe der Schriftart über `setFont()`; Auslesen des Inhalts über `getText()`) |
+| **JPasswordField** | spezielle Felder für Passwörter  (Konstruktoren analog `JTextField`; Auslesen des Inhalts über `getPassword()`; boolsche Methoden `cut()` und `copy()` zur Prüfung, ob Werte kopiert (STRG+C) oder ausgeschnitten (STRG+X) werden dürfen) |
+| **JTextArea** | mehrzeilige Textfelder (Konstruktoren analog `JTextField` (Unterschied: Breite **und** Höhe müssen angegeben werden); Auslesen und Ändern der Schriftart analog `JTextField`; Zeilenumbrüche werden bei `getText()` berücksichtigt) |
+
+### JComboBox
+
+Die JComboBox ermöglicht das Erstellen eines Fensters mit Dropdown mehrerer vorgefertigter auswählbarer Optionen.
+
+```java
+public class JComboBoxExample extends JFrame {
+
+    JComboBoxExample() {
+        super("JComboBox Example");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setVisible(true);
+        this.setLayout(new FlowLayout());
+        this.setSize(500, 500);
+
+        String[] options = {"FTP"};
+        this.add(new JComboBox(options));
+    }
+
+    static void main (String[] args) {
+        SwingUtilities.invokeLater(()->{
+            new JComboBoxExample();
+        });
+    }
+}
+```
+
+## Event Listener
+
+### Event Konzept
+
+Das Event Konzept ermöglicht es, tatsächliche Aktionen auf Basis von erkannten Events, die durch den User getätigt worden sind, umzusetzen:
+- Alle **UI-Komponenten erzeugen sog. Events**, die signalisieren, dass sich etwas verändert hat oder ein Klick, etc. durch den User erfolgt ist
+    - Events können mithilfe eines **EventListeners** abgefangen und ausgewertet werden
+
+### Event Listener
+Ein Eventlistener ist ein Überbegriff für verschiedene funktionale Interfaces (bestehend aus einer abstrakten Methode), das von Objekten implementiert werden, die an einem bestimmten Ereignis interessiert sind. 
+
+:::note
+EventListener **müssen einem Objekt, auf das sie reagieren sollen, zugeordnet werden.** Ein Objekt kann dabei mehrere EventListener besitzen. Die Zuordnung erfolgt über Methoden des jeweiligen zuzuordnenden Objekts - die Methodennamen variieren abhängig vom EventListenertyp:
+- **ItemListener:**
+    - Hinzufügen eines EventListeners über `addItemListener(ItemListener e)`
+    - Entfernen eines EventListeners über `removeItemListener(ItemListener e)`
+- **ActionListener:**
+    - Hinzufügen eines EventListeners über `addActionListener(ActionListener e)`
+    - Entfernen eines EventListeners über `removeActionListener(ActionListener e)`
+- **FocusListener:**
+    - Hinzufügen eines EventListeners über `addFocusListener(FocusListener e)`
+    - Entfernen eines EventListeners über `removeFocusListener(FocusListener e)`
+- weitere...
+
+Tritt ein Event auf, wird die jeweilige Methode der registerierten Interface-Implementierung aufgerufen.
+:::
+
+Man unterscheidet zwischen verschiedenen **EventListener-Typen**:
+
+#### ItemListener
+- Funktionales Interface, bestehend aus der abstrakten Methode `itemStateChanged(ItemEvent e)`
+    - Wird aufgerufen, sobald bei Objekten ein **Eintrag ausgewählt** wird
+:::tip
+`ItemEvent` beinhaltet Informationen über das Event:
+1. **Die Quelle des Ereignisses - `e.getSource()`**
+```java
+JComboBox selection = (JComboBox) e.getSource();
+```
+2. **Das betroffene Item - `e.getItem()`**
+```java
+Object item = e.getItem(); // z.B. "Option 0", "Option 1", "Option 2" ...
+```
+3. **Der Zustandswechsel - `e.getStateChange()`**
+```java
+int state = e.getStateChange();
+```
+Gibt an, was mit dem Item passiert ist:
+| **Konstante**          | **Wert** | **Bedeutung**         |
+|------------------------|----------|-----------------------|
+| `ItemEvent.SELECTED`   | 1        | Item wurde ausgewählt |
+| `ItemEvent.DESELECTED` | 2        | Item wurde abgewählt  |
+:::
+- Greift im **Kontext von EventListening** bei `JComboBox`, `JCheckBox`, `JList` und `JCheckBoxMenuItem`
+- EventListener am Objekt verwalten:
+    - **Hinzufügen** eines EventListeners über `addItemListener(ItemListener e)`
+    - **Entfernen** eines EventListeners über `removeItemListener(ItemListener e)`
+
+- Beispiel eines **Itemlistener**s anhand der `JComboBox`:
+```java
+public class ItemListenerExample extends JFrame {
+    public static void main (String[] args) {
+        SwingUtilities.invokeLater(()->{
+            new ItemListenerExample();
+        });
+    }
+
+    ItemListenerExample() {
+        super("My Demo");
+        this.setVisible(true);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(400, 400);
+
+        this.setLayout(new FlowLayout());
+        String[] value = {"Option 0", "Option 1", "Option 2", "Option 3", "Option 4", "Option 5"};
+        JComboBox<String> myComboBox = new JComboBox<String>(value);
+        this.add(myComboBox);
+
+        ItemListener myListener = new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                JComboBox<String> selection = (JComboBox)e.getSource();
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    System.out.println("State changed to index " + selection.getSelectedIndex());
+                }
+            }
+        };
+
+        myComboBox.addItemListener(myListener);
+    }
+}
+```
+
+
+#### ActionListener
+- Funktionales Interface, bestehend aus der abstrakten Methode `actionPerformed(ActionEvent e)`
+- Greift im Kontext von EventListening bei z.B. `JButton`
+- EventListener am Objekt verwalten:
+    - Hinzufügen eines EventListeners über `addActionListener(ActionListener e)`
+    - Entfernen eines EventListeners über `removeActionListener(ActionListener e)`
+
