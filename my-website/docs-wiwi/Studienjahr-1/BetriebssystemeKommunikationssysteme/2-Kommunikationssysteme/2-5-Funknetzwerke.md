@@ -193,3 +193,28 @@ Im Mobilfunknetz wird (unabhängig von der Geschwindigkeit) mit 2 Watt von Mobil
 
 4. MSRN - Mobile Station Roaming Number
     - temporäre, intern verwendete Nummer in einem fremden Netz
+
+### Kommunikation mit dem Funknetz
+- Die von Funkmasten versendeten Funkwellen können grundsätzlich von allen Funkmasten aufgefangen werden
+    - Die CID (Cell Identifier; eindeutige Nummer der Basissation) und IMEI (International Mobile Station Equipment Identity) beschränken den Datenaustausch auf die zwei vorgesehenen Teilnehmer (Funkmast und Mobiles Endgerät)
+        - Trotzdem kann jeder die Funkwellen empfangen
+
+### Zellulare Mobilfunknetze
+- Funknetzwerke haben grundsätzlich eine begrenzte Reichweite:
+    - Faustformel:
+        - **Auf freiem Feld:** Sendeleistung reduziert sich mit der 2en Potenz
+        - **In der Stadt:** Sendeleistung reduziert sich mit der 4en Potenz
+            - Doppelte Entfernung = Sechsfache Sendeleistung benötigt
+- Lösung: viele kleine Funkzellen zur Gewährleistung der vollständigen Abdeckung
+    - Sich überlappende Funkzellen dürfen sich aber nicht gegenseitig stören
+    - Größe der Funkzellen unterscheiden sich aufgrund von Gegebenheiten
+
+#### Funkzellen
+- Funkzelle ist ein Bereich bestehend aus einer (vernetzten) Basisstation und (mehreren) Mobilen Teilnehmer(n).
+- Zellgrößen unterscheiden sich abhängig vom Netztyp:
+    - E-Netz
+        - 6G: einige Hundert Meter
+        - GSM: bis zu 35km
+    - D-Netz
+        - 6G: einige Hundert Meter
+        - GSM: bis zu 8km

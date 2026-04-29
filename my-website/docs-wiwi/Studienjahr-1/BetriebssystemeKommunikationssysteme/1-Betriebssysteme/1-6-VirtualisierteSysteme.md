@@ -1,6 +1,6 @@
-# 1.6 Virtualisierte Betriebssysteme
+# 1.5 Virtualisierte Betriebssysteme
 
-## 1.6.1 Grundlagen
+## Grundlagen
 
 Virtualisierung bezeichnet im Kontext von Betriebssystemen das kokrete nachbilden bzw. simulieren eines Hard- oder Softwareobjekts durch ein ähnliches Objekt vom selben Typ mithilfe einer Softwareschicht. 
 
