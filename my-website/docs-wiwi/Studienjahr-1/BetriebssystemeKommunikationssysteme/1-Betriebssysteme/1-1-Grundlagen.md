@@ -17,21 +17,21 @@ Ein Betriebssystem ist die Software, die den **Betrieb eines Computers ermöglic
 ### Welche Betriebssystemversionen gibt es?
 
 
-#### Mainframe Betriebssysteme 
+#### 1. Mainframe Betriebssysteme 
 - Großrechner
     - Große Speicherkapazitäten
     - Paralleles Processing
     - Schnelle I/O
     - z.B. von IBM oder Sienix
 
-#### Server-Betriebssysteme
+#### 2. Server-Betriebssysteme
 - Dienste, die **mehereren Clients zur Verfügung gestellt** werden
 - **Performante Kommunikation**
 - **Skalierbarkeit**
     - Darauf ausgelegt, **verbaute aber nicht verkaufte Hardware nachträglich** (bei Nachkauf) **freizuschalten**
         - **Günstiger** als durch Techniker nachbauen zu lassen
 
-#### Parallelrechner-Betriebssyssteme
+#### 3. Parallelrechner-Betriebssyssteme
 - Gleichzeitige Rechenoperationen auf mehreren Prozessoren
     - Meist mehrere tausend Prozessoren
     - Geeignet für
@@ -39,7 +39,7 @@ Ein Betriebssystem ist die Software, die den **Betrieb eines Computers ermöglic
         - Wettervorhersagen
         - Big Data
 
-#### Desktop/Laptop-Betriebssysteme
+#### 4. Desktop/Laptop-Betriebssysteme
 - Geeignet für Enduser:
     - Leichte Bedienbarkeit
     - Grafische Oberfläche
@@ -47,17 +47,17 @@ Ein Betriebssystem ist die Software, die den **Betrieb eines Computers ermöglic
 - Ursprünglich als Einzelplatzsystem gedacht, später dann um Netzwerkfunktion erweitert
 - Z.B. Linux, Windows
 
-#### Echtzeit-Betriebssysteme
+#### 5. Echtzeit-Betriebssysteme
 - Spezielle Betriebssysteme die Vorgaben haben, wie lange für eine bestimmte Operation gebraucht werden darf
 - z.B. Maschinensteuerung, Fahrzeugsteuerung, Unfallerkennung, Ampelsteuerung, ...
 
-#### Eingebettete Betriebssysteme
+#### 6. Eingebettete Betriebssysteme
 - Spezielle Betriebssysteme für z.B.
     - Smartphone, Handy, Tablets, ...
     - VoIP-Telefone, Fernseher, ...
     - Kaffeemaschinen, Sensoren, ...
 
-#### Betriebssysteme für Chipkarten
+#### 7. Betriebssysteme für Chipkarten
 - Spezielle Betriebssysteme für spezielle Anwendungen
 - Manchmal nur für EINE konkrete Funktion entwickelt
 - z.B. Smartcards (Chip auf einer Kreditkarte)
