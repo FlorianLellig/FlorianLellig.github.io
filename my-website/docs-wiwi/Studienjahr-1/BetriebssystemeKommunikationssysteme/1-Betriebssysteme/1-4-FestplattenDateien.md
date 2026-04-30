@@ -64,6 +64,17 @@ Bei der Schnellformatierung werden die Dateien nicht vollständig gelöscht, es 
 - Ermöglicht ein direktes Ausführen eines Programms, ohne das der gesamte Pfad angegeben werden muss
 - Aktuell definierte "Path's" lassen sich mittels `path` ausgeben
 
+### Dateisysteme
+
+Es gibt verschiedene Dateisysteme:
+
+| Dateisystem | FAT16 | VFAT | FAT32 | NTFS |
+| :--- | :--- | :--- | :--- | :--- |
+| **Ursprung** | MS-DOS | Windows 95 | Windows 95B | Windows NT |
+| **Maximale Dateigröße** | 2 GByte | 4 GByte | 4 GByte | 18 Exabyte |
+| **Maximale Partitionsgröße** | 2 GByte | 4 GByte | 8 Tbyte | 18 Exabyte (256 TB) |
+| **Maxim. Länge der Datei- und Verzeichnisnamen** | 8 | 255 | 255 | 255 |
+| **Datei- und Verzeichnisattribute** | 3 | 3 | 3 | erweitert |
 
 ## Eigenschaften von Dateien
 
@@ -219,3 +230,53 @@ Durch den Löschvorgang leidet die isolierende Schicht - demnach nimmt der Flash
 :::warning
 Vor jedem Schreibvorgang erfolgt ein Löschvorgang - daher sollte eine SSD nicht defragmentiert werden (Meist sowieso nicht mehr möglich)
 - Zur Prävention wird ein Counter geführt, der die Löschzyklen zählt, um eine gleichmäßige Abnutzung zu erzielen.
+:::
+
+### Weitere Speichertypen (inkl. Speicherpyramide)
+
+#### Random Access Memory (RAM)
+- Dateien bei Anlage der Betriebsspannung beliebig lange speicherbar
+
+#### Dynamic Random Access Memory (DRAM)
+- Die Informationen sind in Kondensatoren gespeichert
+
+#### Nichtflüchtiger Speicher
+- Read-only-Memory (ROM)
+- Ultra-Violet-Erasable-Prgrammable ROM (UV-EPROM)
+- Electrically Erasable Prgrammable ROM (EEPROM)
+
+#### Speicherpyramide
+![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/Betriebssysteme5.png)
+
+- **Primärspeicher:** Darauf kann der Prozessor direkt zugreifen
+    - Register:
+        - Genauso schnell getaktet wie CPU
+    - Cache:
+        - Schell und Prozessornah
+        - Für Schreibzugriffe zwei Methoden:
+            1. Write-Back
+                - Erst zurückschreiben wenn Daten aus dem Hauptspeicher verdrängt werden
+                - Ggf. Dateninkonsitenzen möglich
+            2. Write-Through
+                - Sofortiges Durchschreiben auf tiefere Ebenen
+                - Langsamer
+        - Drei Typen:
+            - L1-Cache (16 bis 256kB)
+            - L2-Cache (256kB bis 12 MB)
+            - L3-Cache (4MB bis 15 MB)
+- **Sekundärspeicher:** Hintergrundspeicher, der über einen Controller angesprochen wird
+- **Tertiärspeicher:** Nicht dauerhaft verfügbar, oder über ein Laufwerk mit dem Rechner verbunden. Hauptaufgabe ist Archivierung
+    - Unterschieden in 
+        - Nearline-Speicher (ohne menschl. Eingreifen erreichbar)
+        - Offlinespeicher (Gelagert)
+
+## Swapping
+
+### Grundsituation
+- Aktiven Programme benötigen mehr Hauptspeicher als vorhanden ODER Lücken im Hauptspeicher
+    - Früher: Fehler
+    - Heute: Swapping (temporäre Auslagerung auf Festplatte)
+
+### Lösung
+ ![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/Betriebssysteme6.png)
+
