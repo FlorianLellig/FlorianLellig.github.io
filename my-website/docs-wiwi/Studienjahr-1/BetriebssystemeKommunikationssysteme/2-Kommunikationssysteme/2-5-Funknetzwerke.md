@@ -108,7 +108,19 @@ Man kann sich die Kanäle wie zu schmal geratene Autobahnspuren vorstellen:
 
 #### Standard WLAN Typologie (Infrastructure Mode)
 
+![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme16.png)
+
+- Mehrere Access-Points die auf unterschiedlichen Kanälen dasselbe Netzwerk mit der selben SSID bereitstellen
+
+
 #### Roaming (Seemless Handover)
+
+![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme16.png)
+
+- Ist die Optimierung der Standard-Wlan Typologie
+- Koordiniert vom Handy
+    - Auch während der bereits bestehenden Verbindung wird weiterhin nach zusätzlichen Access-Points die die gleich SSID haben, geschaut
+    - Sollte ein schnellerer Access Point zur Verfügung stehen wird die Verbindung dorthin übertragen
 
 #### Wireless Repeater Typologie
 - Repeater hat keine direkte (Kabel-) Verbindung zum Internet

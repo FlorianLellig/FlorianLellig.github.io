@@ -15,12 +15,14 @@ Referenzmodelle ermöglichen es, gewisse _einheitliche Standards für die Kommun
 ### TCP/IP Schichtenmodell
 
 :::info
-TCP/IP steht für _Transmission Control Protocol/Internet Protocol_. Es wurde in den 70er Jahren für das Arparnet (Vorläufer des Internets) entwickelt.
+TCP/IP steht für _Transmission Control Protocol/Internet Protocol_. Es ist eine Kommunikationsarchitektur.
 
 **Das TCP/IP-Modell hat sich durchgesetzt und wird bis heute verwendet - Es wird daher im Folgenden näher erklärt.**
 :::
 
 ![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme1.svg)
+
+
 
 
 #### 1. Schicht - Network Interface Layer
@@ -32,6 +34,9 @@ Hier werden ebenfalls **alle relevanten Parameter definiert, die in einem Physis
 #### 2. Schicht - Internet Layer
 
 Der Internet Layer stellt die Verbindungen im logischen Netzwerk zwischen Server und Clients im und über das Internet zur Verfügung.
+- Hier arbeiten Router
+- Es wird fast ausschließlich IP (Internet Protocol) verwendet
+    - Dient der Adressierung, dem Routing, etc.
 
 #### 3. Schicht - Transport Layer
 
@@ -81,3 +86,47 @@ Die Synchonisation bedeutet also:
 - Er muss seinen **internen Takt daran anpassen**, um eine korrekte Interpretation der Daten zu ermöglichen
 
 Im Kontext des **Manchester Coding** bedeutet dies, dass der **Flankenwechsel zwischen den Bits als Taktgeber** funkgiert.
+
+## Höhere Protokolle
+
+- Bei höheren Protokollen (auf höheren Ebenen) muss sichergestellt werden, dass die zu übertragenden Daten korrekt übertragen werden
+    - Erfolgt durch Fehlerkontrolle, Flusskontrolle und Überlastkontrolle
+
+### Fehlerkontrolle
+
+![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme17.png)
+
+- Prinzip des Acknowledgements
+    - Werden Daten durch den Empfänger erhalten, bestätigt er diesen Erhalt
+
+:::note
+Aufbauend darauf gibt es verschiedene Kommunikationsarten --> Siehe Unterpunkt `Kommunikationsarten`
+:::
+
+### Flusskontrolle
+
+- Stellt sicher, dass der Sender nicht zu schnell Sendet (Rücksichtsname auf den Empfänger)
+- Realisiert durch Wert im Acknowledgement, der signalisiert, wie viele Daten noch gesendet werden können
+
+### Überlastkontrolle
+- Stellt sicher, dass nicht aufgrund von Netzüberlastung Daten verlohren gehen
+
+## Kommunikationsarten
+
+### Connectionless (Link-Level-Service)
+Es werden direkt Daten gesendet (Ohne Acknowledgement)
+
+![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme18.png)
+
+### Connection-oriented (Link-Level-Service)
+
+Es werden Acknowledgements verwendet.
+
+![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme19.png)
+
+:::tip
+Im Kontext von Connection-oriented als Link-Level-Service wird der sog. **3-Way-Handshake** verwendet.
+- Dient dem Verbindungsaufbau
+
+![Picture](/documents/Wirtschaftsinformatik/Studienjahr-1/BetriebssystemeKommunikationssysteme/kommunikationssysteme20.png)
+:::
