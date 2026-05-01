@@ -90,3 +90,4 @@ NAT verändert nur die IP-Adressen, sprich die `Source-network-Adress` und die `
 - `Source-Adresse`: MAC-Adresse des Routers
 - `Destination-Adresse`: Sobald das außerhalb von lokalem Netzwerk liegt greifen andere Routing-Mechanismen.
 :::
+
