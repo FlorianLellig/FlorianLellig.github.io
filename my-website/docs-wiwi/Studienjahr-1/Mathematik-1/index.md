@@ -9,11 +9,17 @@ Hier kann die aktuelle Version des Lernzettels für Analysis und lineare Algebra
 
 [Download](/documents/Wirtschaftsinformatik/Studienjahr-1/Mathematik-1/Mathematik1.pdf)
 
-Hier kann die aktuelle Version des Lernzettels für Analysis und lineare Algebra heruntergeladen werden:
+Hier kann die aktuelle Version der Formelsammlung für Analysis und lineare Algebra heruntergeladen werden:
 
 [Download](/documents/Wirtschaftsinformatik/Studienjahr-1/Mathematik-1/Mathematik1Formelsammlung.pdf)
 
 
 ## Teil 2 - Logik und Algebra
 
-_still in process..._
+Hier kann die aktuelle Version des Lernzettels für Logik und Algebra heruntergeladen werden:
+
+[Download](/documents/Wirtschaftsinformatik/Studienjahr-1/Mathematik-1/Mathematik1b.pdf)
+
+Hier kann die aktuelle Version des klausurangepassten Skripts für Logik und Algebra heruntergeladen werden:
+
+[Download](/documents/Wirtschaftsinformatik/Studienjahr-1/Mathematik-1/Mathematik1bKlausurskript.pdf)
