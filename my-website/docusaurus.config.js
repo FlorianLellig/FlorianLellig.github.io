@@ -1,4 +1,6 @@
 import {themes as prismThemes} from 'prism-react-renderer';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -30,6 +32,8 @@ const config = {
           path: 'docs',
           routeBasePath: 'docs-sap', // URL wird /docs-sap/
           sidebarPath: './sidebars.js',
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         blog: {
           showReadingTime: true,
@@ -49,6 +53,19 @@ const config = {
         path: 'docs-wiwi',
         routeBasePath: 'docs-wiwi', // URL wird /docs-wiwi/
         sidebarPath: './sidebarsWiwi.js',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'AI',
+        path: 'docs-AI',
+        routeBasePath: 'docs-AI',
+        sidebarPath: './sidebarsAI.js',
+        remarkPlugins: [remarkMath],
+        rehypePlugins: [rehypeKatex],
       },
     ],
   ],
@@ -82,6 +99,13 @@ const config = {
             label: 'Wirtschaftsinformatik',
           },
           {
+            type: 'doc',
+            docId: 'intro',
+            docsPluginId: 'AI',
+            position: 'left',
+            label: 'Artificial Intelligence',
+          },
+          {
             href: 'https://github.com/florianlellig',
             label: 'GitHub',
             position: 'right',
@@ -96,6 +120,7 @@ const config = {
             items: [
               { label: 'SAP Frameworks', to: '/docs-sap/intro' },
               { label: 'Studium', to: '/docs-wiwi/intro' },
+              { label: 'Artificial Intelligence', to: '/docs-AI/intro' },
             ],
           },
         ],
@@ -107,6 +132,15 @@ const config = {
         additionalLanguages: ['java', 'json', 'bash'], // Wichtig für SAP CAP & Studium
       },
     }),
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+',
+      crossorigin: 'anonymous',
+    },
+  ],
 };
 
 export default config;
