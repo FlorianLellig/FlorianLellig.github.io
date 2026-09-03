@@ -6,7 +6,7 @@ Ein Optimierungsproblem heißt **linear**, wenn sowohl die Zielfunktion als auch
 
 ### Was ist eine lineare Funktion?
 
-Eine Funktion ist linear, wenn die Variablen **nur mit dem Faktor 1 (also „hoch 1")** vorkommen — sie werden lediglich mit Konstanten multipliziert und aufsummiert:
+Eine Funktion ist linear, wenn die Variablen **nur mit der Potenz 1 (also „hoch 1")** vorkommen — sie werden lediglich mit Konstanten multipliziert und aufsummiert:
 
 $$
 f(\vec{x}) = c_1 x_1 + c_2 x_2 + \dots + c_n x_n
@@ -134,7 +134,15 @@ $$
 
 ### Schritt 4 — Grafische Lösung
 
-Da es nur **zwei Variablen** gibt, lässt sich das Problem in einem Koordinatensystem lösen: Jede Nebenbedingung ist eine Halbebene, ihr Durchschnitt ist der **zulässige Bereich** (blau). Gesucht ist der Punkt darin mit dem höchsten $z$-Wert.
+Da es nur **zwei Variablen** gibt, lässt sich das Problem in einem Koordinatensystem lösen.
+
+:::note Was ist eine Halbebene?
+Eine **Gleichung** wie $x_A + 2x_I = 6$ beschreibt eine **Gerade** — sie teilt die Ebene in zwei Hälften. Eine **Ungleichung** wie $x_A + 2x_I \leq 6$ meint dann die Gerade *plus* alles auf **einer** Seite davon. Genau diese „eine Seite inklusive Randgerade" nennt man **Halbebene**.
+
+Jede unserer Nebenbedingungen ① – ⑤ ist also eine Halbebene. Alle gemeinsam einzuhalten heißt: im **Schnitt (Durchschnitt) aller Halbebenen** zu liegen. Dieser Schnitt ist der **zulässige Bereich** (blau) — das Vieleck, in dem *jede* Bedingung erfüllt ist.
+:::
+
+Gesucht ist nun der Punkt innerhalb des zulässigen Bereichs mit dem höchsten $z$-Wert.
 
 <svg viewBox="0 0 640 380" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"640px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
   <defs>
