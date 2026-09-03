@@ -226,13 +226,144 @@ $$
 
 Der Farbenhersteller sollte also täglich rund **3,33 ME Außenfarbe** und **1,33 ME Innenfarbe** produzieren und erzielt damit den maximalen Umsatz von etwa **12,67 T€**. Beide Rohstoffe sind dabei **vollständig ausgelastet** (① und ② sind mit Gleichheit erfüllt).
 
-:::tip Ausblick: Standardform für das Simplex-Verfahren
-Bei mehr als zwei Variablen versagt die grafische Methode. Man überführt die Ungleichungen dann durch **Schlupfvariablen** $s_i \geq 0$ in Gleichungen — aus $\leq$ wird $=$:
-
-$$
-x_A + 2x_I \leq 6 \quad\Longleftrightarrow\quad x_A + 2x_I + s_1 = 6, \quad s_1 \geq 0
-$$
-
-Die Schlupfvariable $s_1$ misst dabei, wie viel von Rohstoff A **noch übrig** ist. Auf diese Gleichungsform wendet man dann das **Pivot-/Simplex-Verfahren** an (siehe [Kapitel 1.1 – Pivot-Verfahren](./1-Einführung.md)).
+:::tip Und bei mehr als zwei Variablen?
+Die grafische Methode funktioniert nur bei **zwei** Variablen. Für den allgemeinen Fall braucht man ein rechnerisches Verfahren — das **Simplex-Verfahren**. Damit es funktioniert, bringt man das LOP zuerst in die **Standardform** (Abschnitt 2.4).
 :::
+
+---
+
+## 2.4 - Standardform linearer Optimierungsprobleme
+
+Das Simplex-Verfahren rechnet nicht mit Ungleichungen, sondern mit **Gleichungen**. Ein LOP liegt in **Standardform** vor, wenn zwei Bedingungen erfüllt sind:
+
+1. **Alle Nebenbedingungen sind Gleichungen** (statt Ungleichungen).
+2. **Alle Variablen sind nicht-negativ** ($\geq 0$).
+
+Die erste Bedingung erreicht man durch das Einführen zusätzlicher Variablen — der **Schlupfvariablen**.
+
+### Schlupfvariablen — die Idee
+
+Betrachten wir eine typische Ungleichung:
+
+$$
+ax + by \leq c
+$$
+
+Sie sagt: „die linke Seite ist **höchstens** $c$". Es bleibt also i. d. R. ein Rest bis zur Grenze $c$. Diesen Rest gibt man einer neuen Variablen $s$ und macht daraus eine **Gleichung**:
+
+$$
+ax + by + s = c \qquad (\text{mit } s \geq 0)
+$$
+
+:::info Was bedeutet die Schlupfvariable anschaulich?
+$s$ ist der **nicht verbrauchte Anteil** der Ressource, die durch die Ungleichung beschrieben wird.
+
+- $s = 0$ → die Ressource ist **komplett aufgebraucht** (die Nebenbedingung ist „bindend", man sitzt auf der Grenze).
+- $s > 0$ → es ist noch etwas **übrig** (die Grenze ist noch nicht erreicht).
+
+Schlupfvariablen werden **immer als $\geq 0$** eingeführt — sonst würde man ja die Grenze überschreiten.
+:::
+
+### Der Farbenhersteller in Standardform
+
+Wir wandeln die vier „echten" Nebenbedingungen aus Abschnitt 2.2 um, indem wir je eine Schlupfvariable $s_1, \dots, s_4$ ergänzen:
+
+$$
+\begin{aligned}
+x_A + 2x_I + s_1 \phantom{{}+{}} \phantom{{}+{}} \phantom{{}+{}} &= 6 \\
+2x_A + x_I \phantom{{}+{}} + s_2 \phantom{{}+{}} \phantom{{}+{}} &= 8 \\
+-x_A + x_I \phantom{{}+{}} \phantom{{}+{}} + s_3 \phantom{{}+{}} &= 1 \\
+x_I \phantom{{}+{}} \phantom{{}+{}} \phantom{{}+{}} + s_4 &= 2 \\[4pt]
+x_A,\ x_I,\ s_1,\ s_2,\ s_3,\ s_4 &\geq 0
+\end{aligned}
+$$
+
+Die Zielfunktion bleibt (die Schlupfvariablen bringen keinen Umsatz, zählen also mit dem Faktor $0$):
+
+$$
+z = 3x_A + 2x_I + 0\cdot s_1 + 0\cdot s_2 + 0\cdot s_3 + 0\cdot s_4 \;\rightarrow\; \max
+$$
+
+Aus $2$ Variablen sind nun $6$ geworden, und aus $4$ Ungleichungen $4$ Gleichungen. Wir haben also ein **lineares Gleichungssystem** mit $n = 6$ Variablen und $m = 4$ Gleichungen.
+
+### Erinnerung: Lösungsverhalten linearer Gleichungssysteme
+
+Warum ist $n > m$ hier genau richtig? Ein kurzer Rückblick auf LGS mit $n$ Variablen und $m$ Gleichungen:
+
+| Fall | Bedeutung |
+|---|---|
+| $n = m$ | Bei linear unabhängigen Gleichungen gibt es **genau eine** Lösung — kein Spielraum. |
+| $n < m$ | System ist **überbestimmt** und **unlösbar**. |
+| $n > m$ | Es existiert eine **$(n-m)$-parametrige Lösungsschar**. Die freie Wahl der Parameter ist der **Optimierungsspielraum**. |
+
+Beim Farbenhersteller ist $n - m = 6 - 4 = 2$ — es gibt also einen 2-parametrigen Spielraum, innerhalb dessen wir das beste $z$ suchen. Genau darin optimiert das Simplex-Verfahren.
+
+### Eigenschaften von LOP in Standardform
+
+Zwei geometrische Eigenschaften (hier ohne Beweis) machen das Simplex-Verfahren überhaupt erst möglich:
+
+**① Die Menge der zulässigen Lösungen ist konvex.**
+
+<svg viewBox="0 0 500 240" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"500px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <polygon points="45,70 150,45 175,155 70,180" fill="#dbeeff" fillOpacity="0.7" stroke="#2176AE" strokeWidth="1.6"/>
+  <line x1="85" y1="95" x2="140" y2="120" stroke="#16a085" strokeWidth="1.8" strokeDasharray="5,4"/>
+  <circle cx="85" cy="95" r="4" fill="#333"/>
+  <circle cx="140" cy="120" r="4" fill="#333"/>
+  <text x="110" y="212" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#1a6b3c">Konvex ✅</text>
+  <text x="110" y="230" textAnchor="middle" fontSize="10.5" fill="#555">Verbindungslinie bleibt komplett innen</text>
+  <path d="M 375 112 L 431 73 A 68 68 0 1 0 431 151 Z" fill="#dbeeff" fillOpacity="0.7" stroke="#2176AE" strokeWidth="1.6"/>
+  <line x1="400" y1="88" x2="400" y2="136" stroke="#c0392b" strokeWidth="1.8" strokeDasharray="5,4"/>
+  <circle cx="400" cy="88" r="4" fill="#333"/>
+  <circle cx="400" cy="136" r="4" fill="#333"/>
+  <text x="375" y="212" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#922b21">Konkav ❌</text>
+  <text x="375" y="230" textAnchor="middle" fontSize="10.5" fill="#555">Linie verlässt die Menge</text>
+</svg>
+
+Eine Menge ist **konvex**, wenn die **Verbindungslinie zwischen zwei beliebigen Punkten** der Menge vollständig **innerhalb** der Menge liegt. Da jeder zulässige Bereich der Durchschnitt von Halbebenen ist (siehe 2.2), ist er automatisch konvex — er hat keine "Delle" oder Einbuchtungen.
+
+**② Das Optimum wird immer an einem Eckpunkt angenommen.**
+
+Man muss also nie das Innere absuchen, sondern nur die **Ecken** — das ist die zentrale Vereinfachung. Ein Eckpunkt ist dabei ein Punkt, in dem **$(n-m)$ Variablen gleich Null** sind.
+
+:::note Am Beispiel des Farbenherstellers veranschaulicht
+Hier ist $n - m = 2$, an jeder Ecke sind also **genau 2 der 6 Variablen Null**. Prüfen wir das optimale Ergebnis $\left(x_A, x_I\right) = \left(\tfrac{10}{3}, \tfrac{4}{3}\right)$:
+
+$$
+\begin{aligned}
+s_1 &= 6 - x_A - 2x_I = 6 - \tfrac{10}{3} - \tfrac{8}{3} = 0 \\
+s_2 &= 8 - 2x_A - x_I = 8 - \tfrac{20}{3} - \tfrac{4}{3} = 0 \\
+s_3 &= 1 + x_A - x_I = 1 + \tfrac{10}{3} - \tfrac{4}{3} = 3 \;(>0) \\
+s_4 &= 2 - x_I = 2 - \tfrac{4}{3} = \tfrac{2}{3} \;(>0)
+\end{aligned}
+$$
+
+Tatsächlich sind **genau zwei** Variablen Null: $s_1 = s_2 = 0$. Das passt zur Grafik — im Optimum liegen wir auf den Grenzen von ① und ②, beide Rohstoffe sind **voll ausgelastet** (kein Schlupf).
+:::
+
+---
+
+## 2.5 - Der Simplexalgorithmus
+
+Aus den beiden Eigenschaften folgt ein vergleichsweise einfaches Vorgehen: Weil das Optimum in einer Ecke liegt und die Menge konvex ist, muss man nur **von Ecke zu Ecke „wandern"**, immer bergauf.
+
+:::info Der Algorithmus in drei Schritten
+1. **Start:** Beginne in einem beliebigen Eckpunkt des zulässigen Bereichs.
+2. **Verbessern:** Gehe zu einer benachbarten Ecke, die einen **besseren** Zielfunktionswert liefert.
+3. **Abbruch:** Gibt es **keine** Nachbarecke mehr mit besserem Wert, ist das **Optimum gefunden**.
+:::
+
+Man tastet sich also entlang der Kanten des zulässigen Bereichs immer in Richtung wachsendem $z$ — bis kein Nachbar mehr besser ist.
+
+:::note Warum reicht der Blick auf die Nachbarecken? (Abbruchkriterium)
+Es wirkt riskant, bei „kein besserer Nachbar" aufzuhören — könnte nicht eine **weiter entfernte** Ecke doch besser sein?
+
+**Nein** — und der Grund ist die **Konvexität** aus Abschnitt 2.4:
+
+- Die Zielfunktion ist **linear**, der zulässige Bereich **konvex**.
+- Auf einem konvexen Bereich mit linearer Zielfunktion ist jedes **lokale Optimum automatisch ein globales Optimum**.
+- Anschaulich: Der $z$-Wert steigt entlang der Kanten stets „gleichmäßig" (monoton) an. Sitzt man in einer Ecke, von der aus es in **keine** Richtung mehr bergauf geht, kann es nirgends im Bereich noch höher hinausgehen — es gibt kein zweites, verstecktes „Bergtal".
+
+Bei einem **konkaven** (nicht-konvexen) Bereich wäre das anders: Dort könnte man in einer Ecke „gefangen" sein, während hinter einer Einbuchtung ein besserer Wert läge. Genau deshalb ist Eigenschaft ① so wichtig.
+:::
+
 
