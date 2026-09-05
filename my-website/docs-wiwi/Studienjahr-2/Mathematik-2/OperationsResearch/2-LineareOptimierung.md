@@ -293,7 +293,7 @@ Warum ist $n > m$ hier genau richtig? Ein kurzer Rückblick auf LGS mit $n$ Vari
 | Fall | Bedeutung |
 |---|---|
 | $n = m$ | Bei linear unabhängigen Gleichungen gibt es **genau eine** Lösung — kein Spielraum. |
-| $n < m$ | System ist **überbestimmt** und **unlösbar**. |
+| $n < m$ | System ist **überbestimmt** und im Allgemeinen **unlösbar**. |
 | $n > m$ | Es existiert eine **$(n-m)$-parametrige Lösungsschar**. Die freie Wahl der Parameter ist der **Optimierungsspielraum**. |
 
 Beim Farbenhersteller ist $n - m = 6 - 4 = 2$ — es gibt also einen 2-parametrigen Spielraum, innerhalb dessen wir das beste $z$ suchen. Genau darin optimiert das Simplex-Verfahren.
