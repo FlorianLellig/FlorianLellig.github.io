@@ -1305,6 +1305,12 @@ v:  ctr++;   if (ctr <= 0) { einen Wartenden aufwecken; }
 - **v (Austritt):** Der Zähler wird um 1 erhöht. Ist er danach immer noch **kleiner oder gleich 0**, war er vor der Erhöhung negativ – es wartet also mindestens ein Thread. Einer davon wird aus `sem.queue` genommen und **aufgeweckt** (Zustand *Ready*)
 - Beide Operationen müssen **atomar** sein, da `ctr` und `queue` selbst kritische Daten sind – die kurze Sperre schützt nur die wenigen Befehle von p und v, nicht den langen kritischen Abschnitt der Anwendung
 
+:::info Blocked und wieder Ready – wer weckt den Thread?
+- **p** (bzw. `acquire`) versetzt einen Thread, der nicht laufen soll, in den Zustand **Blocked**. Er steht dem Scheduler damit nicht mehr zur Verfügung und verbraucht keine Rechenzeit
+- Wieder aufgerufen wird er **nicht durch einen Interrupt** (wie ein Thread, der auf E/A wartet), sondern durch einen **System-Call**: Der Thread, der **v** (bzw. `release`) aufruft, bittet damit den Kern, den nächsten Wartenden aus `sem.queue` zu nehmen und wieder auf **Ready** zu setzen
+- Der Übergang Blocked → Ready wird beim Semaphor also aktiv von einem **anderen Thread** angestoßen, nicht von der Hardware
+:::
+
 **Der Wert des Semaphors lässt sich wie folgt interpretieren:**
 
 | `ctr` | Bedeutung |
