@@ -21,7 +21,6 @@ dar.
 | **Perspektive**       | „Froschperspektive"                                       | „Vogelperspektive"                                                                          |
 | **Betrachtungsebene** | einzelwirtschaftliche Betrachtung                         | gesamtwirtschaftliche Betrachtung                                                           |
 | **Schwerpunkt**       | Der einzelne Betrieb und seine Probleme & Fragestellungen | Das Zusammenspiel von Haushalten, Unternehmen, Staat und Ausland                            |
-
 | **Ziel**              | Gewinnmaximierung des jweiligen Unternehmens              | Wohlfahrtsmaximierung |
 
 :::info

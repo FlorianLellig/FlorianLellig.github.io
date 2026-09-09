@@ -856,9 +856,11 @@ Die Folie ordnet das *resource ordering* der **Vermeidung** zu, obwohl es in Abs
 
 ## 3.4 - Grafische Darstellung von Synchronisationsbedingungen
 
-Bevor man einen Synchronisationsmechanismus auswählt, muss klar sein, **welche** Bedingungen zwischen den kritischen Abschnitten eines Programms überhaupt gelten sollen. Dafür eignet sich ein **Synchronisationsgraph**: Er zeigt auf einen Blick, welche Abschnitte sich gegenseitig behindern, und hilft, Fehler wie fehlende Sperren oder mögliche Verklemmungen früh zu erkennen.
-
-Im Gegensatz zum Wartegraphen (Abschnitt 3.3.1) beschreibt er **nicht** einen momentanen Systemzustand, sondern die **Regeln**, die dauerhaft gelten sollen.
+- Auswahl eines Synchonisationsmechanismus erfordert Klarheit darüber **welche** Bedingungen zwischen den kritischen Abschnitten eines Programms gelten sollen.
+-  Dafür geeignet: **Synchronisationsgraphen**: 
+   -  Zeigen, welche Abschnitte sich gegenseitig behindern
+   -  Helfen, Fehler wie fehlende Sperren oder mögliche Verklemmungen früh zu erkennen
+- Wichtig: Im Gegensatz zum Wartegraphen (Abschnitt 3.3.1) wird **nicht** momentanen Systemzustand beschrieben, sondern dauerhaft geltende **Regeln**
 
 ### 3.4.1 - Ausschluss kritischer Abschnitte
 
@@ -868,9 +870,6 @@ Im Gegensatz zum Wartegraphen (Abschnitt 3.3.1) beschreibt er **nicht** einen mo
     - **Folge:** Prozesse bzw. Threads, die B aufrufen, müssen **warten, bis A frei ist**
     - Die Kante gilt **nur in Pfeilrichtung**: Läuft gerade B, darf A trotzdem gestartet werden
 
-**Frage:** Wie stellt man *gegenseitigen* Ausschluss dar?
-
-**Antwort:** Mit **zwei Kanten** – A → B **und** B → A. Dann darf B nicht betreten werden, solange A läuft, und A nicht, solange B läuft. Soll ein Abschnitt nur von *einem* Thread gleichzeitig ausgeführt werden dürfen (der klassische Mutex-Fall), schließt er sich **selbst** aus – das ergibt eine Kante von A auf sich selbst.
 
 <svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
   <defs>
@@ -935,8 +934,15 @@ Im Gegensatz zum Wartegraphen (Abschnitt 3.3.1) beschreibt er **nicht** einen mo
   <text x="380" y="343" textAnchor="middle" fontSize="11" fill="#555">Knoten = kritischer Abschnitt  ·  Kante A → B: solange A läuft, darf B nicht betreten werden – nicht umgekehrt</text>
 </svg>
 
+:::tip Mutex-Fall (Fall c)
+Soll ein Abschnitt nur von *einem* Thread gleichzeitig ausgeführt werden dürfen (der klassische Mutex-Fall), schließt er sich **selbst** aus – das ergibt eine Kante von A auf sich selbst.
+:::
+
 :::info Warum reicht eine Richtung manchmal aus?
-Nicht jede Synchronisation ist symmetrisch. Ein Beispiel: Während ein Abschnitt A eine Datenstruktur **neu aufbaut**, darf kein Abschnitt B darauf **lesend** zugreifen. Umgekehrt muss ein laufender Lesezugriff den Neuaufbau nicht zwingend blockieren, wenn das Programm damit leben kann, dass der Leser danach noch einmal liest. Der Graph macht solche Entscheidungen **explizit** – und zeigt, wo ein gegenseitiger Ausschluss wirklich nötig ist.
+Nicht jede Synchronisation ist symmetrisch. 
+- Beispiel: 
+  - Während ein Abschnitt A eine Datenstruktur **neu aufbaut**, darf kein Abschnitt B darauf **lesend** zugreifen. 
+  - Umgekehrt muss ein laufender Lesezugriff den Neuaufbau nicht zwingend blockieren, wenn das Programm damit leben kann, dass der Leser danach noch einmal liest. 
 :::
 
 ### 3.4.2 - Reihenfolge kritischer Abschnitte
@@ -963,8 +969,15 @@ $$
 
 **Was bedeutet k?** Die Zahl $k$ gibt an, wie viele Ausführungen B gegenüber A **vorauslaufen** darf:
 
-- $k = 0$: B darf höchstens so oft **begonnen** werden, wie A bereits **beendet** wurde. Die $n$-te Ausführung von B braucht also $n$ abgeschlossene Ausführungen von A – die klassische Erzeuger-Verbraucher-Bedingung „Puffer leer“
-- $k > 0$: B bekommt einen **Vorschuss** von $k$ Ausführungen, die es starten darf, bevor A überhaupt einmal fertig ist. So lässt sich z.B. ein Puffer mit $k$ freien Plätzen ausdrücken: *Erzeuger k-folgt Verbraucher* bedeutet, dass der Erzeuger höchstens $k$ Elemente mehr abgelegt haben darf, als der Verbraucher entnommen hat („Puffer voll“)
+- $k = 0$: 
+  - B darf höchstens so oft **begonnen** werden, wie A bereits **beendet** wurde. 
+  - $n$-te Ausführung von B braucht $n$ abgeschlossene Ausführungen von A
+  - Klassische Erzeuger-Verbraucher-Bedingung „Puffer leer“
+- $k > 0$: 
+  - B bekommt einen **Vorschuss** von $k$ Ausführungen, die es starten darf, bevor A überhaupt einmal fertig ist. 
+  - Bsp: Ausdrücken eines Puffers mit $k$ freien Plätzen: 
+    - *Erzeuger k-folgt Verbraucher* 
+    - Erzeuger darf höchstens $k$ Elemente mehr abgelegt haben, als Verbraucher entnommen hat („Puffer voll“)
 
 <svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
   <defs>
@@ -1012,7 +1025,10 @@ $$
 </svg>
 
 :::tip Abgrenzung zum Ausschluss
-Beim **Ausschluss** (durchgezogene Kante) geht es um *Gleichzeitigkeit*: B darf nicht laufen, **während** A läuft. Bei der **Reihenfolge** (gestrichelte Kante) geht es um *Häufigkeit*: B darf erst starten, wenn A **oft genug fertig** geworden ist. Ob A gerade läuft, spielt dabei keine Rolle.
+- **Ausschluss** (durchgezogene Kante) - *Gleichzeitigkeit*: 
+  - B darf nicht laufen, **während** A läuft. 
+- **Reihenfolge** (gestrichelte Kante) - *Häufigkeit*: 
+  - B darf erst starten, wenn A **oft genug fertig** geworden ist. Ob A gerade läuft, spielt dabei keine Rolle.
 :::
 
 ### 3.4.3 - Geschachtelte kritische Abschnitte
@@ -1079,19 +1095,22 @@ itrs_off();   // Unterbrechungen sperren
 itrs_on();    // Unterbrechungen wieder zulassen
 ```
 
-- Zwischen `itrs_off` und `itrs_on` sind **Unterbrechungen verboten**
-- **Warum wirkt das?** Auf einem Einprozessorsystem wird ein Prozess- bzw. Threadwechsel immer durch eine **Unterbrechung** ausgelöst – beim Round-Robin-Scheduling durch den Timer-Interrupt am Ende der Zeitscheibe (vgl. Abschnitt 2.2.1). Sind Unterbrechungen gesperrt, kann der Scheduler nicht eingreifen: Der Prozess bzw. Thread ist **nicht unterbrechbar**
-- Falls der Prozessor nicht freiwillig abgegeben wird (kein `yield`, keine blockierende E/A), wird der kritische Abschnitt dadurch **atomar** ausgeführt – kein anderer Thread kann ihn zwischendurch betreten
-- Bei **Einprozessorsystemen mit Round-Robin-Scheduling** ist das Verfahren **korrekt**
+- Zwischen `itrs_off` und `itrs_on` sind **Interrupts verboten**
+- **Warum wirkt das?** 
+  - Einprozessorsystem: Prozess- bzw. Threadwechsel wird immer durch **Interrupts** ausgelöst 
+    - beim Round-Robin-Scheduling durch den Timer-Interrupt am Ende der Zeitscheibe (vgl. Abschnitt 2.2.1)
+  - Bei gesperrten Unterbrechungen kann Scheduler nicht eingreifen: Prozess bzw. Thread ist **nicht unterbrechbar**
+- Falls Prozessor nicht freiwillig abgegeben wird (kein `yield`, keine blockierende E/A), wird kritischer Abschnitt dadurch **atomar** ausgeführt – kein anderer Thread kann ihn zwischendurch betreten
+
 
 **Nachteile:**
 
 | Nachteil | Erklärung |
 |---|---|
-| Bei **Multiprozessorsystemen nicht ausreichend** | Die Sperre wirkt nur auf die Unterbrechungen des **eigenen** Prozessors. Ein Thread auf einem anderen Kern läuft ungehindert weiter und kann den kritischen Abschnitt gleichzeitig betreten |
-| **Herabgesetzte Reaktionsfähigkeit** auf externe Unterbrechungen | Während der Sperre werden auch Interrupts von Geräten (Netzwerkkarte, Platte, Tastatur) nicht bearbeitet. Läuft ein Gerätepuffer in dieser Zeit über, gehen Daten verloren ⇒ **möglicher Verlust von Daten bei E/A-Operationen** |
+| Bei **Multiprozessorsystemen nicht ausreichend** |  Sperre wirkt nur auf Unterbrechungen des **eigenen** Prozessors; Ein Thread auf einem anderen Kern läuft ungehindert weiter und kann den kritischen Abschnitt gleichzeitig betreten |
+| **Herabgesetzte Reaktionsfähigkeit** auf Interrupts | Während Sperre werden *alle* Interrupts nicht bearbeitet; Risiko von überlaufendem Interruptpuffer ⇒ **möglicher Verlust von Daten bei E/A-Operationen** |
 | Nur im **privilegierten Zustand** möglich | Das Sperren von Unterbrechungen ist ein **privilegierter Maschinenbefehl** – er ist nur im **System-Mode** erlaubt, nicht im User-Mode |
-| **Kein System-Call** hierfür | Man könnte einen System-Call anbieten, der die Sperre für Anwendungen zugänglich macht. Das wäre aber gefährlich: Ein Programmierer könnte **vergessen, die Unterbrechungen wieder zuzulassen** – dann stünde das gesamte System still (kein Timer, keine Eingabe). Deshalb ist die Sperre im User-Mode ungeeignet |
+| **Kein System-Call** hierfür | Kein System Call, um zu vermeiden, dass ein Programmierer **vergisst, die Unterbrechungen wieder zuzulassen** |
 
 **Einsatzgebiet:** Einprozessorsysteme, für **zeitlich kurze** kritische Abschnitte **innerhalb des Betriebssystemkerns**.
 
@@ -1099,8 +1118,10 @@ itrs_on();    // Unterbrechungen wieder zulassen
 
 #### Atomare Speicheroperationen
 
-- Das **Abspeichern eines Wertes** in den Hauptspeicher erfolgt **atomar**: Ein Speicherwort wird immer vollständig geschrieben – ein anderer Prozessor sieht entweder den alten oder den neuen Wert, nie einen halb geschriebenen
-- Falls mehrere Prozessoren **zeitgleich** versuchen, je einen Wert in **dasselbe Wort** zu speichern, entscheidet die **Hardware**, welche Speicheroperation zuerst ausgeführt wird ⇒ **Busarbitrierung** (der Speicherbus kann nur von einem Prozessor gleichzeitig genutzt werden; ein *Arbiter* reiht die Zugriffe nacheinander ein)
+- Das **Abspeichern eines Wertes** in den Hauptspeicher erfolgt **atomar**: 
+  - Ein Speicherwort wird immer vollständig geschrieben – ein anderer Prozessor sieht entweder den alten oder den neuen Wert, nie einen halb geschriebenen
+- Bei gleichzeitigem Versuch im **selben Wort** zu speichern, entscheidet **Hardware** über Reihenfolge
+  - **Busarbitrierung** (Speicherbus kann nur von einem Prozessor gleichzeitig genutzt werden - sequenzielle Abarbeitung)
 
 :::warning Warum reicht das allein nicht?
 Atomar ist nur der **einzelne** Schreib- oder Lesezugriff. Eine Sperre braucht aber *Lesen, Prüfen und Schreiben* als **eine** Einheit. Versucht man das mit normalen Befehlen, entsteht eine **Race Condition**:
@@ -1115,7 +1136,7 @@ Atomar ist nur der **einzelne** Schreib- oder Lesezugriff. Eine Sperre braucht a
 Beide Threads haben „frei“ gelesen, bevor einer von ihnen „belegt“ schreiben konnte – **beide sind im kritischen Abschnitt**. Genau diese Lücke zwischen Lesen und Schreiben schließen die speziellen Hardware-Befehle.
 :::
 
-#### Spezielle Hardware-Befehle
+#### Spezielle *atomare* Hardware-Befehle
 
 Moderne Mikroprozessoren besitzen einen oder mehrere spezielle **Maschinenbefehle**, die Lesen und Schreiben in **einer** unteilbaren Operation ausführen. Während des Befehls ist der Speicherbus gesperrt, sodass kein anderer Prozessor dazwischenfunken kann:
 
@@ -1124,7 +1145,6 @@ Moderne Mikroprozessoren besitzen einen oder mehrere spezielle **Maschinenbefehl
 | **TSL** | *Test and Set Lock* | Das **Lesen** des momentanen Wertes und das nachfolgende **Schreiben** des Speicherwortes auf den Wert **1** werden **atomar** durchgeführt. Der Befehl liefert den **alten** Wert zurück |
 | **SWAP** | *Swap* | Die Inhalte **zweier Speicherworte** (typisch: ein Register und eine Speicherzelle) werden **atomar vertauscht** |
 
-Mit beiden lässt sich dieselbe Sperre bauen: Bei TSL prüft man den zurückgelieferten alten Wert; bei SWAP lädt man eine 1 ins Register, tauscht mit der Sperrvariablen und prüft, ob im Register danach eine 0 (Sperre war frei) oder eine 1 (Sperre war belegt) steht.
 
 ### 3.5.3 - Spin-Lock mittels TSL
 
@@ -1232,19 +1252,21 @@ Anders als beim naiven Lesen-Prüfen-Schreiben kann hier **nie** ein zweiter Thr
 
 **Vorteile:**
 
-- Der Spin-Lock **funktioniert bei Multiprozessorsystemen**, weil TSL den Speicherbus während des Befehls sperrt – im Gegensatz zur Unterbrechungssperre
-- Durch **Parametrisierung** mit verschiedenen globalen Variablen (je eine `busy`-Variable pro Datenstruktur) kann der gegenseitige Ausschluss auf **bestimmte** kritische Abschnitte eingeschränkt werden. Threads, die an unterschiedlichen Daten arbeiten, behindern sich nicht
+- Spin-Lock **funktioniert bei Multiprozessorsystemen**
+  -  TSL sperrt Speicherbus während des Befehls – im Gegensatz zur Unterbrechungssperre
+- Durch **Parametrisierung** mit verschiedenen globalen Variablen (je eine `busy`-Variable pro Datenstruktur) kann gegenseitiger Ausschluss auf **bestimmte** kritische Abschnitte eingeschränkt werden. 
+  - Threads, die an unterschiedlichen Daten arbeiten, behindern sich nicht
 
 **Nachteile:**
 
-- **Busy Waiting:** Der wartende Thread verbraucht Prozessorzeit, ohne etwas Sinnvolles zu tun – bei langen kritischen Abschnitten reine Verschwendung
-- **Nicht fair ⇒ Starvation möglich:** Es gibt keine Warteschlange. Wird die Sperre frei, gewinnt der Thread, der zufällig als Nächster `TSL` ausführt. Ein Thread kann dabei beliebig oft übergangen werden
-- Während des kritischen Abschnitts sollte wegen der **Verklemmungsgefahr** kein Prozess- bzw. Threadwechsel erfolgen: Wird der Inhaber der Sperre verdrängt, drehen sich alle anderen nutzlos im Kreis. Auf einem Einprozessorsystem mit Prioritäten kann ein höher priorisierter, spinnender Thread den Inhaber sogar dauerhaft am Weiterlaufen hindern ⇒ **Unterbrechungen während der Ausführung verbieten** (Spin-Lock und Unterbrechungssperre werden also kombiniert)
-
-**Einsatzgebiet:**
-
-- Realisierung des gegenseitigen Ausschlusses **kurzer** kritischer Abschnitte bei **Multiprozessorsystemen** im Betriebssystemkern
-- Als **Baustein** zur Implementierung mächtigerer Synchronisationsmechanismen (z.B. Semaphore, Abschnitt 3.6) für **längere** kritische Abschnitte – auch im **User-Space**
+- **Busy Waiting:** 
+  - Wartender Thread verbraucht Prozessorzeit, ohne etwas Sinnvolles zu tun
+- **Nicht fair ⇒ Starvation möglich:** 
+  - Keine Warteschlange. 
+  - Wird die Sperre frei, gewinnt der Thread, der zufällig als Nächster `TSL` ausführt
+- Wird der aktuell im kritischen Abschnitt befindliche Thread durch Scheduler unterbrochen droht **Verklemmungsgefahr**
+  - Round-Robin: es geht Prozessorzeit verloren
+  - Prioritätenbasiert: Prozessor vergibt keine Zeit mehr an im kritischen Bereich befindlichen Thread/Prozess, es kommt zum Deadlock (Worst case)
 
 :::info Unterbrechungssperre und Spin-Lock im Vergleich
 | Kriterium | Unterbrechungssperre | Spin-Lock (TSL) |
@@ -1258,7 +1280,7 @@ Anders als beim naiven Lesen-Prüfen-Schreiben kann hier **nie** ein zweiter Thr
 
 ## 3.6 - Das Semaphor-Konzept
 
-Spin-Locks lösen das Problem des gegenseitigen Ausschlusses, aber mit aktivem Warten und ohne Fairness. Das **Semaphor** behebt beide Schwächen: Wartende Threads werden **blockiert** (statt zu spinnen) und in einer **Warteschlange** verwaltet. Es ist der zentrale Synchronisationsmechanismus dieses Kapitels.
+ Das **Semaphor** behebt beide Schwächen des Spin-Locks: Wartende Threads werden **blockiert** (statt zu spinnen) und in einer **Warteschlange** verwaltet.
 
 ### 3.6.1 - Semaphor-Definition
 
@@ -1281,7 +1303,7 @@ v:  ctr++;   if (ctr <= 0) { einen Wartenden aufwecken; }
 
 - **p (Eintritt):** Der Zähler wird um 1 verringert. Ist er danach **negativ**, war kein „Durchgang“ mehr frei – der aufrufende Thread wird in `sem.queue` eingereiht und **blockiert** (Zustand *Blocked*, vgl. Abschnitt 2.1). Er verbraucht dabei **keine** Prozessorzeit
 - **v (Austritt):** Der Zähler wird um 1 erhöht. Ist er danach immer noch **kleiner oder gleich 0**, war er vor der Erhöhung negativ – es wartet also mindestens ein Thread. Einer davon wird aus `sem.queue` genommen und **aufgeweckt** (Zustand *Ready*)
-- Beide Operationen müssen **atomar** sein, da `ctr` und `queue` selbst kritische Daten sind. Im Betriebssystemkern werden sie mit den Basismechanismen aus Abschnitt 3.5 (Unterbrechungssperre bzw. Spin-Lock) geschützt – die kurze Sperre schützt nur die wenigen Befehle von p und v, nicht den langen kritischen Abschnitt der Anwendung
+- Beide Operationen müssen **atomar** sein, da `ctr` und `queue` selbst kritische Daten sind – die kurze Sperre schützt nur die wenigen Befehle von p und v, nicht den langen kritischen Abschnitt der Anwendung
 
 **Der Wert des Semaphors lässt sich wie folgt interpretieren:**
 
@@ -1394,5 +1416,7 @@ v(mutex);                 // Austritt: ctr wieder erhöhen bzw. nächsten Warten
 | User-Space | nur als Baustein | ✅ direkt nutzbar |
 | Mehrere Durchgänge (n > 1) | ❌ | ✅ zählendes Semaphor |
 
-In Java steht das Konzept als `java.util.concurrent.Semaphore` bereit – dort heißen die Operationen `acquire()` (p) und `release()` (v).
+**Semaphore in Java:** Das Konzept steht als `java.util.concurrent.Semaphore` bereit – die Operationen heißen `acquire()` (p) und `release()` (v).
+- Die Java-Implementierung **basiert nicht auf TSL** bzw. dem Spin-Lock aus Abschnitt 3.5.3, sondern nutzt einen **eigenen Mechanismus** der JVM
+- `acquire()` setzt Threads, die nicht laufen sollen, auf **Blocked**. Wieder aufgerufen werden sie über einen **System-Call** (ausgelöst durch `release()`), **nicht** über einen Interrupt
 :::
