@@ -853,3 +853,546 @@ Die Folie ordnet das *resource ordering* der **Vermeidung** zu, obwohl es in Abs
 **Vermeiden** = alle Voraussetzungen zulassen, aber jede Anforderung einzeln prüfen und nur **sichere Zustände** betreten.
 **Erkennen** = den Ring im Wartegraphen finden und gewaltsam aufbrechen.
 :::
+
+## 3.4 - Grafische Darstellung von Synchronisationsbedingungen
+
+Bevor man einen Synchronisationsmechanismus auswählt, muss klar sein, **welche** Bedingungen zwischen den kritischen Abschnitten eines Programms überhaupt gelten sollen. Dafür eignet sich ein **Synchronisationsgraph**: Er zeigt auf einen Blick, welche Abschnitte sich gegenseitig behindern, und hilft, Fehler wie fehlende Sperren oder mögliche Verklemmungen früh zu erkennen.
+
+Im Gegensatz zum Wartegraphen (Abschnitt 3.3.1) beschreibt er **nicht** einen momentanen Systemzustand, sondern die **Regeln**, die dauerhaft gelten sollen.
+
+### 3.4.1 - Ausschluss kritischer Abschnitte
+
+- **Knoten:** ein kritischer Abschnitt
+- **Kante A → B:** Relation *schließt aus* (**einseitiger Ausschluss**)
+    - Solange **A in Ausführung** ist, darf **B nicht betreten** werden
+    - **Folge:** Prozesse bzw. Threads, die B aufrufen, müssen **warten, bis A frei ist**
+    - Die Kante gilt **nur in Pfeilrichtung**: Läuft gerade B, darf A trotzdem gestartet werden
+
+**Frage:** Wie stellt man *gegenseitigen* Ausschluss dar?
+
+**Antwort:** Mit **zwei Kanten** – A → B **und** B → A. Dann darf B nicht betreten werden, solange A läuft, und A nicht, solange B läuft. Soll ein Abschnitt nur von *einem* Thread gleichzeitig ausgeführt werden dürfen (der klassische Mutex-Fall), schließt er sich **selbst** aus – das ergibt eine Kante von A auf sich selbst.
+
+<svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-sg" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#555"/>
+    </marker>
+  </defs>
+
+  {/* (a) einseitiger Ausschluss */}
+  <circle cx="90" cy="70" r="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="2"/>
+  <text x="90" y="75" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">A</text>
+  <circle cx="230" cy="70" r="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="2"/>
+  <text x="230" y="75" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">B</text>
+  <line x1="118" y1="70" x2="202" y2="70" stroke="#555" strokeWidth="1.8" markerEnd="url(#arr-sg)"/>
+  <text x="160" y="60" textAnchor="middle" fontSize="10" fontStyle="italic" fill="#555">schließt aus</text>
+  <text x="160" y="122" textAnchor="middle" fontSize="11" fill="#555">(a) einseitig: A schließt B aus</text>
+
+  {/* (b) gegenseitiger Ausschluss */}
+  <circle cx="330" cy="70" r="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="2"/>
+  <text x="330" y="75" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">A</text>
+  <circle cx="470" cy="70" r="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="2"/>
+  <text x="470" y="75" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">B</text>
+  <path d="M 352 58 Q 400 28 448 58" stroke="#555" strokeWidth="1.8" fill="none" markerEnd="url(#arr-sg)"/>
+  <path d="M 448 82 Q 400 112 352 82" stroke="#555" strokeWidth="1.8" fill="none" markerEnd="url(#arr-sg)"/>
+  <text x="400" y="122" textAnchor="middle" fontSize="11" fill="#555">(b) gegenseitig: A → B und B → A</text>
+
+  {/* (c) Selbstausschluss */}
+  <circle cx="620" cy="70" r="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="2"/>
+  <text x="620" y="75" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">A</text>
+  <path d="M 634 48 C 664 0 576 0 607 46" stroke="#555" strokeWidth="1.8" fill="none" markerEnd="url(#arr-sg)"/>
+  <text x="620" y="122" textAnchor="middle" fontSize="11" fill="#555">(c) A schließt sich selbst aus (Mutex)</text>
+
+  <line x1="20" y1="140" x2="740" y2="140" stroke="#ddd" strokeWidth="1"/>
+
+  {/* Zeitlicher Ablauf bei (a) */}
+  <text x="380" y="162" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Zeitlicher Ablauf bei einseitigem Ausschluss (a)</text>
+  <text x="82" y="204" textAnchor="end" fontSize="13" fontWeight="bold" fill="#333">A</text>
+  <text x="82" y="249" textAnchor="end" fontSize="13" fontWeight="bold" fill="#333">B</text>
+
+  <rect x="100" y="186" width="150" height="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.5"/>
+  <text x="175" y="203" textAnchor="middle" fontSize="11" fill="#1a5c8c">A in Ausführung</text>
+
+  <line x1="170" y1="226" x2="170" y2="258" stroke="#c0392b" strokeWidth="1.5"/>
+  <text x="170" y="223" textAnchor="middle" fontSize="9.5" fill="#922b21">B ruft auf</text>
+  <rect x="170" y="231" width="80" height="26" fill="#f5f5f5" stroke="#999" strokeWidth="1.2" strokeDasharray="4 2"/>
+  <text x="210" y="248" textAnchor="middle" fontSize="10" fill="#555">wartet</text>
+  <rect x="250" y="231" width="170" height="26" fill="#e8f5e9" stroke="#27ae60" strokeWidth="1.5"/>
+  <text x="335" y="248" textAnchor="middle" fontSize="11" fill="#1a6b3c">B in Ausführung</text>
+
+  <rect x="330" y="186" width="140" height="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.5"/>
+  <text x="400" y="203" textAnchor="middle" fontSize="11" fill="#1a5c8c">A erneut</text>
+
+  <line x1="330" y1="270" x2="420" y2="270" stroke="#e67e22" strokeWidth="2"/>
+  <line x1="330" y1="265" x2="330" y2="275" stroke="#e67e22" strokeWidth="2"/>
+  <line x1="420" y1="265" x2="420" y2="275" stroke="#e67e22" strokeWidth="2"/>
+  <text x="375" y="286" textAnchor="middle" fontSize="10" fill="#e67e22">Überlappung erlaubt: B hindert A nicht</text>
+
+  <line x1="100" y1="302" x2="720" y2="302" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-sg)"/>
+  <text x="728" y="307" fontSize="12" fontWeight="bold" fill="#333">t</text>
+
+  <line x1="20" y1="325" x2="740" y2="325" stroke="#ddd" strokeWidth="1"/>
+  <text x="380" y="343" textAnchor="middle" fontSize="11" fill="#555">Knoten = kritischer Abschnitt  ·  Kante A → B: solange A läuft, darf B nicht betreten werden – nicht umgekehrt</text>
+</svg>
+
+:::info Warum reicht eine Richtung manchmal aus?
+Nicht jede Synchronisation ist symmetrisch. Ein Beispiel: Während ein Abschnitt A eine Datenstruktur **neu aufbaut**, darf kein Abschnitt B darauf **lesend** zugreifen. Umgekehrt muss ein laufender Lesezugriff den Neuaufbau nicht zwingend blockieren, wenn das Programm damit leben kann, dass der Leser danach noch einmal liest. Der Graph macht solche Entscheidungen **explizit** – und zeigt, wo ein gegenseitiger Ausschluss wirklich nötig ist.
+:::
+
+### 3.4.2 - Reihenfolge kritischer Abschnitte
+
+Neben dem Ausschluss gibt es die Bedingung, dass ein Abschnitt **erst nach** einem anderen ausgeführt werden darf – z.B. darf der *Verbraucher* erst entnehmen, nachdem der *Erzeuger* etwas abgelegt hat (vgl. Abschnitt 3.1.2).
+
+- **Gestrichelte Kante A ⇢ B:** Relation *k-folgt*
+    - Gelesen als: **B k-folgt A** (mit $k \geq 0$)
+    - Entspricht dem Synchronisationstyp der **Bedingungssynchronisation**: B wartet nicht darauf, dass A *frei* ist, sondern darauf, dass A **oft genug beendet** wurde
+- Für jeden kritischen Abschnitt definieren wir **zwei Zähler**:
+
+| Zähler | Bedeutung |
+|---|---|
+| **Anf** | Anzahl der **angefangenen** Ausführungen des kritischen Abschnitts |
+| **End** | Anzahl der **beendeten** Ausführungen des kritischen Abschnitts |
+
+- Die Synchronisation stellt sicher, dass **zu jedem Zeitpunkt** die folgende Bedingung eingehalten wird:
+
+$$
+\textbf{Anf}(B) \leq \textbf{End}(A) + k
+$$
+
+- Der **Anfang von B wird so lange verzögert**, bis die Bedingung eingehalten werden kann
+
+**Was bedeutet k?** Die Zahl $k$ gibt an, wie viele Ausführungen B gegenüber A **vorauslaufen** darf:
+
+- $k = 0$: B darf höchstens so oft **begonnen** werden, wie A bereits **beendet** wurde. Die $n$-te Ausführung von B braucht also $n$ abgeschlossene Ausführungen von A – die klassische Erzeuger-Verbraucher-Bedingung „Puffer leer“
+- $k > 0$: B bekommt einen **Vorschuss** von $k$ Ausführungen, die es starten darf, bevor A überhaupt einmal fertig ist. So lässt sich z.B. ein Puffer mit $k$ freien Plätzen ausdrücken: *Erzeuger k-folgt Verbraucher* bedeutet, dass der Erzeuger höchstens $k$ Elemente mehr abgelegt haben darf, als der Verbraucher entnommen hat („Puffer voll“)
+
+<svg viewBox="0 0 760 250" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-kf" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#555"/>
+    </marker>
+  </defs>
+
+  {/* Notation */}
+  <circle cx="70" cy="80" r="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="2"/>
+  <text x="70" y="85" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">A</text>
+  <circle cx="210" cy="80" r="26" fill="#dbeeff" stroke="#2176AE" strokeWidth="2"/>
+  <text x="210" y="85" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">B</text>
+  <line x1="98" y1="80" x2="182" y2="80" stroke="#555" strokeWidth="1.8" strokeDasharray="6 4" markerEnd="url(#arr-kf)"/>
+  <text x="140" y="68" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#333">k</text>
+  <text x="140" y="132" textAnchor="middle" fontSize="11" fill="#555">B k-folgt A</text>
+  <text x="140" y="148" textAnchor="middle" fontSize="10" fill="#555">Anf(B) ≤ End(A) + k</text>
+
+  <line x1="280" y1="30" x2="280" y2="200" stroke="#ddd" strokeWidth="1"/>
+
+  {/* Beispiel k = 1 */}
+  <text x="520" y="32" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Beispiel mit k = 1: B darf einmal vorauslaufen</text>
+  <text x="292" y="70" textAnchor="end" fontSize="13" fontWeight="bold" fill="#333">A</text>
+  <text x="292" y="115" textAnchor="end" fontSize="13" fontWeight="bold" fill="#333">B</text>
+
+  <rect x="400" y="52" width="120" height="24" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.5"/>
+  <text x="460" y="68" textAnchor="middle" fontSize="10.5" fill="#1a5c8c">A (1. Ausführung)</text>
+
+  <rect x="310" y="97" width="90" height="24" fill="#e8f5e9" stroke="#27ae60" strokeWidth="1.5"/>
+  <text x="355" y="113" textAnchor="middle" fontSize="10.5" fill="#1a6b3c">B (1.)</text>
+  <rect x="400" y="97" width="120" height="24" fill="#f5f5f5" stroke="#999" strokeWidth="1.2" strokeDasharray="4 2"/>
+  <text x="460" y="113" textAnchor="middle" fontSize="10" fill="#555">B (2.) wartet</text>
+  <rect x="520" y="97" width="120" height="24" fill="#e8f5e9" stroke="#27ae60" strokeWidth="1.5"/>
+  <text x="580" y="113" textAnchor="middle" fontSize="10.5" fill="#1a6b3c">B (2.)</text>
+
+  <line x1="300" y1="140" x2="720" y2="140" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-kf)"/>
+  <text x="728" y="145" fontSize="12" fontWeight="bold" fill="#333">t</text>
+
+  <text x="355" y="162" textAnchor="middle" fontSize="9.5" fill="#1a6b3c">Anf(B)=1 ≤ 0+1: erlaubt</text>
+  <text x="460" y="162" textAnchor="middle" fontSize="9.5" fill="#922b21">Anf(B)=2 &gt; 0+1: warten</text>
+  <text x="580" y="162" textAnchor="middle" fontSize="9.5" fill="#1a6b3c">End(A)=1 ⇒ 2 ≤ 1+1: erlaubt</text>
+
+  <line x1="20" y1="215" x2="740" y2="215" stroke="#ddd" strokeWidth="1"/>
+  <text x="380" y="235" textAnchor="middle" fontSize="11" fill="#555">gestrichelte Kante = k-folgt: B darf höchstens k Ausführungen vor den beendeten Ausführungen von A liegen</text>
+</svg>
+
+:::tip Abgrenzung zum Ausschluss
+Beim **Ausschluss** (durchgezogene Kante) geht es um *Gleichzeitigkeit*: B darf nicht laufen, **während** A läuft. Bei der **Reihenfolge** (gestrichelte Kante) geht es um *Häufigkeit*: B darf erst starten, wenn A **oft genug fertig** geworden ist. Ob A gerade läuft, spielt dabei keine Rolle.
+:::
+
+### 3.4.3 - Geschachtelte kritische Abschnitte
+
+- **Geschachtelte** kritische Abschnitte ⇒ **B liegt innerhalb von A**, d.h. der Code von B ist Teil des Codes von A
+- Es gilt folgende Regel: **Bevor B betreten werden kann, muss A durchlaufen werden – aber nicht umgekehrt**
+    - Ein Thread, der in B ist, befindet sich also **immer auch** in A
+    - A kann dagegen durchlaufen werden, **ohne** dass B betreten wird (z.B. wenn B nur bedingt aufgerufen wird)
+
+<svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-nest" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#555"/>
+    </marker>
+  </defs>
+
+  {/* Notation: B innerhalb von A */}
+  <circle cx="150" cy="95" r="70" fill="#dbeeff" stroke="#2176AE" strokeWidth="2"/>
+  <text x="105" y="102" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#1a5c8c">A</text>
+  <circle cx="175" cy="95" r="32" fill="#e8f5e9" stroke="#27ae60" strokeWidth="2"/>
+  <text x="175" y="102" textAnchor="middle" fontSize="18" fontWeight="bold" fill="#1a6b3c">B</text>
+  <text x="150" y="190" textAnchor="middle" fontSize="11" fill="#555">B liegt innerhalb von A</text>
+
+  <line x1="290" y1="20" x2="290" y2="200" stroke="#ddd" strokeWidth="1"/>
+
+  {/* Als Code-Struktur */}
+  <text x="330" y="40" fontSize="12" fontWeight="bold" fill="#333">Im Programm:</text>
+  <rect x="330" y="52" width="180" height="128" rx="4" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.5"/>
+  <text x="342" y="70" fontSize="11" fontWeight="bold" fill="#1a5c8c">A betreten</text>
+  <text x="342" y="88" fontSize="10.5" fill="#1a5c8c">...</text>
+  <rect x="352" y="96" width="146" height="50" rx="4" fill="#e8f5e9" stroke="#27ae60" strokeWidth="1.5"/>
+  <text x="364" y="114" fontSize="11" fontWeight="bold" fill="#1a6b3c">B betreten</text>
+  <text x="364" y="131" fontSize="10.5" fill="#1a6b3c">... B verlassen</text>
+  <text x="342" y="165" fontSize="11" fontWeight="bold" fill="#1a5c8c">A verlassen</text>
+
+  {/* Regel */}
+  <text x="545" y="70" fontSize="11" fill="#333">in B  ⇒  immer auch in A</text>
+  <text x="545" y="92" fontSize="11" fill="#333">in A  ⇏  zwingend in B</text>
+  <text x="545" y="128" fontSize="10" fill="#922b21">Wer B betritt, hält bereits A –</text>
+  <text x="545" y="142" fontSize="10" fill="#922b21">das ist genau Bedingung B2</text>
+  <text x="545" y="156" fontSize="10" fill="#922b21">(Nachforderung) aus Abschnitt 3.3.2</text>
+</svg>
+
+:::warning Folge für Deadlocks
+Wer den inneren Abschnitt B betritt, hält bereits die Sperre des äußeren Abschnitts A und fordert eine weitere an – genau die Situation aus Bedingung B2 (*Nachforderung*). Werden geschachtelte Abschnitte von verschiedenen Threads in **unterschiedlicher Reihenfolge** betreten (Thread 1: A dann B, Thread 2: B dann A), droht ein Deadlock. Abhilfe schafft eine feste Sperrreihenfolge (vgl. *Resource Ordering*, Abschnitt 3.3.4).
+:::
+
+## 3.5 - Basismechanismen zur Synchronisation
+
+Um einen kritischen Abschnitt tatsächlich zu schützen, braucht es Mechanismen, die von **Hardware und Betriebssystem** bereitgestellt werden. Die Vorlesung baut sie stufenweise aufeinander auf:
+
+1. **Unterbrechungssperren** – die einfachste Lösung, nur für Einprozessorsysteme im Kern
+2. **Atomare Speicheroperationen und spezielle Hardware-Befehle** (TSL, SWAP) – die Grundlage für Sperren auf Multiprozessorsystemen
+3. **Spin-Locks** – aus TSL gebaute Sperren mit aktivem Warten
+4. **Semaphore** (Abschnitt 3.6) – der mächtigere Mechanismus, der auf den Basismechanismen aufsetzt und auch für lange kritische Abschnitte im User-Space geeignet ist
+
+### 3.5.1 - Unterbrechungssperren
+
+Der kritische Abschnitt wird mit zwei Befehlen **geklammert**:
+
+```c
+itrs_off();   // Unterbrechungen sperren
+// ... kritischer Abschnitt ...
+itrs_on();    // Unterbrechungen wieder zulassen
+```
+
+- Zwischen `itrs_off` und `itrs_on` sind **Unterbrechungen verboten**
+- **Warum wirkt das?** Auf einem Einprozessorsystem wird ein Prozess- bzw. Threadwechsel immer durch eine **Unterbrechung** ausgelöst – beim Round-Robin-Scheduling durch den Timer-Interrupt am Ende der Zeitscheibe (vgl. Abschnitt 2.2.1). Sind Unterbrechungen gesperrt, kann der Scheduler nicht eingreifen: Der Prozess bzw. Thread ist **nicht unterbrechbar**
+- Falls der Prozessor nicht freiwillig abgegeben wird (kein `yield`, keine blockierende E/A), wird der kritische Abschnitt dadurch **atomar** ausgeführt – kein anderer Thread kann ihn zwischendurch betreten
+- Bei **Einprozessorsystemen mit Round-Robin-Scheduling** ist das Verfahren **korrekt**
+
+**Nachteile:**
+
+| Nachteil | Erklärung |
+|---|---|
+| Bei **Multiprozessorsystemen nicht ausreichend** | Die Sperre wirkt nur auf die Unterbrechungen des **eigenen** Prozessors. Ein Thread auf einem anderen Kern läuft ungehindert weiter und kann den kritischen Abschnitt gleichzeitig betreten |
+| **Herabgesetzte Reaktionsfähigkeit** auf externe Unterbrechungen | Während der Sperre werden auch Interrupts von Geräten (Netzwerkkarte, Platte, Tastatur) nicht bearbeitet. Läuft ein Gerätepuffer in dieser Zeit über, gehen Daten verloren ⇒ **möglicher Verlust von Daten bei E/A-Operationen** |
+| Nur im **privilegierten Zustand** möglich | Das Sperren von Unterbrechungen ist ein **privilegierter Maschinenbefehl** – er ist nur im **System-Mode** erlaubt, nicht im User-Mode |
+| **Kein System-Call** hierfür | Man könnte einen System-Call anbieten, der die Sperre für Anwendungen zugänglich macht. Das wäre aber gefährlich: Ein Programmierer könnte **vergessen, die Unterbrechungen wieder zuzulassen** – dann stünde das gesamte System still (kein Timer, keine Eingabe). Deshalb ist die Sperre im User-Mode ungeeignet |
+
+**Einsatzgebiet:** Einprozessorsysteme, für **zeitlich kurze** kritische Abschnitte **innerhalb des Betriebssystemkerns**.
+
+### 3.5.2 - Atomare Speicheroperationen und spezielle Hardware-Befehle
+
+#### Atomare Speicheroperationen
+
+- Das **Abspeichern eines Wertes** in den Hauptspeicher erfolgt **atomar**: Ein Speicherwort wird immer vollständig geschrieben – ein anderer Prozessor sieht entweder den alten oder den neuen Wert, nie einen halb geschriebenen
+- Falls mehrere Prozessoren **zeitgleich** versuchen, je einen Wert in **dasselbe Wort** zu speichern, entscheidet die **Hardware**, welche Speicheroperation zuerst ausgeführt wird ⇒ **Busarbitrierung** (der Speicherbus kann nur von einem Prozessor gleichzeitig genutzt werden; ein *Arbiter* reiht die Zugriffe nacheinander ein)
+
+:::warning Warum reicht das allein nicht?
+Atomar ist nur der **einzelne** Schreib- oder Lesezugriff. Eine Sperre braucht aber *Lesen, Prüfen und Schreiben* als **eine** Einheit. Versucht man das mit normalen Befehlen, entsteht eine **Race Condition**:
+
+| Zeit | Thread 1 | Thread 2 | `busy` |
+|---|---|---|---|
+| 1 | liest `busy` → 0 (frei) | | 0 |
+| 2 | | liest `busy` → 0 (frei) | 0 |
+| 3 | schreibt `busy = 1`, betritt den Abschnitt | | 1 |
+| 4 | | schreibt `busy = 1`, betritt den Abschnitt | 1 |
+
+Beide Threads haben „frei“ gelesen, bevor einer von ihnen „belegt“ schreiben konnte – **beide sind im kritischen Abschnitt**. Genau diese Lücke zwischen Lesen und Schreiben schließen die speziellen Hardware-Befehle.
+:::
+
+#### Spezielle Hardware-Befehle
+
+Moderne Mikroprozessoren besitzen einen oder mehrere spezielle **Maschinenbefehle**, die Lesen und Schreiben in **einer** unteilbaren Operation ausführen. Während des Befehls ist der Speicherbus gesperrt, sodass kein anderer Prozessor dazwischenfunken kann:
+
+| Befehl | Name | Wirkung |
+|---|---|---|
+| **TSL** | *Test and Set Lock* | Das **Lesen** des momentanen Wertes und das nachfolgende **Schreiben** des Speicherwortes auf den Wert **1** werden **atomar** durchgeführt. Der Befehl liefert den **alten** Wert zurück |
+| **SWAP** | *Swap* | Die Inhalte **zweier Speicherworte** (typisch: ein Register und eine Speicherzelle) werden **atomar vertauscht** |
+
+Mit beiden lässt sich dieselbe Sperre bauen: Bei TSL prüft man den zurückgelieferten alten Wert; bei SWAP lädt man eine 1 ins Register, tauscht mit der Sperrvariablen und prüft, ob im Register danach eine 0 (Sperre war frei) oder eine 1 (Sperre war belegt) steht.
+
+### 3.5.3 - Spin-Lock mittels TSL
+
+Ein **Spin-Lock** ist eine Sperre, bei der ein wartender Thread in einer Schleife immer wieder versucht, die Sperre zu bekommen – er „dreht sich“ (*spin*), bis es klappt. Die Sperrvariable `busy` hat zwei Werte: **0 = frei**, **1 = belegt**.
+
+**Pseudocode aus der Vorlesung:**
+
+```java
+public class MutualExclusionTSL {
+
+    // Eintrittsprotokoll
+    public static void enterMutex(Integer busy) {
+        // busy should initially be set to 0
+        Integer local;
+        do
+            local = TSL(busy);   // atomar: alten Wert lesen, busy := 1
+        while (local == 1);      // war belegt → weiter versuchen (spin)
+    }
+
+    // Austrittsprotokoll
+    public static void exitMutex(Integer busy) {
+        busy = 0;                // Sperre freigeben
+    }
+
+} // MutualExclusionTSL
+```
+
+**So funktioniert das Eintrittsprotokoll:**
+
+- `TSL(busy)` liefert den **alten** Wert von `busy` und setzt `busy` gleichzeitig auf 1
+- War der alte Wert **0**, war die Sperre frei – und **wir** haben sie soeben auf 1 gesetzt. Die Schleife endet, der Thread betritt den kritischen Abschnitt
+- War der alte Wert **1**, hält ein anderer Thread die Sperre. Unser Schreiben der 1 hat nichts verändert (es stand ja schon 1 drin). Die Schleife läuft weiter und probiert es erneut
+- Das **Austrittsprotokoll** braucht keinen Spezialbefehl: Ein einfaches, atomares Schreiben von `busy = 0` genügt
+
+<svg viewBox="0 0 760 300" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-tsl" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#555"/>
+    </marker>
+    <marker id="arr-tsl-red" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+    <marker id="arr-tsl-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  {/* Protokoll-Beschriftung */}
+  <text x="245" y="46" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#1a5c8c">Eintrittsprotokoll enterMutex(busy)</text>
+  <line x1="20" y1="54" x2="470" y2="54" stroke="#2176AE" strokeWidth="1" strokeDasharray="3 3"/>
+  <text x="710" y="46" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#555">Austritt</text>
+  <line x1="670" y1="54" x2="750" y2="54" stroke="#999" strokeWidth="1" strokeDasharray="3 3"/>
+
+  {/* Start */}
+  <rect x="20" y="100" width="100" height="40" rx="20" fill="#f5f5f5" stroke="#555" strokeWidth="1.5"/>
+  <text x="70" y="124" textAnchor="middle" fontSize="11.5" fill="#333">Eintritt</text>
+  <line x1="122" y1="120" x2="168" y2="120" stroke="#555" strokeWidth="1.5" markerEnd="url(#arr-tsl)"/>
+
+  {/* TSL */}
+  <rect x="170" y="100" width="160" height="40" rx="4" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="250" y="124" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">local = TSL(busy)</text>
+  <text x="250" y="88" textAnchor="middle" fontSize="9.5" fill="#1a5c8c">atomar: alten Wert lesen, busy := 1</text>
+  <line x1="332" y1="120" x2="348" y2="120" stroke="#555" strokeWidth="1.5" markerEnd="url(#arr-tsl)"/>
+
+  {/* Entscheidung */}
+  <polygon points="350,120 410,90 470,120 410,150" fill="#fff8e1" stroke="#e67e22" strokeWidth="1.8"/>
+  <text x="410" y="124" textAnchor="middle" fontSize="11.5" fontWeight="bold" fill="#333">local == 1?</text>
+
+  {/* nein → kritischer Abschnitt */}
+  <line x1="472" y1="120" x2="508" y2="120" stroke="#27ae60" strokeWidth="1.8" markerEnd="url(#arr-tsl-green)"/>
+  <text x="490" y="110" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#1a6b3c">nein</text>
+  <text x="490" y="166" textAnchor="middle" fontSize="9.5" fill="#1a6b3c">alter Wert 0:</text>
+  <text x="490" y="178" textAnchor="middle" fontSize="9.5" fill="#1a6b3c">Sperre war frei,</text>
+  <text x="490" y="190" textAnchor="middle" fontSize="9.5" fill="#1a6b3c">gehört jetzt uns</text>
+
+  <rect x="510" y="100" width="130" height="40" rx="4" fill="#e8f5e9" stroke="#27ae60" strokeWidth="1.8"/>
+  <text x="575" y="124" textAnchor="middle" fontSize="11.5" fontWeight="bold" fill="#1a6b3c">kritischer Abschnitt</text>
+  <line x1="642" y1="120" x2="668" y2="120" stroke="#555" strokeWidth="1.5" markerEnd="url(#arr-tsl)"/>
+
+  {/* Austritt */}
+  <rect x="670" y="100" width="80" height="40" rx="4" fill="#f5f5f5" stroke="#555" strokeWidth="1.5"/>
+  <text x="710" y="124" textAnchor="middle" fontSize="11.5" fontWeight="bold" fill="#333">busy = 0</text>
+
+  {/* ja → Schleife */}
+  <path d="M 410 152 L 410 210 L 250 210 L 250 144" stroke="#c0392b" strokeWidth="1.8" fill="none" markerEnd="url(#arr-tsl-red)"/>
+  <text x="422" y="180" fontSize="10" fontWeight="bold" fill="#922b21">ja</text>
+  <text x="330" y="226" textAnchor="middle" fontSize="10" fill="#922b21">alter Wert 1: Sperre belegt → erneut versuchen</text>
+  <text x="330" y="242" textAnchor="middle" fontSize="10.5" fontWeight="bold" fill="#c0392b">Spin: aktives Warten (Busy Waiting)</text>
+
+  <line x1="20" y1="264" x2="740" y2="264" stroke="#ddd" strokeWidth="1"/>
+  <text x="380" y="282" textAnchor="middle" fontSize="11" fill="#555">busy = 0: frei  ·  busy = 1: belegt  ·  TSL liefert den alten Wert und setzt busy in derselben Operation auf 1</text>
+</svg>
+
+**Ablauf mit zwei Threads:**
+
+| Zeit | Thread 1 | Thread 2 | `busy` |
+|---|---|---|---|
+| 1 | `TSL(busy)` → alter Wert **0** ⇒ betritt den Abschnitt | | 1 |
+| 2 | im kritischen Abschnitt | `TSL(busy)` → alter Wert **1** ⇒ spin | 1 |
+| 3 | im kritischen Abschnitt | `TSL(busy)` → **1** ⇒ spin | 1 |
+| 4 | `busy = 0` (Austritt) | | 0 |
+| 5 | | `TSL(busy)` → alter Wert **0** ⇒ betritt den Abschnitt | 1 |
+
+Anders als beim naiven Lesen-Prüfen-Schreiben kann hier **nie** ein zweiter Thread zwischen das Lesen und das Schreiben rutschen – genau einer bekommt die 0 zurück.
+
+**Vorteile:**
+
+- Der Spin-Lock **funktioniert bei Multiprozessorsystemen**, weil TSL den Speicherbus während des Befehls sperrt – im Gegensatz zur Unterbrechungssperre
+- Durch **Parametrisierung** mit verschiedenen globalen Variablen (je eine `busy`-Variable pro Datenstruktur) kann der gegenseitige Ausschluss auf **bestimmte** kritische Abschnitte eingeschränkt werden. Threads, die an unterschiedlichen Daten arbeiten, behindern sich nicht
+
+**Nachteile:**
+
+- **Busy Waiting:** Der wartende Thread verbraucht Prozessorzeit, ohne etwas Sinnvolles zu tun – bei langen kritischen Abschnitten reine Verschwendung
+- **Nicht fair ⇒ Starvation möglich:** Es gibt keine Warteschlange. Wird die Sperre frei, gewinnt der Thread, der zufällig als Nächster `TSL` ausführt. Ein Thread kann dabei beliebig oft übergangen werden
+- Während des kritischen Abschnitts sollte wegen der **Verklemmungsgefahr** kein Prozess- bzw. Threadwechsel erfolgen: Wird der Inhaber der Sperre verdrängt, drehen sich alle anderen nutzlos im Kreis. Auf einem Einprozessorsystem mit Prioritäten kann ein höher priorisierter, spinnender Thread den Inhaber sogar dauerhaft am Weiterlaufen hindern ⇒ **Unterbrechungen während der Ausführung verbieten** (Spin-Lock und Unterbrechungssperre werden also kombiniert)
+
+**Einsatzgebiet:**
+
+- Realisierung des gegenseitigen Ausschlusses **kurzer** kritischer Abschnitte bei **Multiprozessorsystemen** im Betriebssystemkern
+- Als **Baustein** zur Implementierung mächtigerer Synchronisationsmechanismen (z.B. Semaphore, Abschnitt 3.6) für **längere** kritische Abschnitte – auch im **User-Space**
+
+:::info Unterbrechungssperre und Spin-Lock im Vergleich
+| Kriterium | Unterbrechungssperre | Spin-Lock (TSL) |
+|---|---|---|
+| Funktioniert auf Multiprozessorsystemen | ❌ nein | ✅ ja |
+| Wartestrategie | keine (Wechsel unmöglich) | aktives Warten (Busy Waiting) |
+| Selektiv für einzelne Datenstrukturen | ❌ sperrt alles | ✅ eine Variable pro Abschnitt |
+| Benötigt privilegierten Modus | ✅ ja | ❌ nein (TSL ist ein normaler Befehl) |
+| Geeignet für | kurze Abschnitte im Kern, Einprozessor | kurze Abschnitte im Kern, Multiprozessor; Baustein für Semaphore |
+:::
+
+## 3.6 - Das Semaphor-Konzept
+
+Spin-Locks lösen das Problem des gegenseitigen Ausschlusses, aber mit aktivem Warten und ohne Fairness. Das **Semaphor** behebt beide Schwächen: Wartende Threads werden **blockiert** (statt zu spinnen) und in einer **Warteschlange** verwaltet. Es ist der zentrale Synchronisationsmechanismus dieses Kapitels.
+
+### 3.6.1 - Semaphor-Definition
+
+- Eingeführt von **Dijkstra** (derselbe wie beim Banker's Algorithm)
+- Ein Semaphor ist ein **Objekt**, auf dem **genau zwei atomare Operationen** existieren: **p** und **v**
+    - Die Namen stammen aus dem Niederländischen: *p* = *proberen* (versuchen, prüfen), *v* = *verhogen* (erhöhen). In anderen Quellen heißen sie auch *wait/signal*, *down/up* oder *acquire/release*
+- Interne Komponenten eines Semaphors `sem`:
+
+| Komponente | Bedeutung |
+|---|---|
+| `sem.ctr` | **Wert** (Zähler) des Semaphors |
+| `sem.queue` | **Warteschlange** für Prozesse bzw. Threads, die am Semaphor warten |
+
+### 3.6.2 - Wirkungsweise der Operationen
+
+```text
+p:  ctr--;   if (ctr < 0)  { warten; }
+v:  ctr++;   if (ctr <= 0) { einen Wartenden aufwecken; }
+```
+
+- **p (Eintritt):** Der Zähler wird um 1 verringert. Ist er danach **negativ**, war kein „Durchgang“ mehr frei – der aufrufende Thread wird in `sem.queue` eingereiht und **blockiert** (Zustand *Blocked*, vgl. Abschnitt 2.1). Er verbraucht dabei **keine** Prozessorzeit
+- **v (Austritt):** Der Zähler wird um 1 erhöht. Ist er danach immer noch **kleiner oder gleich 0**, war er vor der Erhöhung negativ – es wartet also mindestens ein Thread. Einer davon wird aus `sem.queue` genommen und **aufgeweckt** (Zustand *Ready*)
+- Beide Operationen müssen **atomar** sein, da `ctr` und `queue` selbst kritische Daten sind. Im Betriebssystemkern werden sie mit den Basismechanismen aus Abschnitt 3.5 (Unterbrechungssperre bzw. Spin-Lock) geschützt – die kurze Sperre schützt nur die wenigen Befehle von p und v, nicht den langen kritischen Abschnitt der Anwendung
+
+**Der Wert des Semaphors lässt sich wie folgt interpretieren:**
+
+| `ctr` | Bedeutung |
+|---|---|
+| **positiv** | Verbleibende Anzahl der Aufrufe von **p**, die **ohne zu warten** durchkommen (freie „Durchgänge“) |
+| **0** | Alle Durchgänge sind belegt, aber niemand wartet |
+| **negativ** | Der **Betrag** entspricht der **Anzahl der am Semaphor Wartenden** |
+
+**Beispiel:** Ein Semaphor mit Startwert 1 und drei Threads, die nacheinander in denselben kritischen Abschnitt wollen:
+
+| Schritt | Aufruf | `ctr` danach | Wirkung | `queue` |
+|---|---|---|---|---|
+| 0 | – (Start) | 1 | ein Durchgang frei | leer |
+| 1 | T1: p | 0 | T1 betritt den Abschnitt | leer |
+| 2 | T2: p | −1 | T2 wird blockiert | T2 |
+| 3 | T3: p | −2 | T3 wird blockiert | T2, T3 |
+| 4 | T1: v | −1 | ctr ≤ 0 ⇒ T2 wird geweckt und betritt den Abschnitt | T3 |
+| 5 | T2: v | 0 | ctr ≤ 0 ⇒ T3 wird geweckt und betritt den Abschnitt | leer |
+| 6 | T3: v | 1 | ctr > 0 ⇒ niemand wartet, Abschnitt ist frei | leer |
+
+<svg viewBox="0 0 760 360" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-sem" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+
+  {/* Bereiche */}
+  <rect x="110" y="60" width="630" height="70" fill="#e8f5e9" fillOpacity="0.5"/>
+  <rect x="110" y="130" width="630" height="120" fill="#fdecea" fillOpacity="0.5"/>
+  <text x="735" y="70" textAnchor="end" fontSize="9.5" fill="#1a6b3c">positiv: freie Durchgänge</text>
+  <text x="735" y="244" textAnchor="end" fontSize="9.5" fill="#922b21">negativ: |ctr| = Anzahl Wartende</text>
+
+  {/* Achsen */}
+  <line x1="90" y1="250" x2="90" y2="50" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-sem)"/>
+  <line x1="90" y1="130" x2="740" y2="130" stroke="#333" strokeWidth="1.2" strokeDasharray="4 3"/>
+  <text x="78" y="84" textAnchor="end" fontSize="11" fill="#555">1</text>
+  <text x="78" y="134" textAnchor="end" fontSize="11" fill="#555">0</text>
+  <text x="78" y="184" textAnchor="end" fontSize="11" fill="#555">−1</text>
+  <text x="78" y="234" textAnchor="end" fontSize="11" fill="#555">−2</text>
+  <text x="60" y="150" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#333" transform="rotate(-90, 60, 150)">sem.ctr</text>
+
+  {/* Ereignisse oben */}
+  <text x="205" y="44" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#333">T1: p</text>
+  <text x="300" y="44" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#333">T2: p</text>
+  <text x="395" y="44" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#333">T3: p</text>
+  <text x="490" y="44" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#333">T1: v</text>
+  <text x="585" y="44" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#333">T2: v</text>
+  <text x="680" y="44" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#333">T3: v</text>
+  <line x1="205" y1="50" x2="205" y2="250" stroke="#ccc" strokeWidth="1"/>
+  <line x1="300" y1="50" x2="300" y2="250" stroke="#ccc" strokeWidth="1"/>
+  <line x1="395" y1="50" x2="395" y2="250" stroke="#ccc" strokeWidth="1"/>
+  <line x1="490" y1="50" x2="490" y2="250" stroke="#ccc" strokeWidth="1"/>
+  <line x1="585" y1="50" x2="585" y2="250" stroke="#ccc" strokeWidth="1"/>
+  <line x1="680" y1="50" x2="680" y2="250" stroke="#ccc" strokeWidth="1"/>
+
+  {/* Verlauf */}
+  <path d="M 110 80 L 205 80 L 205 130 L 300 130 L 300 180 L 395 180 L 395 230 L 490 230 L 490 180 L 585 180 L 585 130 L 680 130 L 680 80 L 740 80" stroke="#2176AE" strokeWidth="2.5" fill="none"/>
+  <circle cx="205" cy="130" r="4" fill="#2176AE"/>
+  <circle cx="300" cy="180" r="4" fill="#c0392b"/>
+  <circle cx="395" cy="230" r="4" fill="#c0392b"/>
+  <circle cx="490" cy="180" r="4" fill="#27ae60"/>
+  <circle cx="585" cy="130" r="4" fill="#27ae60"/>
+  <circle cx="680" cy="80" r="4" fill="#2176AE"/>
+
+  {/* Wirkung */}
+  <text x="205" y="274" textAnchor="middle" fontSize="10" fill="#1a5c8c">T1 betritt</text>
+  <text x="300" y="274" textAnchor="middle" fontSize="10" fill="#922b21">T2 blockiert</text>
+  <text x="395" y="274" textAnchor="middle" fontSize="10" fill="#922b21">T3 blockiert</text>
+  <text x="490" y="274" textAnchor="middle" fontSize="10" fill="#1a6b3c">T2 geweckt</text>
+  <text x="585" y="274" textAnchor="middle" fontSize="10" fill="#1a6b3c">T3 geweckt</text>
+  <text x="680" y="274" textAnchor="middle" fontSize="10" fill="#1a5c8c">frei</text>
+
+  {/* Warteschlange */}
+  <text x="150" y="300" textAnchor="end" fontSize="10.5" fontWeight="bold" fill="#333">sem.queue:</text>
+  <text x="205" y="300" textAnchor="middle" fontSize="10.5" fill="#555">leer</text>
+  <text x="300" y="300" textAnchor="middle" fontSize="10.5" fill="#555">[T2]</text>
+  <text x="395" y="300" textAnchor="middle" fontSize="10.5" fill="#555">[T2, T3]</text>
+  <text x="490" y="300" textAnchor="middle" fontSize="10.5" fill="#555">[T3]</text>
+  <text x="585" y="300" textAnchor="middle" fontSize="10.5" fill="#555">leer</text>
+  <text x="680" y="300" textAnchor="middle" fontSize="10.5" fill="#555">leer</text>
+
+  <line x1="20" y1="322" x2="740" y2="322" stroke="#ddd" strokeWidth="1"/>
+  <text x="380" y="340" textAnchor="middle" fontSize="11" fill="#555">Semaphor mit Startwert 1: p senkt den Zähler, v erhöht ihn – unter 0 zählt er die Wartenden</text>
+</svg>
+
+### 3.6.3 - Gegenseitiger Ausschluss mit Semaphoren
+
+Es wird ein Semaphor mit dem **Startwert 1** verwendet, und der kritische Abschnitt wird mittels **p** und **v** umschlossen:
+
+```java
+Semaphore mutex = new Semaphore(1);   // Startwert 1: genau ein Thread darf hinein
+
+p(mutex);                 // Eintritt: ctr 1 → 0; jeder weitere Aufrufer wird blockiert
+// ... kritischer Abschnitt ...
+v(mutex);                 // Austritt: ctr wieder erhöhen bzw. nächsten Wartenden wecken
+```
+
+- Der erste Thread kommt durch (ctr wird 0), alle weiteren werden bei **p** blockiert, bis der Inhaber **v** aufruft – **genau ein** Thread ist im Abschnitt
+- Ein Semaphor mit Startwert 1 nennt man auch **binäres Semaphor** oder **Mutex**
+- Mit einem **Startwert n > 1** dürfen bis zu **n Threads gleichzeitig** hinein – nützlich für die Betriebsmittelverwaltung aus Abschnitt 3.1.1, z.B. n gleichartige Drucker (*zählendes Semaphor*)
+
+:::tip Semaphor vs. Spin-Lock
+| Kriterium | Spin-Lock (TSL) | Semaphor |
+|---|---|---|
+| Warten | aktiv (Busy Waiting) | **blockiert**, keine Prozessorzeit |
+| Fairness | keine, Starvation möglich | Warteschlange, bei FIFO fair |
+| Lange kritische Abschnitte | ungeeignet | geeignet |
+| User-Space | nur als Baustein | ✅ direkt nutzbar |
+| Mehrere Durchgänge (n > 1) | ❌ | ✅ zählendes Semaphor |
+
+In Java steht das Konzept als `java.util.concurrent.Semaphore` bereit – dort heißen die Operationen `acquire()` (p) und `release()` (v).
+:::
