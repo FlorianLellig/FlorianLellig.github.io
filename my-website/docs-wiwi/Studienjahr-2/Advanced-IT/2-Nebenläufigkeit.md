@@ -427,7 +427,7 @@ Quelle: Vorlesungsskript Advanced IT - Prof. Dr. Pagnia
 |---|---|---|
 | **Betriebssystem-Unterstützung** | Funktionieren mit beliebigem BS — der Kernel weiß nichts von den Threads | Müssen vom BS implementiert sein |
 | **System-Calls** | Thread-Operationen laufen **ohne System-Calls** im User-Space ab | Jede Thread-Operation erfordert einen System-Call → Overhead |
-| **Effizienz** | ✅ Schneller, da kein Kernel-Wechsel nötig | ❌ Langsamer durch System-Call-Overhead |
+| **Effizienz** | ✅ Schneller, da kein System Call zum Thread-Wechsel nötig ist | ❌ Langsamer durch System-Call-Overhead |
 | **Speicherverbrauch** | ✅ Kein BS-Speicher → sehr viele Threads erzeugbar | ❌ Jeder Thread belegt Kernel-Speicher → limitiert die Anzahl |
 | **Scheduling-Strategie** | ✅ Pro Prozess individuell konfigurierbar | ❌ BS definiert eine globale Strategie für alle |
 | **Blockierende Aktionen** (z. B. I/O, Seitenfehler) | ❌ Blockiert den **gesamten Prozess** mit allen seinen Threads | ✅ Nur der betroffene Thread wird blockiert, andere laufen weiter |
