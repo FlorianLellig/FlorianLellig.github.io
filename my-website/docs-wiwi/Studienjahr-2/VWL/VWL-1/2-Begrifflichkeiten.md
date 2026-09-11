@@ -342,8 +342,48 @@ In der Marktwirtschaft werden Wirtschaftspläne eigenständig durch die jeweilig
   <text x="115" y="308" textAnchor="start" fontSize="13" fontWeight="bold" fill="#333">PR</text>
 </svg>
 
-#### Erläuterung des Angebot-Nachfrage-Diagramm/Preis-Mengen-Diagramm
 
-:::info Fall p1 - Geringes Angebot hohe Nachfrage
+:::info Erläuterung des Angebot-Nachfrage-Diagramm/Preis-Mengen-Diagramm
 
+#### Grundlagen
+- Das Angebots-Nachfrage-Diagramm bzw. Preis-Mengen-Diagramm zeigt an, zu welchem Preis $p$... 
+  - ...die Anbieter bereit sind die Menge $q$ anzubieten
+  - ...die Nachfrager bereit sind die Menge $q$ zu kaufen
+- Angebotskurve links von $q^*$:
+  - Zu niedrigen Preisen gibt es eine geringe Angebotsmenge, jedoch aber eine hohe Nachfrage
+- Angebotskurve rechts von $q^*$:
+  - Zu hohen Preisen gibt es eine große Angebotsmenge, jedoch aber eine geringe Nachfrage
+
+#### Marktgleichgewicht
+- Punkt, bei dem Gleichgewichtsmenge ($q^*$) und Gleichgewichtspreis eintreten ($p^*$)
+- Einzige Preis, bei dem die von den Nachfragern gewünschte Menge exakt dem Angebot entspricht
+- Daraus folgt:+
+  - **Der Markt räumt sich**: Weder Angebotsüberschuss noch leer ausgehende Kunden
+  - **Es bleiben trotzdem Leute übrig**: Handel der keinen Wert schafft bleibt über
+    - Anbieter, deren Kosten über $p_x^*$ liegen, produzieren gar nicht erst. Nachfrager, deren Nutzen unter $p_x^*$ liegt, kaufen nicht.
+- **Die Wohlfahrt ist maximal**: Die Summe aus Konsumenten- und Produzentenrente ist maximal - und damit auch die Wohlfahrt 
+
+#### Konsumenten- und Produzentenrente
+- **Konsumentenrente**
+  - Gibt an, wie viel ein Konsument im Vergleich zu deren Schmerzgrenze _gespart_ hat
+  - Sparen nicht im Sinne von Rabatt, sondern das man etwas bekommen hat, was jemandem eig. mehr wert ist als das was man tatsächlich bezahlt hat
+
+$$
+KR = \int_{0}^{q^*} p_N(q)\,\mathrm{d}q \;-\; p^* \cdot q^*
+$$
+- **Produzentenrente**
+    - Gibt an, wie viel ein Produzent mehr verdient hat im Vergleich zu dem, was die Verkaufsschmerzgrenze ist
+$$
+PR = p^* \cdot q^* \;-\; \int_{0}^{q^*} p_A(q)\,\mathrm{d}q
+$$
+- Schlussfolgerung: **Wohlfahrtsmaximierung**
+  - Alles _links_ vom Marktgleichgewicht sind **_echte_ Gewinner**
+    - Mit jeder weiteren Mengeneinheit wandert man näher ans Marktgleichgewicht: Die KR und PR schrumpfen
+  - Im Marktgleichgewicht sind die **Grenzgänger**
+    - Vorteil = 0
+    - Zahlungsbereitschaft = Grenzkosten = $p^*$
+    - Ergebnis: $W = KR + PR$ ist bei $q^*$ maximal, jede andere Menge sinkt die Wohlfahrt
+$$
+W = KR + PR = \int_{0}^{q^*} \bigl[\,p_N(q) - p_A(q)\,\bigr]\,\mathrm{d}q
+$$
 :::
