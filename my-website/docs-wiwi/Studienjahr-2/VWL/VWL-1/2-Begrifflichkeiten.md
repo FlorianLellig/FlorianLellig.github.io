@@ -187,16 +187,163 @@ $$
 Die Funktion besagt, dass der Output $Y$ dabei von dem Einsatz gewisser Produktionsfaktoren abhängig ist:
 - $A$ stellt den Produktionsfaktor **Arbeit** dar.
 - $B$ stellt den Produktionsfaktor **Boden**, sprich Erdschätze und natürliche Ressourcen dar.
-- $K$ stellt den Produktionsfaktor **(Real-)Kapital** dar.
+- $K$ stellt den Produktionsfaktor **(Real-)Kapital** dar (Nicht nur Geld sondern z.B. auch Maschinen, etc.).
 - $t$ stellt den Produktionsfaktor **technisch organisatorisches Wissen**, sprich z.B. wie man Maschinen bedient, dar. 
 
 :::info
 Damit eine Volkswirtschaft wächst und ein **steigendes BIP** erzielen kann, müssen sich diese Produktionsfaktoren verbessern. Dies ist in der Praxis jedoch oft schwierig, da Änderungen innerhalb einer Volkswirtschaft oft nur träge vonstattengehen. Als Konsequenz ist meist nur begrenztes Wirtschaftswachstum möglich.
+
+>Die Produktionsfunktion gilt in gewisser Weise auch für Unternehmen, jedoch kann ein Unternehmen deutlich einfacher Standorte wechseln um z.B. bessere Bodenschätze zu beziehen als eine Volkswirtschaft das kann.
 :::
 
 Produktionsfaktoren lassen sich in _quantitative und qualitative Faktoren_ unterscheiden.
 
 #### Quantitative Faktoren
->Was ist das?
+- Faktoren, die bereits nach kurzer Zeit positive Wirkung zeigen
+- Hierbei spielt in erster Linie die Menge bzw. Ausprägung der Faktoren eine entscheidende Rolle
+- Beispiel: Erdschätze
 
 #### Qualitative Faktoren
+- Faktoren, die oftmals länger brauchen um einen positiven Effekt zu triggern
+- Hierbei spielt in erster Linie die Qualität eine entscheidende Rolle
+- Beispiel: technisch organisatorisches Wissen
+
+:::warning
+Derselbe Faktor **kann sowohl qualitativ als auch quantitativ** sein:
+- Beispiel - Faktor Arbeit
+    - Zuwanderung stellt vorerst eine quantitative Veränderung dar
+    - Auf lange sicht wird aber auch die Arbeitsqualität relevant. Hier spricht man von qualitativer Relevanz
+        - **Bildung**
+            - Bildung stellt einen qualitativen Faktor dar, auf den ein Staat Einfluss hat
+:::
+
+### 2.2.3 - Transformationskurve
+- Oft auch _gesamtwirtschaftliche Kapazitätslinie_ oder _Produktionsmöglichkeitskurve_ genannt
+- Kurve gibt sämtliche Gütermengen an, die bei Vollauslastung aller Produktionsfaktoren maximal produziert werden können
+    - Kurve wird **begrenzt durch Menge und Qualität der Produktionsfaktoren**
+
+<svg viewBox="0 -12 568 460" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"680px",display:"block",margin:"0.5rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-tk" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+  <line x1="70" y1="418" x2="70" y2="8" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-tk)"/>
+  <line x1="58" y1="410" x2="488" y2="410" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-tk)"/>
+  <text x="8" y="7" textAnchor="start" fontSize="13" fontWeight="bold" fill="#333">Maschinen</text>
+  <text x="492" y="415" textAnchor="start" fontSize="13" fontWeight="bold" fill="#333">Kleidung</text>
+  <path d="M 70 52 Q 275 38 460 410" stroke="#888" strokeWidth="1.8" strokeDasharray="8,5" fill="none"/>
+  <path d="M 70 94 Q 260 68 450 410" stroke="#333" strokeWidth="2" fill="none"/>
+  <circle cx="70" cy="94" r="5" fill="#333"/>
+  <text x="56" y="98" textAnchor="end" fontSize="13" fontWeight="bold" fill="#333">A</text>
+  <circle cx="450" cy="410" r="5" fill="#333"/>
+  <text x="450" y="430" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#333">B</text>
+  <circle cx="321" cy="220" r="5" fill="#333"/>
+  <text x="333" y="228" textAnchor="start" fontSize="13" fontWeight="bold" fill="#333">C</text>
+  <circle cx="215" cy="265" r="5" fill="#333"/>
+  <text x="227" y="273" textAnchor="start" fontSize="13" fontWeight="bold" fill="#333">D</text>
+  <circle cx="200" cy="83" r="5" fill="#333"/>
+  <text x="212" y="98" textAnchor="start" fontSize="13" fontWeight="bold" fill="#333">E</text>
+  <line x1="70" y1="220" x2="321" y2="220" stroke="#c0392b" strokeWidth="1.2" strokeDasharray="5,4"/>
+  <line x1="321" y1="220" x2="321" y2="410" stroke="#c0392b" strokeWidth="1.2" strokeDasharray="5,4"/>
+  <circle cx="70" cy="220" r="3" fill="#c0392b"/>
+  <line x1="321" y1="404" x2="321" y2="416" stroke="#c0392b" strokeWidth="1.5"/>
+  <line x1="40" y1="94" x2="40" y2="220" stroke="#c0392b" strokeWidth="1.8"/>
+  <line x1="40" y1="94" x2="62" y2="94" stroke="#c0392b" strokeWidth="1.5"/>
+  <line x1="40" y1="220" x2="62" y2="220" stroke="#c0392b" strokeWidth="1.5"/>
+  <text x="22" y="157" textAnchor="middle" fontSize="9" fill="#c0392b" fontWeight="bold" transform="rotate(-90,22,157)">Opportunitätskosten</text>
+</svg>
+
+| Punkt | Erläuterung                                                                                                                                 |
+|-------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| A     | Wird erzielt wenn alle zur Verfügung stehenden Produktionsfaktoren in Maschinen fließen                                                     |
+| B     | Wird erzielt wenn alle zur Verfügung stehenden Produktionsfaktoren in Kleidung fließen                                                      |
+| C     | Gütermengenkombination (Vollauslastung)                                                                                                     |
+| D     | Supotimaler Punkt, da die zur Verfügung stehenden Produktionsfaktoren nicht vollständig ausgenutzt werden                                   |
+| E     | Über die ursprüngliche Kurve kommt man nicht heraus, es sei denn man schafft durch Wachstumspolitik einen Anstieg der Produktionsfaktoren. In den Folgeperioden kann somit ein **höheres gesellschaftliches Wohlfahrtsniveau** angestrebt werden |
+
+:::tip Opportunitätskosten
+Bewegt man sich von **A nach C**, gewinnt man Kleidung – gibt aber gleichzeitig Maschinen auf. Die entgangene Menge an Maschinen (roter Pfeil auf der Y-Achse) sind die **Opportunitätskosten** der zusätzlichen Kleidung.
+
+Opportunitätskosten sind keine Geldkosten, sondern der **Verzicht auf die nächstbeste Alternative**: Was hätte man mit denselben Ressourcen stattdessen produzieren können?
+
+> Wegen der konkaven Kurvenform steigen die Opportunitätskosten mit jedem weiteren Schritt Richtung B – man muss immer mehr Maschinen opfern, um dieselbe Menge zusätzliche Kleidung zu erzeugen.
+:::
+
+:::tip N-Güter-Fall
+Die Transformationskurve erklärt unter anderem ebenfalls, warum Staaten (wie Nord-Korea) bei einem Großteil an Investitionen in einen Sektor (Militär) in anderen Sektoren nachhängen.
+:::
+
+
+## 2.3 - Wirtschaftssysteme und Wirtschaftsordnungen
+
+### 2.3.1 - Grundlagen
+
+#### Wirtschaftssystem
+Ein Wirtschaftssystem ist ein **theoretisches Modell** mit bestimmten Strukturmerkmalen und Prinzipien.
+
+Es existieren zwei Reinformen (bzw. "Idealtypen"):
+- Marktwirtschaft
+- Zentralverwaltungswirtschaft
+
+:::note
+Die Reinformen sind von theoretischer Natur, reale Systeme bewegen sich viel mehr in einem Spektrum zwischen Zentralverwaltungswirtschaft und Marktwirtschaft, z.B.:
+- Soziale Marktwirtschaft:
+    - Obwohl System eher Marktwirtschaftsnahe ist, gibt es Unternehmen wie die deutsche Bahn oder EnBW, die (zu großen Teilen) im Eigentum des Staates sind
+:::
+
+#### Unterschiede zwischen Zentralverwaltungswirtschaft und Marktwirtschaft
+
+| **Unterscheidungsmerkmal** | Zentralverwaltungswirtschaft | Marktwirtschaft |
+|---|---|---|
+| **Eigentum an Produktionsmitteln** | Staatseigentum | Privateigentum |
+| **Entscheidungsstruktur** | zentral und verbindlich | dezentral/individuell und freiwillig |
+| **Lenkungs- und Koordinationsmechanismus** | Planbehörde, Einplanwirtschaft, Planvorgaben | Märkte/Preise, Mehrplanwirtschaft mit Wettbewerb |
+| **Preisbildung** | staatlich festgesetzt gemäß politischer Ziele | frei, bestimmt durch Angebot und Nachfrage |
+| **Motivations- und Sanktionsmechanismus** | soziale Anerkennung, Leistungskontrollen | Gewinn und Verlust → Privateigentum |
+| **Interdependenz mit politischer Ordnung** | Diktatur | Demokratie |
+
+:::note
+Der Begriff _Planwirtschaft_ (oft als Synonym von Zentralverwaltungswirtschaft verwendet) vermittelt oft ein Verständins das die Marktwirtschaft nicht planen würde:
+- In der **Zentralverwaltungswirtschaft liegt Planung/Entscheidung bei wenigen**
+- In der **Marktwirtschaft liegt Planung/Entscheidung beim individuellen**
+:::
+
+
+
+### 2.3.2 - Funktionsweise einer Marktwirtschaft
+
+In der Marktwirtschaft werden Wirtschaftspläne eigenständig durch die jeweiligen Wirtschaftssubjekte erarbeitet und durchgesetzt.
+- Haushalte und Unternehmen tragen zur **Selbststeuerung des Preis- und Wettbewerbsmechanismus** bei:
+    - Haushalte bestimmen mittels Konsumpläne die **Nachfrage**
+    - Unternehmen bestimmen mittels Produktionsplänen das **Angebot**
+
+<svg viewBox="0 0 590 430" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"700px",display:"block",margin:"0.5rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-mkt" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+  <text x="283" y="22" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#333">Markt für das Gut X</text>
+  <line x1="75" y1="408" x2="75" y2="32" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-mkt)"/>
+  <line x1="62" y1="390" x2="500" y2="390" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-mkt)"/>
+  <text x="10" y="35" textAnchor="start" fontSize="12" fill="#333">Preis p<tspan dy="4" fontSize="9">x</tspan></text>
+  <text x="505" y="395" textAnchor="start" fontSize="12" fill="#333">Menge q<tspan dy="4" fontSize="9">x</tspan></text>
+  <line x1="75" y1="70" x2="460" y2="375" stroke="#333" strokeWidth="1.8"/>
+  <line x1="95" y1="385" x2="460" y2="60" stroke="#333" strokeWidth="1.8"/>
+  <line x1="75" y1="227" x2="273" y2="227" stroke="#555" strokeWidth="1.2" strokeDasharray="5,4"/>
+  <line x1="273" y1="227" x2="273" y2="390" stroke="#555" strokeWidth="1.2" strokeDasharray="5,4"/>
+  <circle cx="273" cy="227" r="3" fill="#333"/>
+  <text x="60" y="231" textAnchor="end" fontSize="12" fill="#333">p<tspan dy="4" fontSize="9">x</tspan><tspan dy="-4">{'*'}</tspan></text>
+  <text x="273" y="408" textAnchor="middle" fontSize="12" fill="#333">q<tspan dy="4" fontSize="9">x</tspan><tspan dy="-4">{'*'}</tspan></text>
+  <text x="150" y="100" textAnchor="start" fontSize="12" fill="#333">Nachfrage N<tspan dy="4" fontSize="9">x</tspan></text>
+  <text x="348" y="105" textAnchor="start" fontSize="12" fill="#333">Angebot A<tspan dy="4" fontSize="9">x</tspan></text>
+  <text x="115" y="168" textAnchor="start" fontSize="13" fontWeight="bold" fill="#333">KR</text>
+  <text x="115" y="308" textAnchor="start" fontSize="13" fontWeight="bold" fill="#333">PR</text>
+</svg>
+
+#### Erläuterung des Angebot-Nachfrage-Diagramm/Preis-Mengen-Diagramm
+
+:::info Fall p1 - Geringes Angebot hohe Nachfrage
+
+:::
