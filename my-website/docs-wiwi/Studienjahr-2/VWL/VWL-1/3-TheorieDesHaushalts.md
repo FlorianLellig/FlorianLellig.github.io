@@ -95,7 +95,9 @@ Die einzelnen Elemente der Formel bedeuten:
   <line x1="300" y1="230" x2="300" y2="55" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-ik)"/>
   <text x="290" y="66" textAnchor="end" fontSize="11" fill="#555">q₂</text>
   <text x="448" y="246" textAnchor="middle" fontSize="11" fill="#555">q₁</text>
-  <path d="M 340 80 L 340 180 L 435 180" fill="none" stroke="#2176AE" strokeWidth="2.2"/>
+  <line x1="340" y1="180" x2="340" y2="80" stroke="#2176AE" strokeWidth="2" strokeDasharray="6 4"/>
+  <line x1="340" y1="180" x2="435" y2="180" stroke="#2176AE" strokeWidth="2" strokeDasharray="6 4"/>
+  <circle cx="340" cy="180" r="5" fill="#2176AE"/>
   <text x="370" y="264" textAnchor="middle" fontSize="10.5" fontStyle="italic" fill="#555">rechter Winkel</text>
   <text x="370" y="281" textAnchor="middle" fontSize="11" fill="#333">linker / rechter Schuh</text>
 
