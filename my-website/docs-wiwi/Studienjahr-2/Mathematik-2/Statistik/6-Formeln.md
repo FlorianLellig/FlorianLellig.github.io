@@ -197,6 +197,18 @@ $$
 - Gewichtung mit den Mengen des **Berichtszeitpunkts** ($q_{ti}$) – laufend angepasster Warenkorb
 - Bei beiden: Zähler = neue Preise, Nenner = alte Preise, Mengen in Zähler und Nenner identisch
 
+## Korrelation
+
+**Empirischer Korrelationskoeffizient nach Bravais-Pearson** (3.2.1)
+
+$$
+\rho = \frac{\sum_{i=1}^{N} (x_i - \bar{X}) \cdot (y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{N} (x_i - \bar{X})^2 \cdot \sum_{i=1}^{N} (y_i - \bar{Y})^2}}
+$$
+
+- Nur für **kardinal** skalierte Merkmale; misst ausschließlich den **linearen** Zusammenhang
+- $-1 \leq \rho \leq +1$ – Vorzeichen = Richtung, Betrag = Stärke
+- $\rho = 0$ heißt „kein **linearer** Zusammenhang“, nicht „kein Zusammenhang“
+
 ## Symbolverzeichnis
 
 | Symbol | Bedeutung |
@@ -229,3 +241,4 @@ $$
 | $p_{0i},\ p_{ti}$ | Preis des Gutes $i$ im Basis- bzw. Berichtszeitpunkt |
 | $q_{0i},\ q_{ti}$ | Menge des Gutes $i$ im Basis- bzw. Berichtszeitpunkt |
 | $P_{0t}^{(L)},\ P_{0t}^{(P)}$ | Preisindex nach Laspeyres bzw. Paasche |
+| $\rho$ | empirischer Korrelationskoeffizient |

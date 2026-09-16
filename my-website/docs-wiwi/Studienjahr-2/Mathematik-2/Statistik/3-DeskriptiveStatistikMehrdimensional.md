@@ -223,3 +223,47 @@ Werden einzelne Güter besonders teuer, weichen die Haushalte auf günstigere Al
 
 In der Praxis wird meist **Laspeyres** verwendet (so auch beim deutschen Verbraucherpreisindex), da der Warenkorb nicht laufend neu erhoben werden muss. Um die Überschätzung zu begrenzen, wird der Warenkorb in regelmäßigen Abständen aktualisiert.
 :::
+
+## 3.2 - Korrelations- und Regressionsanalyse
+
+### 3.2.1 - Empirischer Korrelationskoeffizient 
+- Im folgenden wird der **Empirische Korrelationskoeffizient für kardinal skalierte Merkmale** erläutert
+  - Berechnung erfolgt nach _Bravais-Pearson_
+
+**Wofür wird er verwendet?**
+
+- Er misst, **wie stark** und **in welche Richtung** zwei Merkmale $X$ und $Y$ **linear** zusammenhängen
+- Voraussetzung ist bei **beiden** Merkmalen die **Kardinalskala**, da mit Abweichungen vom Mittelwert gerechnet wird
+- Während die statistische Unabhängigkeit (Abschnitt 3.1.2) nur ein **Ja oder Nein** liefert, gibt der Korrelationskoeffizient den Zusammenhang als **Zahl** an und macht ihn damit vergleichbar
+
+$$
+\rho = \frac{\sum_{i=1}^{N} (x_i - \bar{X}) \cdot (y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{N} (x_i - \bar{X})^2 \cdot \sum_{i=1}^{N} (y_i - \bar{Y})^2}}
+$$
+
+**Aufbau der Formel:**
+
+- Im **Zähler** werden für jeden Datenpunkt die beiden Abweichungen vom jeweiligen Mittelwert **multipliziert**
+  - Liegen $x_i$ und $y_i$ meist **gemeinsam** über oder gemeinsam unter ihrem Mittelwert, sind die Produkte positiv ⇒ der Zähler wird **positiv**
+  - Verhalten sie sich **gegenläufig**, überwiegen negative Produkte ⇒ der Zähler wird **negativ**
+- Der **Nenner** enthält die Streuungen beider Merkmale und dient der **Normierung**. Nur dadurch liegt das Ergebnis garantiert zwischen $-1$ und $+1$ und ist unabhängig von den Einheiten
+
+**Interpretation des Ergebnisses:**
+
+Der Wert liegt immer im Bereich $-1 \leq \rho \leq +1$. Dabei gilt:
+
+| $\rho$ | Bedeutung |
+|---|---|
+| $+1$ | **perfekter positiver** linearer Zusammenhang – alle Punkte liegen exakt auf einer **steigenden** Geraden |
+| nahe $+1$ | **starker positiver** Zusammenhang – je größer $X$, desto größer $Y$ |
+| $0$ | **kein linearer** Zusammenhang |
+| nahe $-1$ | **starker negativer** Zusammenhang – je größer $X$, desto kleiner $Y$ |
+| $-1$ | **perfekter negativer** linearer Zusammenhang – alle Punkte liegen exakt auf einer **fallenden** Geraden |
+
+
+:::warning Zwei wichtige Hinweise
+**1. Es wird nur der _lineare_ Zusammenhang gemessen.**
+$\rho = 0$ bedeutet **nicht**, dass kein Zusammenhang besteht – sondern nur, dass kein **linearer** besteht. Liegen die Punkte z.B. exakt auf einer Parabel, kann $\rho$ trotzdem 0 sein, obwohl ein perfekter (nichtlinearer) Zusammenhang vorliegt.
+
+**2. Korrelation ist keine Kausalität.**
+Ein hoher Wert sagt nur, dass sich zwei Merkmale **gemeinsam** verändern – nicht, dass eines das andere **verursacht**. Oft steckt eine dritte Größe dahinter (**Scheinkorrelation**), etwa wenn Speiseeisverkäufe und Sonnenbrände stark korrelieren, tatsächlich aber beide von der Temperatur abhängen.
+:::
