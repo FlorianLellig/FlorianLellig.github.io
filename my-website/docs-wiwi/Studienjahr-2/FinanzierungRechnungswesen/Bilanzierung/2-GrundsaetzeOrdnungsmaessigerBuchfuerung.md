@@ -138,7 +138,8 @@ Das Realisationsprinzip ist nur von Relevanz, wenn es um **Gewinn** geht.
      - Obwohl die Aktie bereits an Stichtag 2 einen gestiegenen Wert aufweist wird dieser erst bei der Realisierung an Stichtag 3 eingetragen - bis dahin bleibt der Wert 100€.
   2. Man kauft ein Grundstück für 150.000€ - nach 30 Jahren hat sich der Wert verdoppelt (300.000€). In dem Jahresabschluss ist das Grundstück trotzdem nur mit 150.000€ bemessen, da erst zum Realisierungstag der Gewinn berücksichtigt wird.
 
-:::info Einnahmen die einem späteren Umsatz zuzurechnen sind, bleiben durch Passivierung erfolgsneutral bis zum Umsatzzeitpunkt
+<details>
+  <summary>Einnahmen, die einem späteren Umsatz zuzurechnen sind, bleiben durch Passivierung erfolgsneutral bis zum Umsatzzeitpunkt</summary>
 
 - Bekommt man Geld, **bevor** die Leistung erbracht ist (z.B. eine Kundenanzahlung), ist das zwar eine _Einnahme_ (Kasse steigt), aber **noch kein Ertrag**
 - Der Umsatz ist noch nicht realisiert - es gab noch keinen Gefahrenübergang (siehe oben)
@@ -212,9 +213,11 @@ Das Realisationsprinzip ist nur von Relevanz, wenn es um **Gewinn** geht.
 
 
 Der Zeitpunkt des **Geldflusses** ist für den Gewinn also irrelevant. Entscheidend ist allein, **wann der Umsatz realisiert** ist.
-:::
 
-:::info Ausgaben, die vor einem Umsatz erfolgen, sind durch Aktivierung und als Aufwand den durch sie alimentierten Erträgen gegenüberzustellen (Alimentationsformel)
+</details>
+
+<details>
+  <summary>Ausgaben, die vor einem Umsatz erfolgen, sind durch Aktivierung und als Aufwand den durch sie alimentierten Erträgen gegenüberzustellen (Alimentationsformel)</summary>
 
 - Gibt man Geld aus, **bevor** damit Umsatz gemacht wird (z.B. Kauf einer Maschine), ist das zwar eine _Ausgabe_ (Kasse sinkt), aber **noch kein Aufwand**
 - Deshalb wird die Ausgabe **aktiviert**: Die Maschine landet als Vermögensgegenstand auf der Aktivseite und nicht in der GuV
@@ -288,7 +291,8 @@ Der Zeitpunkt des **Geldflusses** ist für den Gewinn also irrelevant. Entscheid
 
 
 Der Zeitpunkt der **Ausgabe** ist für den Gewinn also irrelevant. Entscheidend ist, **in welcher Periode die Ausgabe zu Erträgen beiträgt** - dort wird sie als Aufwand erfasst.
-:::
+
+</details>
 
 
 ### 2.2.3 - Imparitätsprinzip
