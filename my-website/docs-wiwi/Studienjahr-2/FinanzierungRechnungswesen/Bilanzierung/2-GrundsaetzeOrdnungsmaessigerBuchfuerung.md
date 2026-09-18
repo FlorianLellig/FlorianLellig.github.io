@@ -106,6 +106,196 @@ Die Aussage kodifiziert bzw. nicht kodifiziert beantwortet die Frage, ob ein Gru
   <text x="430" y="471" textAnchor="middle" fontSize="11" fill="#555">Das Vorsichtsprinzip (grün) wirkt übergreifend im Realisations- und Imparitätsprinzip.</text>
 </svg>
 
-### 2.2.1 - Realisationsprinzip
+### 2.2.1 - Objektivierungsprinzip
 
-### 2.2.2 - Imparitätsprinzip
+#### Stichtagsprinzip
+- Bewertet wird so, wie die Verhältnisse **am Bilanzstichtag** (z.B. 31.12.) sind
+- Was danach passiert, ist für die Bilanz grundsätzlich egal
+
+#### Einzelbewertungsprinzip
+- Jeder Vermögensgegenstand und jede Schuld wird **einzeln** bewertet
+- Keine Saldierung: Wertverluste eines Gegenstands dürfen nicht mit Wertgewinnen eines anderen verrechnet werden
+
+#### Fortführungsprinzip
+- Es wird unterstellt, dass das Unternehmen **weitergeführt** wird (Going Concern)
+- Deshalb werden Fortführungswerte angesetzt, nicht Zerschlagungs-/Liquidationswerte
+
+#### Stetigkeitsprinzip
+- Einmal gewählte Bewertungs- und Ausweismethoden werden **beibehalten**
+- Sorgt dafür, dass Jahresabschlüsse über die Jahre hinweg vergleichbar sind
+
+
+### 2.2.2 - Realisationsprinzip
+:::tip
+Das Realisationsprinzip ist nur von Relevanz, wenn es um **Gewinn** geht.
+:::
+- Das Gesetz fordert, das **Gewinne nur dann berücksichtigt werden dürfen, wenn sie _realisiert_ sind**
+  - Gewinn wird also erst bei **Gefahrenübergang** realisiert
+  - Wir gehen zuerst mal vom _Worst Case_ aus, sprich das der Kunde Insolvent ist und die Zahlung nicht erfüllen kann
+  - Es zählen nur realisierte Gewinne, **erwartete Gewinne sind ausgeschlossen**
+- Beispiele:
+  1. Am Stichtag 1 wird eine Aktie für 100€ gekauft und am Stichtag 3 für 150€ verkauft. 
+     - Obwohl die Aktie bereits an Stichtag 2 einen gestiegenen Wert aufweist wird dieser erst bei der Realisierung an Stichtag 3 eingetragen - bis dahin bleibt der Wert 100€.
+  2. Man kauft ein Grundstück für 150.000€ - nach 30 Jahren hat sich der Wert verdoppelt (300.000€). In dem Jahresabschluss ist das Grundstück trotzdem nur mit 150.000€ bemessen, da erst zum Realisierungstag der Gewinn berücksichtigt wird.
+
+:::info Einnahmen die einem späteren Umsatz zuzurechnen sind, bleiben durch Passivierung erfolgsneutral bis zum Umsatzzeitpunkt
+
+- Bekommt man Geld, **bevor** die Leistung erbracht ist (z.B. eine Kundenanzahlung), ist das zwar eine _Einnahme_ (Kasse steigt), aber **noch kein Ertrag**
+- Der Umsatz ist noch nicht realisiert - es gab noch keinen Gefahrenübergang (siehe oben)
+- Deshalb wird das Geld **passiviert**: Es landet als Verbindlichkeit („erhaltene Anzahlung") auf der Passivseite und nicht in der GuV
+- **Erfolgsneutral** = der Gewinn (JÜ) verändert sich dadurch **nicht**. Bilanzsumme steigt zwar, aber Aktiva (Kasse +50) und Passiva (Anzahlung +50) steigen gleich stark
+- Erst wenn der Umsatz tatsächlich stattfindet, wird die Anzahlung aufgelöst und **der gesamte Umsatz** als Ertrag gebucht
+
+**Beispiel:** Kundenanzahlung von 50 in 01 für eine Maschine (Buchwert 70), die in 02 zum Preis von 100 verkauft werden soll.
+
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.00 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.00</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#333">Maschine</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+
+  {/* Bilanz zum 31.12.01 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.01</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#333">Maschine</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="592" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="435" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">Kasse</text>
+  <text x="568" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">50</text>
+  <text x="592" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">erh. Anzahlung</text>
+  <text x="725" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">50</text>
+</svg>
+
+- Buchungssatz in 01: `Kasse 50 an erhaltene Anzahlung 50`
+- Kein Ertrag in 01, das Kapital bleibt bei 70 → erfolgsneutral
+
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.02 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.02</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#333">Kasse</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="192" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">JÜ</text>
+  <text x="325" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">30</text>
+
+  {/* GuV 02 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">GuV 01.01.02 – 31.12.02</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#333">div. Aufw.</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="592" y="72" fontSize="14" fill="#333">Erlöse</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="435" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">JÜ</text>
+  <text x="568" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">30</text>
+</svg>
+
+- Buchungssätze in 02:
+  - `erh. Anzahlung 50 + Kasse 50 an Umsatzerlöse 100` → die Anzahlung wird aufgelöst, der Kunde zahlt den Rest, der **volle** Umsatz von 100 wird jetzt realisiert
+  - `div. Aufwendungen 70 an Maschine 70` → die Maschine geht raus, ihr Buchwert wird zum Aufwand
+- Ergebnis: Der Gewinn von 30 (100 - 70) entsteht **komplett in 02**, obwohl die Hälfte des Geldes schon in 01 geflossen ist
+
+
+Der Zeitpunkt des **Geldflusses** ist für den Gewinn also irrelevant. Entscheidend ist allein, **wann der Umsatz realisiert** ist.
+:::
+
+:::info Ausgaben, die vor einem Umsatz erfolgen, sind durch Aktivierung und als Aufwand den durch sie alimentierten Erträgen gegenüberzustellen (Alimentationsformel)
+
+- Gibt man Geld aus, **bevor** damit Umsatz gemacht wird (z.B. Kauf einer Maschine), ist das zwar eine _Ausgabe_ (Kasse sinkt), aber **noch kein Aufwand**
+- Deshalb wird die Ausgabe **aktiviert**: Die Maschine landet als Vermögensgegenstand auf der Aktivseite und nicht in der GuV
+  - Logik: Das Geld ist nicht „weg", es steckt jetzt in der Maschine. Aktivtausch Kasse gegen Maschine → erfolgsneutral
+- **Alimentationsformel**: Die Maschine „alimentiert" (ernährt) über ihre Nutzungsdauer die Umsätze. Deshalb wird ihr Wert **Stück für Stück als Aufwand** (Abschreibung) genau den Erträgen gegenübergestellt, die sie erwirtschaftet
+- Aufwand entsteht also nicht beim Kauf, sondern **verteilt über die Nutzungsdauer**, parallel zu den Erträgen
+
+**Beispiel:** Kauf einer Maschine (Nutzungsdauer 5 Jahre) in 01 zum Preis von 100. Ab 02 erwirtschaftet sie Umsatzerlöse von 100 pro Jahr.
+
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.00 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.00</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#333">Kasse</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#333">200</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">200</text>
+
+  {/* Bilanz zum 31.12.01 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.01</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#1a5c8c" fontWeight="bold">Maschine</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">100</text>
+  <text x="592" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#333">200</text>
+  <text x="435" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">Kasse</text>
+  <text x="568" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">100</text>
+</svg>
+
+- Buchungssatz in 01: `Maschine 100 an Kasse 100`
+- Kein Aufwand in 01, das Kapital bleibt bei 200 → erfolgsneutral (reiner Aktivtausch)
+
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.02 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.02</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#1a5c8c" fontWeight="bold">Maschine</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">80</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">200</text>
+  <text x="35" y="100" fontSize="14" fill="#333">Kasse</text>
+  <text x="168" y="100" textAnchor="end" fontSize="14" fill="#333">200</text>
+  <text x="192" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">JÜ</text>
+  <text x="325" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">80</text>
+
+  {/* GuV 02 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">GuV 01.01.02 – 31.12.02</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#1a5c8c" fontWeight="bold">Absch. Maschine</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">20</text>
+  <text x="592" y="72" fontSize="14" fill="#333">Erlöse</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="435" y="100" fontSize="14" fill="#333">JÜ</text>
+  <text x="568" y="100" textAnchor="end" fontSize="14" fill="#333">80</text>
+</svg>
+
+- Buchungssätze in 02:
+  - `Kasse 100 an Umsatzerlöse 100` → die Maschine erwirtschaftet Umsatz, dieser wird realisiert
+  - `Abschreibung 20 an Maschine 20` → 100 / 5 Jahre = 20 pro Jahr. Der Aufwand wird genau dem Ertrag gegenübergestellt, den die Maschine in diesem Jahr „alimentiert" hat
+- Ergebnis: Der Gewinn in 02 ist 80 (100 - 20). Die Ausgabe von 100 aus 01 wird **nicht auf einmal**, sondern über 5 Jahre als Aufwand verteilt
+
+
+Der Zeitpunkt der **Ausgabe** ist für den Gewinn also irrelevant. Entscheidend ist, **in welcher Periode die Ausgabe zu Erträgen beiträgt** - dort wird sie als Aufwand erfasst.
+:::
+
+
+### 2.2.3 - Imparitätsprinzip
+:::tip
+Das Realisationsprinzip ist nur von Relevanz, wenn es um **Verluste** geht.
+:::
+
+
+
+
