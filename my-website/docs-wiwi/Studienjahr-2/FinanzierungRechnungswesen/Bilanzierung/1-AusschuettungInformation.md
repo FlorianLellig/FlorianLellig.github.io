@@ -196,3 +196,36 @@ Der Jahresabschluss dient der **Rechenschaft**. Diese gliedert sich in zwei Teil
   - d.h. es wird ein **Betrag** festgelegt, **der nicht an die Eigner zurückfließen darf**
     - Bei AG: 50.000€
     - Bei GmbH: 25.000€
+:::
+
+:::warning Manger-Eigner-Konflikt
+- Klassisches Beispiel der **Principal-Agent-Theorie**
+  - Entsteht, wenn Eigentum und Unternehmen auseinanderfallen
+  - Fragestellung: **_Handeln die Manager wirklich im Interesse der Eigner?_**
+- Problem: Besonders in großen Unternehmen haben Manager oft **eigene Interessen**
+  - **Consumption of the Job**
+    - Manager haben ein Interesse an persönlichen Interessen, z.B. Dienstwagen, möglichst _luxuriöse_ Dienstreisen, etc. 
+      - Diese Leistungen **minimieren Gewinn und damit das Ausschüttungspotenzial** gegenüber Eignern
+  - **Risikoneigung bei der Investitionspolitik**
+    - Im Gegensatz zu z.B. Aktionären kann ein Manager sein Risiko nicht über mehrere Positionen streuen
+    - Um Ruf, etc. nicht zu gefärden werden ggf. eher risikoärmere Projekte gewählt
+:::
+
+### 1.5.3 - Informationsvermittlung
+- Verschiedenste Parteien haben **Interesse an Informationen** des Unternehmens, darunter:
+  - Anleger, Gläubiger, Finanzamt (Fiskus), Öffentlichkeit, etc. 
+  - _"War mein Investment gut?" "Macht es Sinn zu investieren?"_
+  - Kann dabei helfen, Trends für die Zukunft besser herzuleiten
+- **All das erfordert kontinuierliche Finanzbuchhaltung.**
+
+:::tip Evaluierung eines Investments
+**War mein Investment gut?** — Das lässt sich nicht direkt aus der Bilanz ablesen.
+
+**Beispiel B&I OHG:** Buchwert der Beteiligung = 10.000 €. Aber: Die OHG schüttet erst in 4 Jahren 19.000 € aus. Um das mit den heutigen 10.000 € vergleichen zu können, muss man die 19.000 € auf heute **abzinsen** (Marktzinssatz 10 %):
+
+$$E_0 = \frac{19.000}{(1{+}0{,}1)^4} = 12.977 \text{ €}$$
+
+Der **Ertragswert** (12.977 €) liegt über dem Buchwert (10.000 €) → das Investment war gut. Die Differenz von **2.977 € sind stille Reserven** — in der Bilanz unsichtbar, weil dort historische Anschaffungskosten stehen, nicht der tatsächliche Wert.
+
+> Der Jahresabschluss zeigt **nicht**, was eine Beteiligung wirklich wert ist — dafür braucht man den Barwert künftiger Zahlungsströme.
+:::
