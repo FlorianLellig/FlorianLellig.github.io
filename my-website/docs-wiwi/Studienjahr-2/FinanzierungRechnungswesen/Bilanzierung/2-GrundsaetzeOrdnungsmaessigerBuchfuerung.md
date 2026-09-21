@@ -438,6 +438,11 @@ Die **künftige** Ausgabe belastet also schon die Periode, in der der zugehörig
 Das Realisationsprinzip ist nur von Relevanz, wenn es um **Verluste** geht.
 :::
 
+- Ebenfalls **Folgeprinzip des Vorsichtsprinzips**
+    - Gesetz: es _"sind alle vorhersehbaren Risiken und Verluste, die bis zum Abschlussstichtag entstanden sind, zu berücksichtigen"_ (§252 Abs. 1 Nr. 1 HGB)
+- Ziel: Verhindern von Ausschüttungen und Auszahlungen, die im Verlustfall nicht mehr rückgängig gemacht werden können
+    - Besonders wichtig bei haftungsbeschränkten Unternehmen wie GmbH oder AG, da das Geld nach Ausschüttung i.d.R. nicht wieder zurückzuholen ist
+    
 
 
 
