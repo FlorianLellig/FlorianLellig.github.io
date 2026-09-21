@@ -267,3 +267,370 @@ $\rho = 0$ bedeutet **nicht**, dass kein Zusammenhang besteht – sondern nur, d
 **2. Korrelation ist keine Kausalität.**
 Ein hoher Wert sagt nur, dass sich zwei Merkmale **gemeinsam** verändern – nicht, dass eines das andere **verursacht**. Oft steckt eine dritte Größe dahinter (**Scheinkorrelation**), etwa wenn Speiseeisverkäufe und Sonnenbrände stark korrelieren, tatsächlich aber beide von der Temperatur abhängen.
 :::
+
+### 3.2.2 - Lineare Einfachregression
+
+**Wofür wird sie verwendet?**
+
+- Korrelationskoeffizient (3.2.1) → nur **Stärke** und **Richtung** des Zusammenhangs
+- Regression → konkrete **Gerade**, um $Y$ aus $X$ zu **schätzen** bzw. zu **prognostizieren**
+- „Einfach" = genau **eine** erklärende Variable
+- Rollen hier **nicht** vertauschbar (anders als beim Korrelationskoeffizienten):
+  - $X$ = unabhängige Variable (erklärend, „Ursache")
+  - $Y$ = abhängige Variable (zu erklären, „Wirkung")
+
+**Die Regressionsgerade**
+
+$$
+\hat{y}_i = \beta_0 + \beta_1 \cdot x_i
+$$
+
+- $\hat{y}_i$ = **geschätzter** Wert (liegt auf der Geraden)
+- $y_i$ = **tatsächlich beobachteter** Wert (liegt meist daneben)
+- $\beta_0$ = Achsenabschnitt → Wert von $Y$ bei $X = 0$
+- $\beta_1$ = Steigung → Änderung von $Y$ je **eine** zusätzliche Einheit $X$
+- $\varepsilon_i = y_i - \hat{y}_i$ = **Residuum** → senkrechter Abstand Punkt ↔ Gerade
+
+**Methode der kleinsten Quadrate**
+
+$$
+\sum_{i=1}^{N} \varepsilon_i^2 = \sum_{i=1}^{N} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{N} (y_i - \beta_0 - \beta_1 \cdot x_i)^2 \;\longrightarrow\; \min!
+$$
+
+- Ziel: Gerade so legen, dass Summe der **quadrierten** Residuen minimal wird
+- Warum quadrieren:
+  - positive und negative Abweichungen würden sich sonst gegenseitig aufheben
+  - große Abweichungen werden **stärker bestraft** als kleine
+- Minimierung (partielle Ableitungen nach $\beta_0$ und $\beta_1$, null setzen) liefert die beiden Formeln unten
+
+**Berechnung der Koeffizienten**
+
+$$
+\beta_1 = \frac{\sum_{i=1}^{N} (x_i - \bar{X}) \cdot (y_i - \bar{Y})}{\sum_{i=1}^{N} (x_i - \bar{X})^2}
+\qquad\qquad
+\beta_0 = \bar{Y} - \beta_1 \cdot \bar{X}
+$$
+
+- Zähler von $\beta_1$ = **identisch** mit dem Zähler des Korrelationskoeffizienten
+- Nenner von $\beta_1$ = Streuung **nur** von $X$ ⇒ Vorzeichen von $\beta_1$ = Vorzeichen von $\rho$
+- Reihenfolge zwingend: **erst** $\beta_1$, **dann** $\beta_0$
+- Gerade verläuft immer durch den Schwerpunkt $(\bar{X}, \bar{Y})$
+
+**Determinationskoeffizient (Bestimmtheitsmaß)**
+
+$$
+R^2 = \frac{\beta_1^2 \cdot \sum_{i=1}^{N} (x_i - \bar{X})^2}{\sum_{i=1}^{N} (y_i - \bar{Y})^2}
+$$
+
+- Misst die **Qualität/Güte** der Regression
+- Zähler = durch die Gerade **erklärte** Streuung, Nenner = **gesamte** Streuung von $Y$
+- Immer $0 \leq R^2 \leq 1$
+- Bei der Einfachregression gilt: $R^2 = \rho^2$
+
+| $R^2$ | Bedeutung |
+|---|---|
+| $1$ | alle Punkte liegen **exakt** auf der Geraden |
+| nahe $1$ | Gerade erklärt Daten **gut** |
+| nahe $0$ | Gerade erklärt Daten **schlecht** |
+| $0$ | kein linearer Erklärungsgehalt |
+
+:::warning Niedriges $R^2$ heißt nicht „kein Zusammenhang"
+- Zusammenhang ist evtl. **nicht-linear** (z.B. Parabel, exponentiell)
+- Zusammenhang wird evtl. von **anderen Variablen** überlagert
+:::
+
+**Beispiel**
+
+- $X$ = Werbeausgaben (in 1.000 €), $Y$ = Umsatz (in 1.000 €)
+- $N = 5$, $\bar{X} = \frac{15}{5} = 3$, $\bar{Y} = \frac{50}{5} = 10$
+
+| $i$ | $x_i$ | $y_i$ | $x_i - \bar{X}$ | $y_i - \bar{Y}$ | $(x_i - \bar{X})(y_i - \bar{Y})$ | $(x_i - \bar{X})^2$ | $(y_i - \bar{Y})^2$ |
+|---|---|---|---|---|---|---|---|
+| 1 | 1 | 7 | $-2$ | $-3$ | $6$ | $4$ | $9$ |
+| 2 | 2 | 6 | $-1$ | $-4$ | $4$ | $1$ | $16$ |
+| 3 | 3 | 11 | $0$ | $1$ | $0$ | $0$ | $1$ |
+| 4 | 4 | 12 | $1$ | $2$ | $2$ | $1$ | $4$ |
+| 5 | 5 | 14 | $2$ | $4$ | $8$ | $4$ | $16$ |
+| **Σ** | **15** | **50** | $0$ | $0$ | **20** | **10** | **46** |
+
+Schritt 1 – Steigung:
+
+$$
+\beta_1 = \frac{20}{10} = 2
+$$
+
+Schritt 2 – Achsenabschnitt:
+
+$$
+\beta_0 = 10 - 2 \cdot 3 = 4
+$$
+
+Schritt 3 – Regressionsgerade:
+
+$$
+\hat{y}_i = 4 + 2 \cdot x_i
+$$
+
+Schritt 4 – Güte:
+
+$$
+R^2 = \frac{2^2 \cdot 10}{46} = \frac{40}{46} \approx 0{,}87
+$$
+
+**Interpretation:**
+
+- $\beta_1 = 2$ → je 1.000 € mehr Werbung steigt der Umsatz um **2.000 €**
+- $\beta_0 = 4$ → ohne Werbung rechnerisch **4.000 €** Umsatz
+- $R^2 \approx 0{,}87$ → rund **87 %** der Umsatzstreuung werden durch die Werbeausgaben erklärt
+- Prognose für $x = 6$: $\hat{y} = 4 + 2 \cdot 6 = 16$ → **16.000 €** Umsatz
+
+:::tip Vorsicht bei der Prognose
+- Nur im **beobachteten Wertebereich** sinnvoll (hier $x = 1$ bis $5$)
+- Weit außerhalb (z.B. $x = 50$) ist die Gerade **nicht** belegt
+:::
+
+## 3.3 - Zeitreihenanalyse
+
+- Untersucht, wie sich ein Merkmal im **Zeitablauf** entwickelt
+- Unterschied zu 3.2: die unabhängige Variable ist immer die **Zeit** $t$
+- Datenbasis ist eine **Zeitreihe** $y_1, y_2, \dots, y_T$ mit fester Frequenz (jährlich, quartalsweise, monatlich)
+
+### 3.3.1 - Komponenten einer Zeitreihe
+
+Eine langfristige ökonomische Zeitreihe besitzt bis zu **vier Komponenten**:
+
+| Komponente | Beschreibung |
+|---|---|
+| **Trend** | langfristige Grundrichtung über den gesamten Zeitraum (steigend, fallend, konstant) |
+| **Zyklische Komponente** | mittelfristige Schwankung um den Trend, **unregelmäßige** Länge (z.B. Konjunkturzyklus über mehrere Jahre) |
+| **Saisonkomponente** | **regelmäßige** Schwankung mit fester Periodenlänge (z.B. Weihnachtsgeschäft jedes 4. Quartal) |
+| **Zufallskomponente** | Rest, der sich durch keine der drei anderen erklären lässt (Restgröße, „Rauschen") |
+
+- Ziel der Analyse: Komponenten **trennen**, um den Trend sichtbar zu machen
+- Saison- und Zufallskomponente überlagern den Trend → müssen **geglättet** werden
+
+### 3.3.2 - Methode der gleitenden Durchschnitte
+
+**Grundidee**
+
+- Jeder Zeitpunkt wird durch den **Durchschnitt seiner Nachbarwerte** ersetzt
+- Ausschläge nach oben und unten heben sich gegenseitig auf → Zeitreihe wird **geglättet**
+- Der geglättete Wert $\bar{Y}_t^{*}$ ersetzt den Originalwert $y_t$
+- $k$ = Anzahl der Werte, die **auf jeder Seite** von $t$ einbezogen werden
+
+#### Ungerader gleitender Durchschnitt
+
+$$
+\bar{Y}_t^{*} = \frac{1}{2k+1} \cdot \left( y_{t-k} + y_{t-k+1} + \dots + y_t + \dots + y_{t+k-1} + y_{t+k} \right)
+$$
+
+- Anzahl der einbezogenen Werte = $2k+1$ → immer **ungerade**
+- z.B. $k = 1$ → 3er-Durchschnitt, $k = 2$ → 5er-Durchschnitt
+- Alle Werte werden **gleich** gewichtet
+- $t$ liegt genau in der **Mitte** des Fensters → keine Korrektur nötig
+
+:::note Beispiel: 3er-Durchschnitt ($k = 1$)
+
+Absatzzahlen über 6 Perioden:
+
+| $t$ | 1 | 2 | 3 | 4 | 5 | 6 |
+|---|---|---|---|---|---|---|
+| $y_t$ | 10 | 12 | 20 | 16 | 24 | 26 |
+| $\bar{Y}_t^{*}$ | – | **14** | **16** | **20** | **22** | – |
+
+Rechenweg:
+
+$$
+\bar{Y}_2^{*} = \frac{10 + 12 + 20}{3} = \frac{42}{3} = 14
+\qquad
+\bar{Y}_3^{*} = \frac{12 + 20 + 16}{3} = \frac{48}{3} = 16
+$$
+
+$$
+\bar{Y}_4^{*} = \frac{20 + 16 + 24}{3} = \frac{60}{3} = 20
+\qquad
+\bar{Y}_5^{*} = \frac{16 + 24 + 26}{3} = \frac{66}{3} = 22
+$$
+
+- Original springt unruhig hin und her, geglättete Reihe steigt **gleichmäßig**
+- $t = 1$ und $t = 6$ entfallen → pro Rand gehen $k = 1$ Werte verloren
+:::
+
+#### Gerader gleitender Durchschnitt
+
+$$
+\bar{Y}_t^{*} = \frac{1}{2k} \cdot \left( \frac{1}{2} \cdot y_{t-k} + y_{t-k+1} + \dots + y_t + \dots + y_{t+k-1} + \frac{1}{2} \cdot y_{t+k} \right)
+$$
+
+- Anzahl der einbezogenen Werte = $2k$ → **gerade** (z.B. $k = 2$ → 4er-Durchschnitt)
+- **Problem**: Bei gerader Anzahl gibt es keinen mittleren Wert, das Fenster liegt „zwischen" zwei Zeitpunkten
+- **Lösung**: Die beiden **Randwerte** werden nur **halb** gewichtet
+  - dadurch wird das Fenster wieder symmetrisch um $t$ zentriert
+  - die Gewichte summieren sich trotzdem zu $2k$ → Division durch $2k$ bleibt korrekt
+
+:::note Beispiel: 4er-Durchschnitt ($k = 2$) bei Quartalsdaten
+
+Umsatz in Mio. € über zwei Jahre mit klarem Saisonmuster:
+
+| $t$ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 |
+|---|---|---|---|---|---|---|---|---|
+| Quartal | Q1 | Q2 | Q3 | Q4 | Q1 | Q2 | Q3 | Q4 |
+| $y_t$ | 20 | 30 | 40 | 30 | 24 | 34 | 44 | 34 |
+| $\bar{Y}_t^{*}$ | – | – | **30,5** | **31,5** | **32,5** | **33,5** | – | – |
+
+Rechenweg:
+
+$$
+\bar{Y}_3^{*} = \frac{1}{4} \cdot \left( \tfrac{1}{2} \cdot 20 + 30 + 40 + 30 + \tfrac{1}{2} \cdot 24 \right) = \frac{10 + 30 + 40 + 30 + 12}{4} = \frac{122}{4} = 30{,}5
+$$
+
+$$
+\bar{Y}_4^{*} = \frac{1}{4} \cdot \left( \tfrac{1}{2} \cdot 30 + 40 + 30 + 24 + \tfrac{1}{2} \cdot 34 \right) = \frac{126}{4} = 31{,}5
+$$
+
+$$
+\bar{Y}_5^{*} = \frac{1}{4} \cdot \left( \tfrac{1}{2} \cdot 40 + 30 + 24 + 34 + \tfrac{1}{2} \cdot 44 \right) = \frac{130}{4} = 32{,}5
+$$
+
+$$
+\bar{Y}_6^{*} = \frac{1}{4} \cdot \left( \tfrac{1}{2} \cdot 30 + 24 + 34 + 44 + \tfrac{1}{2} \cdot 34 \right) = \frac{134}{4} = 33{,}5
+$$
+
+- Saisonmuster (Q3 hoch, Q1 tief) ist **vollständig verschwunden**
+- Übrig bleibt der reine Trend: gleichmäßig $+1$ pro Quartal
+- $t = 1, 2, 7, 8$ entfallen → pro Rand gehen $k = 2$ Werte verloren
+:::
+
+**Wahl der Ordnung**
+
+- Ergibt sich meist aus **Plausibilität** bzw. der **Frequenz der Werte**
+  - Quartalsdaten → **4er**-Durchschnitt
+  - Monatsdaten → **12er**-Durchschnitt
+  - Wochentagsdaten → **7er**-Durchschnitt
+- Grund: Die Ordnung muss der **Periodenlänge der Saison** entsprechen, damit sich die Saisoneffekte exakt herausmitteln
+
+:::warning Zielkonflikt
+- **Größerer** Durchschnitt → **stärkere** Glättung
+- Aber: **mehr Werte gehen verloren** (pro Rand jeweils $k$ Stück, insgesamt $2k$)
+- Bei sehr kurzen Zeitreihen bleibt sonst kaum etwas übrig
+:::
+
+### 3.3.3 - Trendverläufe
+
+Wichtige Trendverläufe von Zeitreihen:
+
+| Trendverlauf | Typischer Verlauf |
+|---|---|
+| **Linearer Trend** | konstante **absolute** Zunahme je Periode (gerade Linie) |
+| **Exponentialtrend** | konstante **prozentuale** Zunahme je Periode (immer steiler) |
+| **Logistischer Trend** | erst exponentiell, dann abflachend gegen eine **Sättigungsgrenze** (S-Kurve) |
+
+- Bei **linearem** Trend lassen sich die Überlegungen der linearen Einfachregression (3.2.2) direkt übertragen
+- Methode bleibt die **Methode der kleinsten Quadrate**, nur heißt die unabhängige Variable jetzt $t$ statt $x$
+
+$$
+\hat{y}_t = a + b \cdot t
+$$
+
+- $a$ = Achsenabschnitt → Niveau zum Zeitpunkt $t = 0$
+- $b$ = Steigung → **absolute** Veränderung je Periode
+
+### 3.3.4 - Trendgerade über den transformierten Zeitindex
+
+**Rechenvereinfachung**
+
+- Bei **äquidistanten** Zeitreihen (gleiche Abstände zwischen den Zeitpunkten) lässt sich der Zeitindex verschieben
+- Neuer Index $t'$ wird so gewählt, dass gilt: $\sum t' = 0$
+- Dadurch fallen in den Formeln alle Mittelwert-Korrekturen weg → deutlich weniger Rechenaufwand
+
+| Anzahl $T$ | Wahl von $t'$ | Beispiel |
+|---|---|---|
+| **ungerade** | Mitte $= 0$, Schrittweite $1$ | $T = 5$ → $-2, -1, 0, 1, 2$ |
+| **gerade** | kein Nullwert, Schrittweite $2$ | $T = 6$ → $-5, -3, -1, 1, 3, 5$ |
+
+Es gilt dann:
+
+$$
+\hat{y}_{t'} = a' + b \cdot t'
+$$
+
+mit
+
+$$
+a' = \frac{\sum_{t=1}^{T} y_t}{T} = \bar{Y}
+\qquad\qquad
+b = \frac{\sum_{t=1}^{T} y_t \cdot t'}{\sum_{t=1}^{T} t'^2}
+$$
+
+- $a'$ ist einfach der **Mittelwert** der Zeitreihe – kein Bruch mehr nötig
+- $b$ bleibt **unverändert** gegenüber der Originalskala (nur die Verschiebung ändert sich, nicht die Steigung)
+- Achtung: $a' \neq a$. $a'$ gilt für $t'$, $a$ für den Originalindex $t$
+
+**Güte des Trends**
+
+$$
+R^2 = \frac{b^2 \cdot \sum t'^2}{\sum (y_t - \bar{Y})^2}
+$$
+
+- Gleiche Logik wie in 3.2.2: Anteil der Streuung, den der Trend **erklärt**
+- $0 \leq R^2 \leq 1$, Werte nahe $1$ sprechen für einen gut passenden linearen Trend
+
+:::note Beispiel: Linearer Trend bei 5 Perioden
+
+Umsatz in Mio. € über 5 Jahre:
+
+| $t$ | $t'$ | $y_t$ | $y_t \cdot t'$ | $t'^2$ | $y_t - \bar{Y}$ | $(y_t - \bar{Y})^2$ |
+|---|---|---|---|---|---|---|
+| 1 | $-2$ | 13 | $-26$ | 4 | $-7$ | 49 |
+| 2 | $-1$ | 15 | $-15$ | 1 | $-5$ | 25 |
+| 3 | $0$ | 19 | $0$ | 0 | $-1$ | 1 |
+| 4 | $1$ | 25 | $25$ | 1 | $5$ | 25 |
+| 5 | $2$ | 28 | $56$ | 4 | $8$ | 64 |
+| **Σ** | $0$ | **100** | **40** | **10** | $0$ | **164** |
+
+Schritt 1 – Achsenabschnitt (= Mittelwert):
+
+$$
+a' = \frac{100}{5} = 20
+$$
+
+Schritt 2 – Steigung:
+
+$$
+b = \frac{40}{10} = 4
+$$
+
+Schritt 3 – Trendgerade:
+
+$$
+\hat{y}_{t'} = 20 + 4 \cdot t'
+$$
+
+Schritt 4 – Güte:
+
+$$
+R^2 = \frac{4^2 \cdot 10}{164} = \frac{160}{164} \approx 0{,}98
+$$
+
+**Interpretation:**
+
+- $b = 4$ → Umsatz wächst im Schnitt um **4 Mio. € pro Jahr**
+- $a' = 20$ → Trendwert in der **Mitte** der Zeitreihe ($t = 3$) liegt bei 20 Mio. €
+- $R^2 \approx 0{,}98$ → rund **98 %** der Streuung werden durch den linearen Trend erklärt
+- Prognose für $t = 6$ (also $t' = 3$): $\hat{y} = 20 + 4 \cdot 3 = 32$ → **32 Mio. €**
+
+**Rückrechnung auf den Originalindex** (falls gefordert):
+
+$$
+a = a' - b \cdot \bar{t} = 20 - 4 \cdot 3 = 8 \quad\Rightarrow\quad \hat{y}_t = 8 + 4 \cdot t
+$$
+
+Probe für $t = 1$: $8 + 4 = 12$, identisch zu $\hat{y}_{t'=-2} = 20 - 8 = 12$ ✓
+:::
+
+:::warning Trendprognose ist kein Automatismus
+- Gerade wird nur **fortgeschrieben** – es wird unterstellt, dass der Trend anhält
+- Strukturbrüche, Sättigung oder Konjunktureinbrüche sind darin **nicht** enthalten
+- Je weiter in die Zukunft, desto unsicherer die Prognose
+:::
+

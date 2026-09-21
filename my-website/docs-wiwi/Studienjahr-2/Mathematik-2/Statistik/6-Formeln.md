@@ -209,6 +209,113 @@ $$
 - $-1 \leq \rho \leq +1$ – Vorzeichen = Richtung, Betrag = Stärke
 - $\rho = 0$ heißt „kein **linearer** Zusammenhang“, nicht „kein Zusammenhang“
 
+## Regression
+
+**Regressionsgerade (lineare Einfachregression)** (3.2.2)
+
+$$
+\hat{y}_i = \beta_0 + \beta_1 \cdot x_i
+$$
+
+- $\beta_0$ = Achsenabschnitt, $\beta_1$ = Steigung
+- $X$ = unabhängige (erklärende), $Y$ = abhängige Variable – **nicht** vertauschbar
+
+**Methode der kleinsten Quadrate** (3.2.2)
+
+$$
+\sum_{i=1}^{N} \varepsilon_i^2 = \sum_{i=1}^{N} (y_i - \hat{y}_i)^2 = \sum_{i=1}^{N} (y_i - \beta_0 - \beta_1 \cdot x_i)^2 \;\longrightarrow\; \min!
+$$
+
+- Bestimmungsprinzip der Geraden; Quadrieren verhindert Aufheben von $+$ und $-$
+
+**Steigung** (3.2.2)
+
+$$
+\beta_1 = \frac{\sum_{i=1}^{N} (x_i - \bar{X}) \cdot (y_i - \bar{Y})}{\sum_{i=1}^{N} (x_i - \bar{X})^2}
+$$
+
+- Zähler identisch mit dem Zähler von $\rho$; Nenner = Streuung nur von $X$
+
+**Achsenabschnitt** (3.2.2)
+
+$$
+\beta_0 = \bar{Y} - \beta_1 \cdot \bar{X}
+$$
+
+- Reihenfolge zwingend: erst $\beta_1$, dann $\beta_0$
+
+**Determinationskoeffizient (Bestimmtheitsmaß)** (3.2.2)
+
+$$
+R^2 = \frac{\beta_1^2 \cdot \sum_{i=1}^{N} (x_i - \bar{X})^2}{\sum_{i=1}^{N} (y_i - \bar{Y})^2}
+$$
+
+- $0 \leq R^2 \leq 1$ – Anteil der durch $X$ erklärten Streuung von $Y$
+- Bei der Einfachregression gilt $R^2 = \rho^2$
+- Niedriges $R^2$ ≠ kein Zusammenhang (evtl. nicht-linear oder überlagert)
+
+## Zeitreihenanalyse
+
+**Ungerader gleitender Durchschnitt** (3.3.2)
+
+$$
+\bar{Y}_t^{*} = \frac{1}{2k+1} \cdot \left( y_{t-k} + y_{t-k+1} + \dots + y_t + \dots + y_{t+k-1} + y_{t+k} \right)
+$$
+
+- $2k+1$ Werte, alle **gleich** gewichtet; $k = 1$ → 3er, $k = 2$ → 5er
+
+**Gerader gleitender Durchschnitt** (3.3.2)
+
+$$
+\bar{Y}_t^{*} = \frac{1}{2k} \cdot \left( \frac{1}{2} \cdot y_{t-k} + y_{t-k+1} + \dots + y_t + \dots + y_{t+k-1} + \frac{1}{2} \cdot y_{t+k} \right)
+$$
+
+- $2k$ Werte, die beiden **Randwerte nur halb** gewichtet (zentriert das Fenster)
+- Ordnung nach Frequenz wählen: Quartale → 4er, Monate → 12er
+- Pro Rand gehen $k$ Werte verloren (insgesamt $2k$)
+
+**Trendgerade (linearer Trend)** (3.3.3)
+
+$$
+\hat{y}_t = a + b \cdot t
+$$
+
+- $b$ = **absolute** Veränderung je Periode; Bestimmung nach kleinsten Quadraten
+
+**Transformierter Zeitindex** (3.3.4)
+
+- $t'$ so wählen, dass $\sum t' = 0$ (nur bei **äquidistanten** Zeitreihen)
+- $T$ ungerade → Mitte $=0$, Schrittweite $1$ (z.B. $-2,-1,0,1,2$)
+- $T$ gerade → kein Nullwert, Schrittweite $2$ (z.B. $-5,-3,-1,1,3,5$)
+
+$$
+\hat{y}_{t'} = a' + b \cdot t'
+$$
+
+**Achsenabschnitt bei transformiertem Index** (3.3.4)
+
+$$
+a' = \frac{\sum_{t=1}^{T} y_t}{T} = \bar{Y}
+$$
+
+- Entspricht dem **Mittelwert** der Zeitreihe; Rückrechnung: $a = a' - b \cdot \bar{t}$
+
+**Steigung bei transformiertem Index** (3.3.4)
+
+$$
+b = \frac{\sum_{t=1}^{T} y_t \cdot t'}{\sum_{t=1}^{T} t'^2}
+$$
+
+- Steigung ist **unabhängig** von der Verschiebung, gilt also auch für den Originalindex
+
+**Determinationskoeffizient des Trends** (3.3.4)
+
+$$
+R^2 = \frac{b^2 \cdot \sum t'^2}{\sum (y_t - \bar{Y})^2}
+$$
+
+- Gleiche Logik wie bei der Einfachregression; $0 \leq R^2 \leq 1$
+
 ## Symbolverzeichnis
 
 | Symbol | Bedeutung |
@@ -242,3 +349,17 @@ $$
 | $q_{0i},\ q_{ti}$ | Menge des Gutes $i$ im Basis- bzw. Berichtszeitpunkt |
 | $P_{0t}^{(L)},\ P_{0t}^{(P)}$ | Preisindex nach Laspeyres bzw. Paasche |
 | $\rho$ | empirischer Korrelationskoeffizient |
+| $y_i$ | beobachteter Wert der abhängigen Variable |
+| $\hat{y}_i$ | geschätzter Wert auf der Regressionsgerade |
+| $\varepsilon_i$ | Residuum ($y_i - \hat{y}_i$) |
+| $\beta_0$ | Achsenabschnitt der Regressionsgerade |
+| $\beta_1$ | Steigung der Regressionsgerade |
+| $R^2$ | Determinationskoeffizient (Bestimmtheitsmaß) |
+| $t$ | Zeitindex (Periode) |
+| $T$ | Anzahl der Perioden der Zeitreihe |
+| $y_t$ | Wert der Zeitreihe in Periode $t$ |
+| $\bar{Y}_t^{*}$ | geglätteter Wert (gleitender Durchschnitt) in Periode $t$ |
+| $k$ | Anzahl der Werte je Seite beim gleitenden Durchschnitt |
+| $a,\ b$ | Achsenabschnitt bzw. Steigung der Trendgerade |
+| $t'$ | transformierter Zeitindex mit $\sum t' = 0$ |
+| $a'$ | Achsenabschnitt bezogen auf $t'$ (= $\bar{Y}$) |
