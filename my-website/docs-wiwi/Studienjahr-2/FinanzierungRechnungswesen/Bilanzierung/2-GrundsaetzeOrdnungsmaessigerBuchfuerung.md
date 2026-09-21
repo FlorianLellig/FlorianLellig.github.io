@@ -294,6 +294,144 @@ Der Zeitpunkt der **Ausgabe** ist für den Gewinn also irrelevant. Entscheidend 
 
 </details>
 
+<details>
+  <summary>Einnahmen aus Umsätzen, die später zufließen, sind Ertrag und bis zum Zuflusszeitpunkt zu aktivieren</summary>
+
+- Hier ist es **umgekehrt** zur Anzahlung: Die Leistung ist schon erbracht, aber das Geld kommt erst später (Kauf auf Rechnung)
+- Der Umsatz ist **realisiert** (Gefahrenübergang hat stattgefunden), also entsteht sofort **Ertrag** - auch wenn noch keine Kasse geflossen ist
+- Der noch offene Betrag wird **aktiviert**: Er steht als **Forderung** auf der Aktivseite
+  - Logik: Man hat einen Anspruch gegen den Kunden, und der ist ein Vermögensgegenstand
+- Zahlt der Kunde später, ist das **erfolgsneutral**: Die Forderung wird nur gegen Kasse getauscht (Aktivtausch), der Gewinn ändert sich nicht mehr
+
+**Beispiel:** Verkauf der Maschine (Buchwert 70) in 01 auf Rechnung zum Preis von 100. Der Kunde zahlt erst in 02.
+
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.01 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.01</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#1a5c8c" fontWeight="bold">Forderung</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">100</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="192" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">JÜ</text>
+  <text x="325" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">30</text>
+
+  {/* GuV 01 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">GuV 01.01.01 – 31.12.01</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#333">div. Aufw.</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="592" y="72" fontSize="14" fill="#1a5c8c" fontWeight="bold">Erlöse</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">100</text>
+  <text x="435" y="100" fontSize="14" fill="#333">JÜ</text>
+  <text x="568" y="100" textAnchor="end" fontSize="14" fill="#333">30</text>
+</svg>
+
+- Buchungssätze in 01:
+  - `Forderung 100 an Umsatzerlöse 100` → der Umsatz ist realisiert, der Ertrag wird **sofort** gebucht, obwohl kein Geld geflossen ist
+  - `div. Aufwendungen 70 an Maschine 70` → die Maschine geht raus, ihr Buchwert wird zum Aufwand
+- Der **gesamte** Gewinn von 30 (100 - 70) entsteht bereits in 01
+
+<svg viewBox="0 0 360 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"360px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.02 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.02</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#1a5c8c" fontWeight="bold">Kasse</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">100</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+</svg>
+
+- Buchungssatz in 02: `Kasse 100 an Forderung 100`
+- Keine GuV-Wirkung in 02, es gibt keinen Jahresüberschuss mehr → erfolgsneutral (reiner Aktivtausch)
+  - Das Kapital ist auf 100 gestiegen, weil der JÜ von 30 aus 01 ins Kapital übernommen wurde
+
+
+Der Zeitpunkt des **Geldeingangs** ist für den Gewinn also irrelevant. Der Ertrag entsteht **bei Realisierung**, der spätere Zahlungseingang ändert nichts mehr am Gewinn.
+
+</details>
+
+<details>
+  <summary>Zukünftige Ausgaben, die auf realisierten Umsätzen lasten, sind als Aufwand im Umsatzzeitpunkt (bis zum Zeitpunkt des Abflusses) zu passivieren</summary>
+
+- Manchmal zieht ein Umsatz noch **zukünftige Ausgaben** nach sich, z.B. eine Gewährleistung oder Garantie für die verkaufte Maschine
+- Diese Ausgabe kommt erst später, gehört aber wirtschaftlich zu dem Umsatz, der **jetzt schon realisiert** wurde
+- Deshalb wird sie sofort als **Aufwand** erfasst und als **Rückstellung passiviert**
+  - Logik: Das ist die Kehrseite der Alimentationsformel. Der Aufwand muss dort stehen, wo der Ertrag steht, den er belastet
+  - Es ist eine Verpflichtung, die dem Grunde nach sicher, aber der Höhe/dem Zeitpunkt nach unsicher ist → deshalb Rückstellung und nicht Verbindlichkeit
+- Fließt das Geld später tatsächlich ab, ist das **erfolgsneutral**: Die Rückstellung wird gegen Kasse aufgelöst, der Gewinn ändert sich nicht mehr
+
+**Beispiel:** Fortsetzung des Verkaufs auf Rechnung. Zusätzlich besteht eine Gewährleistungsverpflichtung, die auf 20 geschätzt wird und in 02 erfüllt werden muss.
+
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.01 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.01</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#333">Forderung</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="192" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">Rückst.</text>
+  <text x="325" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">20</text>
+  <text x="192" y="128" fontSize="14" fill="#1a5c8c" fontWeight="bold">JÜ</text>
+  <text x="325" y="128" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">10</text>
+
+  {/* GuV 01 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">GuV 01.01.01 – 31.12.01</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#333">div. Aufw.</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#333">70</text>
+  <text x="592" y="72" fontSize="14" fill="#333">Erlöse</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="435" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">RSt-Aufw.</text>
+  <text x="568" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">20</text>
+  <text x="435" y="128" fontSize="14" fill="#1a5c8c" fontWeight="bold">JÜ</text>
+  <text x="568" y="128" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">10</text>
+</svg>
+
+- Buchungssätze in 01:
+  - `Forderung 100 an Umsatzerlöse 100` → der Umsatz ist realisiert
+  - `Aufwand 70 an Maschine 70` → der Buchwert der Maschine wird zum Aufwand
+  - `Aufwand 20 an Rückstellung 20` → die **künftige** Gewährleistungsausgabe wird schon jetzt als Aufwand erfasst
+- Der Gewinn in 01 ist dadurch nur noch 10 (100 - 70 - 20), nicht 30
+
+<svg viewBox="0 0 360 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"360px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.02 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.02</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#1a5c8c" fontWeight="bold">Kasse</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">80</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">80</text>
+</svg>
+
+- Buchungssätze in 02:
+  - `Kasse 100 an Forderung 100` → der Kunde zahlt, reiner Aktivtausch
+  - `Rückstellung 20 an Kasse 20` → die Gewährleistung wird erfüllt, die Rückstellung wird aufgelöst
+- Keine GuV-Wirkung in 02, kein Jahresüberschuss mehr → erfolgsneutral
+  - Das Kapital ist auf 80 gestiegen, weil der JÜ von 10 aus 01 ins Kapital übernommen wurde
+
+
+Die **künftige** Ausgabe belastet also schon die Periode, in der der zugehörige Umsatz realisiert wurde. Der spätere Abfluss ändert nichts mehr am Gewinn.
+
+</details>
+
 
 ### 2.2.3 - Imparitätsprinzip
 :::tip
