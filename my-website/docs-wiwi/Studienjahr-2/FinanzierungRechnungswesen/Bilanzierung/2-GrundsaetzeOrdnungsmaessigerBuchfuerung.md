@@ -432,6 +432,145 @@ Die **künftige** Ausgabe belastet also schon die Periode, in der der zugehörig
 
 </details>
 
+<details>
+  <summary>Einnahmen und Ausgaben, die nicht durch Umsätze induziert sind, also nicht zu Ertrag oder Aufwand werden, berühren nur die Bilanz</summary>
+
+- Nicht jede Zahlung hat etwas mit einem **Umsatz** zu tun
+- Typische Fälle ohne Umsatzbezug:
+  - Aufnahme und **Tilgung** eines Kredits
+  - **Einlagen** und **Entnahmen** der Gesellschafter
+  - Kauf eines Vermögensgegenstands gegen Kasse (reiner Aktivtausch)
+- Solche Vorgänge werden **niemals** zu Ertrag oder Aufwand
+- Sie berühren **nur die Bilanz**, die GuV bleibt unangetastet → Gewinn unverändert
+  - Bilanzverlängerung (beide Seiten wachsen), Bilanzverkürzung (beide Seiten schrumpfen) oder reiner Tausch
+- Logik: Ein Kredit ist **kein** Gewinn, sondern nur geliehenes Geld, das zurückgezahlt werden muss
+
+**Beispiel:** Aufnahme eines Kredits über 50 in 01, Tilgung später.
+
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.00 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.00</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#333">Div. Aktiva</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+
+  {/* Bilanz zum 31.12.01 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.01</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#333">Div. Aktiva</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="592" y="72" fontSize="14" fill="#333">Kapital</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="435" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">Bank</text>
+  <text x="568" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">50</text>
+  <text x="592" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">Verb.</text>
+  <text x="725" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">50</text>
+</svg>
+
+- Buchungssatz in 01: `Bank 50 an Verbindlichkeiten 50`
+- **Bilanzverlängerung**: Aktiva und Passiva wachsen beide um 50, Bilanzsumme steigt von 100 auf 150
+- Das Kapital bleibt bei 100, es gibt keinen Jahresüberschuss → **erfolgsneutral**
+- Bei der späteren Tilgung: `Verbindlichkeiten 50 an Bank 50` → **Bilanzverkürzung**, ebenfalls erfolgsneutral
+
+:::warning Zinsen sind etwas anderes
+- **Tilgung** = Rückzahlung des geliehenen Betrags → nur Bilanz, kein Aufwand
+- **Zinsen** = Entgelt für die Kapitalüberlassung → sehr wohl **Aufwand** in der GuV
+:::
+
+
+Die Aufnahme von Fremdkapital berührt also **nicht den Erfolg** der Unternehmung.
+
+</details>
+
+#### Zusammenfassung: Das Realisationsprinzip transformiert Ausgaben und Einnahmen in Aufwendungen und Erträge
+
+- Kernunterscheidung:
+  - **Einnahme / Ausgabe** = Zahlungsgröße, wann das Geld fließt
+  - **Ertrag / Aufwand** = Erfolgsgröße, wann der Gewinn beeinflusst wird
+- Beides fällt **nur zufällig** zusammen
+- Das Realisationsprinzip beantwortet die Frage: **Wann** wird eine Zahlung zur Erfolgsgröße?
+  - Antwort immer: im **Umsatzzeitpunkt** (Gefahrenübergang)
+- Bis dahin wird die Zahlung in der **Bilanz geparkt** (aktiviert oder passiviert)
+- Deshalb ist es ein umfassendes **Ansatz- und Bewertungsprinzip**: Es steuert sowohl, *ob* ein Posten in die Bilanz kommt, als auch, *wann* er in die GuV wandert
+
+<svg viewBox="0 0 760 330" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  <defs>
+    <marker id="arr-rp" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <polygon points="0 0, 9 3.5, 0 7" fill="#333"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="270" rx="4" fill="#f5f5f5"/>
+
+  {/* Beschriftung oberhalb der Zeitachse */}
+  <text x="140" y="58" textAnchor="middle" fontSize="12" fill="#777">Zahlung vorher</text>
+  <text x="380" y="58" textAnchor="middle" fontSize="12" fill="#1a5c8c" fontWeight="bold">Ertrag / Aufwand</text>
+  <text x="620" y="58" textAnchor="middle" fontSize="12" fill="#777">Zahlung später</text>
+
+  {/* Zeitachse */}
+  <line x1="60" y1="105" x2="690" y2="105" stroke="#333" strokeWidth="2" markerEnd="url(#arr-rp)"/>
+  <text x="705" y="110" fontSize="14" fill="#333">Zeit</text>
+  <line x1="140" y1="75" x2="140" y2="135" stroke="#333" strokeWidth="2"/>
+  <line x1="380" y1="75" x2="380" y2="135" stroke="#333" strokeWidth="2"/>
+  <line x1="620" y1="75" x2="620" y2="135" stroke="#333" strokeWidth="2"/>
+
+  {/* Umsatzzeitpunkt (Mitte) */}
+  <text x="380" y="185" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">Umsatz-<tspan x="380" dy="20">zeitpunkt</tspan></text>
+
+  {/* Linke Seite: Zahlung vor dem Umsatz */}
+  <text x="40" y="175" fontSize="15" fill="#333">Anzahlung</text>
+  <line x1="150" y1="170" x2="295" y2="170" stroke="#333" strokeWidth="1.8" markerEnd="url(#arr-rp)"/>
+  <text x="40" y="230" fontSize="15" fill="#333">Anlagenkauf</text>
+  <line x1="150" y1="225" x2="295" y2="225" stroke="#333" strokeWidth="1.8" markerEnd="url(#arr-rp)"/>
+
+  {/* Rechte Seite: Zahlung nach dem Umsatz */}
+  <text x="720" y="175" textAnchor="end" fontSize="15" fill="#333">Forderung</text>
+  <line x1="610" y1="170" x2="465" y2="170" stroke="#333" strokeWidth="1.8" markerEnd="url(#arr-rp)"/>
+  <text x="720" y="230" textAnchor="end" fontSize="15" fill="#333">Garantie</text>
+  <line x1="610" y1="225" x2="465" y2="225" stroke="#333" strokeWidth="1.8" markerEnd="url(#arr-rp)"/>
+
+  {/* Grundsatz-Leiste */}
+  <rect x="0" y="286" width="760" height="44" rx="4" fill="#e8eef5"/>
+  <text x="380" y="313" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#1a5c8c">Grundsatz der Nichtbilanzierung schwebender Geschäfte</text>
+</svg>
+
+**Die vier Fälle im Überblick:**
+
+| Fall | Zahlung | Posten in der Bilanz | GuV-Wirkung |
+|---|---|---|---|
+| **Anzahlung** | Einnahme **vor** dem Umsatz | erhaltene Anzahlung (Passiv) | erst im Umsatzzeitpunkt → Ertrag |
+| **Anlagenkauf** | Ausgabe **vor** dem Umsatz | Maschine (Aktiv) | über die Nutzungsdauer verteilt → Aufwand |
+| **Forderung** | Einnahme **nach** dem Umsatz | Forderung (Aktiv) | sofort im Umsatzzeitpunkt → Ertrag |
+| **Garantie** | Ausgabe **nach** dem Umsatz | Rückstellung (Passiv) | sofort im Umsatzzeitpunkt → Aufwand |
+
+- **Merkregel:**
+  - Zahlung **vor** dem Umsatz → Erfolg wird **aufgeschoben** (Bilanz als Zwischenlager)
+  - Zahlung **nach** dem Umsatz → Erfolg wird **vorgezogen** (Gegenposten in der Bilanz)
+- Nicht umsatzinduzierte Zahlungen (Kredit, Einlage) tauchen in dieser Logik gar nicht auf → sie bleiben dauerhaft in der Bilanz
+
+**Grundsatz der Nichtbilanzierung schwebender Geschäfte**
+
+- **Schwebendes Geschäft** = Vertrag ist geschlossen, aber von **keiner** Seite erfüllt
+- Wird **nicht** bilanziert: weder Forderung noch Verbindlichkeit werden angesetzt
+- Begründung:
+  - Anspruch und Gegenverpflichtung sind **gleichwertig** und heben sich auf
+  - Es ist noch **kein Umsatz realisiert**, also darf auch nichts in der GuV stehen
+- Beispiel: Bestellung einer Maschine für 100, noch nicht geliefert und noch nicht bezahlt → **keine Buchung**
+- Ausnahme: Droht aus dem Geschäft ein **Verlust**, muss eine Drohverlustrückstellung gebildet werden → das folgt aber aus dem **Imparitätsprinzip** (2.2.3), nicht aus dem Realisationsprinzip
+
+
+:::tip Kernaussage
+Zahlungszeitpunkt und Erfolgswirkung sind **entkoppelt**. Die Bilanz ist das Zwischenlager, die GuV zeigt den Erfolg immer erst im Umsatzzeitpunkt.
+:::
+
 
 ### 2.2.3 - Imparitätsprinzip
 :::tip
@@ -439,10 +578,25 @@ Das Realisationsprinzip ist nur von Relevanz, wenn es um **Verluste** geht.
 :::
 
 - Ebenfalls **Folgeprinzip des Vorsichtsprinzips**
-    - Gesetz: es _"sind alle vorhersehbaren Risiken und Verluste, die bis zum Abschlussstichtag entstanden sind, zu berücksichtigen"_ (§252 Abs. 1 Nr. 1 HGB)
+  - Gesetz: es _"sind alle vorhersehbaren Risiken und Verluste, die bis zum Abschlussstichtag entstanden sind, zu berücksichtigen"_ (§252 Abs. 1 Nr. 1 HGB)
 - Ziel: Verhindern von Ausschüttungen und Auszahlungen, die im Verlustfall nicht mehr rückgängig gemacht werden können
-    - Besonders wichtig bei haftungsbeschränkten Unternehmen wie GmbH oder AG, da das Geld nach Ausschüttung i.d.R. nicht wieder zurückzuholen ist
-    
+  - Besonders wichtig bei haftungsbeschränkten Unternehmen wie GmbH oder AG, da das Geld nach Ausschüttung i.d.R. nicht wieder zurückzuholen ist
+  - Wir **rechnen uns arm**
+    - Jahresüberschuss fällt kleiner aus, weniger Ausschüttung
+      - Es verbleibt **mehr Geld im Unternehmen**
+
+:::tip
+Im Folgenden wird die Verlustdeckung mithilfe eines Beispiels beim Kauf von Wertepapieren erläutert.
+:::
+
+#### Beispielsituation - Kauf von Wertpapieren
+- Gegeben ist ein GmbH mit **Eigenkapital 50** und **Fremdkapital 50**
+  - Die GmbH investiert die liquiden Mittel von 100 in Wertpapiere der Benz AG, die sie innerhalb des Geschäftsjahres gewinnbringend für 200 verkauft.
+  - Danach investiert sie im selben Jahr liquide Mittel von 100 in Wertpapiere der FlowTax AG. Zum Bilanzstichtag erfährt die GmbH, dass das Unternehmen, dessen Aktien gekauft wurden, wohl Insolvenz anmelden wird.
+
+> Bild von Bilanz 01.01.01 und Bilanz 31.12.01
+
+### Auswirkungen des Imparitätsprinzips
 
 
 
