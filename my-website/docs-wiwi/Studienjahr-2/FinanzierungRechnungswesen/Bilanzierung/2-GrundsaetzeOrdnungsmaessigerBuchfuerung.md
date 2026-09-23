@@ -594,9 +594,137 @@ Im Folgenden wird die Verlustdeckung mithilfe eines Beispiels beim Kauf von Wert
   - Die GmbH investiert die liquiden Mittel von 100 in Wertpapiere der Benz AG, die sie innerhalb des Geschäftsjahres gewinnbringend für 200 verkauft.
   - Danach investiert sie im selben Jahr liquide Mittel von 100 in Wertpapiere der FlowTax AG. Zum Bilanzstichtag erfährt die GmbH, dass das Unternehmen, dessen Aktien gekauft wurden, wohl Insolvenz anmelden wird.
 
-> Bild von Bilanz 01.01.01 und Bilanz 31.12.01
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
 
-### Auswirkungen des Imparitätsprinzips
+  {/* Bilanz zum 01.01.01 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 01.01.01</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#333">Kasse</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Eigenkapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">50</text>
+  <text x="192" y="100" fontSize="14" fill="#333">Fremdkapital</text>
+  <text x="325" y="100" textAnchor="end" fontSize="14" fill="#333">50</text>
 
+  {/* Bilanz zum 31.12.01 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.01</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#333">Kasse</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="592" y="72" fontSize="14" fill="#333">Eigenkapital</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#333">50</text>
+  <text x="435" y="100" fontSize="14" fill="#1a5c8c" fontWeight="bold">Wertpapier</text>
+  <text x="568" y="100" textAnchor="end" fontSize="14" fill="#1a5c8c" fontWeight="bold">100</text>
+  <text x="592" y="100" fontSize="14" fill="#333">Fremdkapital</text>
+  <text x="725" y="100" textAnchor="end" fontSize="14" fill="#333">50</text>
+  <text x="592" y="128" fontSize="14" fill="#c0392b" fontWeight="bold">???</text>
+  <text x="725" y="128" textAnchor="end" fontSize="14" fill="#c0392b" fontWeight="bold">100</text>
+</svg>
+
+- Aktivseite ist klar: Die Kasse von 100 ist wieder da (200 aus dem Verkauf minus 100 für den Neukauf), dazu das neue Wertpapier mit 100
+- Offene Frage ist die **Passivseite**: Wie werden die 100, um die das Vermögen gewachsen ist, ausgewiesen?
+  - Als **Gewinn**, weil der Verkauf der Benz-Aktien tatsächlich 100 eingebracht hat?
+  - Oder ist der Gewinn durch den drohenden Totalverlust bei FlowTax bereits wieder aufgezehrt?
+- Genau diese Frage beantwortet das **Imparitätsprinzip**
+
+#### Auswirkungen des Imparitätsprinzips
+
+- Der **Gewinn von 100** aus dem Verkauf der ersten Wertpapiere ist **realisiert** (Benz-Aktien wurden tatsächlich verkauft)
+- Der **Totalverlust von 100** bei FlowTax ist zwar noch **nicht realisiert**, aber so gut wie **sicher entstanden**
+- **Imparität** = Ungleichbehandlung: Gewinne erst bei Realisierung, Verluste bereits bei **Entstehung**
+  - deshalb muss das wertlose Wertpapier auf 0 **abgeschrieben** werden
+- In der GuV steht dem Verkaufsgewinn damit ein **Verlust aus der Abschreibung** gegenüber
+  - beides gleicht sich exakt aus → Jahresergebnis von **0**
+- Das Imparitätsprinzip wirkt in Höhe der Abschreibung als **Ausschüttungssperre**
+  - es gibt keinen Gewinn, der ausgeschüttet werden könnte
+  - die Mittel bleiben im Unternehmen und stehen im nächsten Jahr zur **Deckung des Verlustes** zur Verfügung
+
+<svg viewBox="0 0 760 190" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.01 */}
+  <rect x="0" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.01</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#333">Kasse</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Eigenkapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">50</text>
+  <text x="192" y="100" fontSize="14" fill="#333">Fremdkapital</text>
+  <text x="325" y="100" textAnchor="end" fontSize="14" fill="#333">50</text>
+
+  {/* GuV 01 */}
+  <rect x="400" y="0" width="360" height="190" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">GuV 01.01.01 – 31.12.01</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="175" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="13" fill="#c0392b" fontWeight="bold">Abschreibung</text>
+  <text x="568" y="72" textAnchor="end" fontSize="13" fill="#c0392b" fontWeight="bold">100</text>
+  <text x="592" y="72" fontSize="13" fill="#333">Verkaufsgewinn</text>
+  <text x="725" y="72" textAnchor="end" fontSize="13" fill="#333">100</text>
+  <text x="435" y="100" fontSize="13" fill="#1a5c8c" fontWeight="bold">Gewinn/Verlust</text>
+  <text x="568" y="100" textAnchor="end" fontSize="13" fill="#1a5c8c" fontWeight="bold">0</text>
+</svg>
+
+- Buchungssatz: `Abschreibung 100 an Wertpapiere 100`
+- Das Wertpapier ist auf 0 abgeschrieben und taucht in der Bilanz **nicht mehr auf**
+- Ergebnis: Jahresergebnis **0**, Eigenkapital bleibt bei 50, die Kasse von 100 bleibt im Unternehmen
+
+:::danger Was wäre ohne Imparitätsprinzip?
+
+- Der **Gewinn von 100** aus dem Verkauf der ersten Wertpapiere ist realisiert
+- Der **Totalverlust von 100** aus der zweiten Investition ist noch **nicht realisiert**, aber bereits **entstanden**
+- Unter alleiniger Geltung des **Realisationsprinzips** wäre lediglich der Gewinn von 100 zu erfassen
+  - das wertlose Wertpapier stünde weiterhin mit 100 in der Bilanz
+  - der Gewinn von 100 **dürfte ausgeschüttet** werden
+
+<svg viewBox="0 0 760 210" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+
+  {/* Bilanz zum 31.12.01 ohne Imparitätsprinzip */}
+  <rect x="0" y="0" width="360" height="210" rx="4" fill="#f5f5f5"/>
+  <text x="180" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz zum 31.12.01</text>
+  <line x1="25" y1="44" x2="335" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="180" y1="44" x2="180" y2="195" stroke="#333" strokeWidth="2"/>
+  <text x="35" y="72" fontSize="14" fill="#333">Kasse</text>
+  <text x="168" y="72" textAnchor="end" fontSize="14" fill="#333">100</text>
+  <text x="192" y="72" fontSize="14" fill="#333">Eigenkapital</text>
+  <text x="325" y="72" textAnchor="end" fontSize="14" fill="#333">50</text>
+  <text x="35" y="100" fontSize="14" fill="#c0392b" fontWeight="bold">Wertpapier</text>
+  <text x="168" y="100" textAnchor="end" fontSize="14" fill="#c0392b" fontWeight="bold">100</text>
+  <text x="192" y="100" fontSize="14" fill="#333">Fremdkapital</text>
+  <text x="325" y="100" textAnchor="end" fontSize="14" fill="#333">50</text>
+  <text x="192" y="128" fontSize="14" fill="#c0392b" fontWeight="bold">Gewinn</text>
+  <text x="325" y="128" textAnchor="end" fontSize="14" fill="#c0392b" fontWeight="bold">100</text>
+
+  {/* Bilanz nach Ausschüttung */}
+  <rect x="400" y="0" width="360" height="210" rx="4" fill="#f5f5f5"/>
+  <text x="580" y="30" textAnchor="middle" fontSize="15" fontWeight="bold" fill="#333">Bilanz nach Ausschüttung</text>
+  <line x1="425" y1="44" x2="735" y2="44" stroke="#333" strokeWidth="2"/>
+  <line x1="580" y1="44" x2="580" y2="195" stroke="#333" strokeWidth="2"/>
+  <text x="435" y="72" fontSize="14" fill="#c0392b" fontWeight="bold">Wertpapier</text>
+  <text x="568" y="72" textAnchor="end" fontSize="14" fill="#c0392b" fontWeight="bold">100</text>
+  <text x="435" y="90" fontSize="11" fill="#c0392b">(tatsächlicher Wert 0)</text>
+  <text x="592" y="72" fontSize="14" fill="#333">Eigenkapital</text>
+  <text x="725" y="72" textAnchor="end" fontSize="14" fill="#333">50</text>
+  <text x="592" y="100" fontSize="14" fill="#333">Fremdkapital</text>
+  <text x="725" y="100" textAnchor="end" fontSize="14" fill="#333">50</text>
+</svg>
+
+- Links: Der Gewinn von 100 wird ausgewiesen und darf ausgeschüttet werden, obwohl das Wertpapier faktisch wertlos ist
+- Rechts: Nach der Ausschüttung ist die **Kasse leer**, das einzige verbliebene Aktivum ist **wertlos**
+- Der Verlust von 100 schlägt im Folgejahr voll durch und **frisst das gesamte Eigenkapital auf**
+- Die Gläubiger (Fremdkapital 50) haben dann **keine Deckung** mehr
+- Das ausgeschüttete Geld ist bei einer GmbH oder AG in der Regel **nicht zurückzuholen**
+
+:::
+
+:::tip Fazit
+- Das Imparitätsprinzip verhindert, dass ein Unternehmen Gewinne ausschüttet, die durch bereits entstandene, aber noch nicht realisierte Verluste faktisch schon aufgezehrt sind
+- Es dient damit primär dem **Gläubigerschutz**
+:::
 
 
