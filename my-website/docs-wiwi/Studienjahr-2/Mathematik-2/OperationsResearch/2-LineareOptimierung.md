@@ -366,4 +366,106 @@ Es wirkt riskant, bei „kein besserer Nachbar" aufzuhören — könnte nicht ei
 Bei einem **konkaven** (nicht-konvexen) Bereich wäre das anders: Dort könnte man in einer Ecke „gefangen" sein, während hinter einer Einbuchtung ein besserer Wert läge. Genau deshalb ist Eigenschaft ① so wichtig.
 :::
 
+### Basis- und Nichtbasisvariablen
 
+Wie „sitzt" man rechnerisch in einer Ecke? Aus Abschnitt 2.4 wissen wir: An jeder Ecke sind **$(n-m)$ Variablen gleich Null**. Danach teilt man die Variablen in zwei Gruppen:
+
+| Gruppe | Anzahl | Bedeutung |
+|---|:---:|---|
+| **Nichtbasisvariablen (NBV)** | $n - m$ | werden **gleich Null** gesetzt (die freien Parameter) |
+| **Basisvariablen (BV)** | $m$ | ergeben sich dann **eindeutig** aus dem Gleichungssystem |
+
+Diese Begrifflichkeiten werden im Folgenden wichtig, um das Verfahren richtig anwenden zu können.
+
+### Schritt 1 - Normalform aufstellen
+:::note
+Bevor wir mit dem eigentlichen Verfahren des Simplexalgorithmus anfangen können müssen wir die **gegebenen Nebenbedingungen (und Zielfunktion) auf die Voraussetzungen angleichen.**
+:::
+
+#### Voraussetzung 1 - Keine Negativen Variablen
+Die Normalform darf keine negativen Variablen beinhalten. Ausschließlich die Form
+$$
+x_1 \geq 0
+$$
+ist erlaubt.
+
+| Ausgangslage | Ersetzt durch | Erläuterung |
+|---|---|---|
+| $x_1 \leq 0$ | $x_1' \geq 0$ | $x_1' = -1 \cdot x_1$ <br/>Achtung: Damit man die Variable problemlos in die (Un-)Gleichungen einsetzen kann, müssen diese negiert eingesetzt werden (siehe Bsp.) |
+| $x_1$ ist beliebig | $x_1' - x_1''$ mit $x_1',\ x_1'' \geq 0$ | $x_1 = x_1' - x_1''$ <br/>Jede beliebige Zahl kann durch die Differenz zweier positiver(!) Zahlen beschrieben werden. |
+
+:::info Beispiel
+$x_1, x_2 \geq 0$ sind bereits in Ordnung. Interessant sind $x_3 \leq 0$ und $x_4$ beliebig.
+
+Ersetzt wird $x_3 = -x_3'$ und $x_4 = x_4' - x_4''$:
+
+$$
+\underbrace{
+\begin{aligned}
+\max \quad & z = -3x_1 + 4x_2 - 2x_3 + 5x_4 \\
+\text{u. d. N.} \quad & 4x_1 - x_2 + 2x_3 - x_4 = -2 \\
+& x_1 + x_2 + 3x_3 - x_4 \leq 14 \\
+& -2x_1 + 3x_2 - x_3 + 2x_4 \geq 2 \\
+& x_1, x_2 \geq 0;\ x_3 \leq 0;\ x_4 \text{ beliebig}
+\end{aligned}
+}_{\text{Ausgangslage}}
+\qquad\Longrightarrow\qquad
+\underbrace{
+\begin{aligned}
+\max \quad & z = -3x_1 + 4x_2 + 2x_3' + 5x_4' - 5x_4'' \\
+\text{u. d. N.} \quad & 4x_1 - x_2 - 2x_3' - x_4' + x_4'' = -2 \\
+& x_1 + x_2 - 3x_3' - x_4' + x_4'' \leq 14 \\
+& -2x_1 + 3x_2 + x_3' + 2x_4' - 2x_4'' \geq 2 \\
+& x_1,\ x_2,\ x_3',\ x_4',\ x_4'' \geq 0
+\end{aligned}
+}_{\text{Ziel: keine negativen Variablen}}
+$$
+:::
+
+:::tip Anzahl der Variablen
+Aufgrund unserer Umformung hat sich die **Anzahl der Variablen verändert** - Dies ist jedoch nicht weiter schlimm, da der Simplex keine Begrenzung bzgl. Variablen hat.
+:::
+
+#### Voraussetzung 2 - Nur Gleichungen, keine Ungleichungen
+Die Normalform erfordert **ausschließlich Gleichungen** - Ungleichungen sind nicht erlaubt. Um dies zu erreichen kann man folgendermaßen vorgehen:
+1. **Alle Nebenbedingungen, die _noch_ Ungleichungen sind, in einhetliche Form bringen**
+   - Die Seite der Variablen **muss** kleinergleich der Zahl sein!
+   - ✅ $x_1 + 5 x_2 \leq 12$
+2. **Alle verbleibenden Ungleichungen mit Schlupfvariable ausstatten und Gleichheitszeichen einsetzen.**
+   - aus $x_1 + 5 x_2 \leq 12$ wird $x_1 + 5 x_2 + s_1 = 12$
+
+:::info Beispiel (Fortsetzung)
+Wir starten mit dem Ergebnis aus Voraussetzung 1.
+
+**1. Einheitliche Form:** Die erste Nebenbedingung ist bereits eine Gleichung und bleibt unverändert. Die zweite hat schon die Form $\leq$. Nur die dritte ($\geq$) muss umgedreht werden — dazu wird sie mit $-1$ multipliziert, wodurch sich das Ungleichheitszeichen umkehrt:
+
+$$
+-2x_1 + 3x_2 + x_3' + 2x_4' - 2x_4'' \geq 2
+\quad\big|\cdot(-1)\quad\Longrightarrow\quad
+2x_1 - 3x_2 - x_3' - 2x_4' + 2x_4'' \leq -2
+$$
+
+**2. Schlupfvariablen einführen:** Die beiden Ungleichungen erhalten je eine Schlupfvariable $s_1, s_2 \geq 0$:
+
+$$
+\underbrace{
+\begin{aligned}
+\max \quad & z = -3x_1 + 4x_2 + 2x_3' + 5x_4' - 5x_4'' \\
+\text{u. d. N.} \quad & 4x_1 - x_2 - 2x_3' - x_4' + x_4'' = -2 \\
+& x_1 + x_2 - 3x_3' - x_4' + x_4'' \leq 14 \\
+& 2x_1 - 3x_2 - x_3' - 2x_4' + 2x_4'' \leq -2 \\
+& x_1,\ x_2,\ x_3',\ x_4',\ x_4'' \geq 0
+\end{aligned}
+}_{\text{Ausgangslage}}
+\qquad\Longrightarrow\qquad
+\underbrace{
+\begin{aligned}
+\max \quad & z = -3x_1 + 4x_2 + 2x_3' + 5x_4' - 5x_4'' \\
+\text{u. d. N.} \quad & 4x_1 - x_2 - 2x_3' - x_4' + x_4'' = -2 \\
+& x_1 + x_2 - 3x_3' - x_4' + x_4'' + s_1 = 14 \\
+& 2x_1 - 3x_2 - x_3' - 2x_4' + 2x_4'' + s_2 = -2 \\
+& x_1,\ x_2,\ x_3',\ x_4',\ x_4'',\ s_1,\ s_2 \geq 0
+\end{aligned}
+}_{\text{Ziel: nur Gleichungen}}
+$$
+:::
