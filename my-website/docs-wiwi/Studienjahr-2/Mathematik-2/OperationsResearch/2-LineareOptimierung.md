@@ -377,6 +377,7 @@ Wie „sitzt" man rechnerisch in einer Ecke? Aus Abschnitt 2.4 wissen wir: An je
 
 Diese Begrifflichkeiten werden im Folgenden wichtig, um das Verfahren richtig anwenden zu können.
 
+## 2.5 - Simplexalgorithmus tabellarisch anwenden
 ### Schritt 1 - Normalform aufstellen
 :::note
 Bevor wir mit dem eigentlichen Verfahren des Simplexalgorithmus anfangen können müssen wir die **gegebenen Nebenbedingungen (und Zielfunktion) auf die Voraussetzungen angleichen.**
@@ -395,28 +396,28 @@ ist erlaubt.
 | $x_1$ ist beliebig | $x_1' - x_1''$ mit $x_1',\ x_1'' \geq 0$ | $x_1 = x_1' - x_1''$ <br/>Jede beliebige Zahl kann durch die Differenz zweier positiver(!) Zahlen beschrieben werden. |
 
 :::info Beispiel
-$x_1, x_2 \geq 0$ sind bereits in Ordnung. Interessant sind $x_3 \leq 0$ und $x_4$ beliebig.
+$x_1 \geq 0$ ist bereits in Ordnung. Interessant sind $x_2 \leq 0$ und $x_3$ beliebig.
 
-Ersetzt wird $x_3 = -x_3'$ und $x_4 = x_4' - x_4''$:
+Ersetzt wird $x_2 = -x_2'$ und $x_3 = x_3' - x_3''$:
 
 $$
 \underbrace{
 \begin{aligned}
-\max \quad & z = -3x_1 + 4x_2 - 2x_3 + 5x_4 \\
-\text{u. d. N.} \quad & 4x_1 - x_2 + 2x_3 - x_4 = -2 \\
-& x_1 + x_2 + 3x_3 - x_4 \leq 14 \\
-& -2x_1 + 3x_2 - x_3 + 2x_4 \geq 2 \\
-& x_1, x_2 \geq 0;\ x_3 \leq 0;\ x_4 \text{ beliebig}
+\max \quad & z = 4x_1 - 2x_2 + 5x_3 \\
+\text{u. d. N.} \quad & -x_1 + 2x_2 - x_3 = -2 \\
+& x_1 + 3x_2 - x_3 \leq 14 \\
+& 3x_1 - x_2 + 2x_3 \geq 2 \\
+& x_1 \geq 0;\ x_2 \leq 0;\ x_3 \text{ beliebig}
 \end{aligned}
 }_{\text{Ausgangslage}}
 \qquad\Longrightarrow\qquad
 \underbrace{
 \begin{aligned}
-\max \quad & z = -3x_1 + 4x_2 + 2x_3' + 5x_4' - 5x_4'' \\
-\text{u. d. N.} \quad & 4x_1 - x_2 - 2x_3' - x_4' + x_4'' = -2 \\
-& x_1 + x_2 - 3x_3' - x_4' + x_4'' \leq 14 \\
-& -2x_1 + 3x_2 + x_3' + 2x_4' - 2x_4'' \geq 2 \\
-& x_1,\ x_2,\ x_3',\ x_4',\ x_4'' \geq 0
+\max \quad & z = 4x_1 + 2x_2' + 5x_3' - 5x_3'' \\
+\text{u. d. N.} \quad & -x_1 - 2x_2' - x_3' + x_3'' = -2 \\
+& x_1 - 3x_2' - x_3' + x_3'' \leq 14 \\
+& 3x_1 + x_2' + 2x_3' - 2x_3'' \geq 2 \\
+& x_1,\ x_2',\ x_3',\ x_3'' \geq 0
 \end{aligned}
 }_{\text{Ziel: keine negativen Variablen}}
 $$
@@ -440,9 +441,9 @@ Wir starten mit dem Ergebnis aus Voraussetzung 1.
 **1. Einheitliche Form:** Die erste Nebenbedingung ist bereits eine Gleichung und bleibt unverändert. Die zweite hat schon die Form $\leq$. Nur die dritte ($\geq$) muss umgedreht werden — dazu wird sie mit $-1$ multipliziert, wodurch sich das Ungleichheitszeichen umkehrt:
 
 $$
--2x_1 + 3x_2 + x_3' + 2x_4' - 2x_4'' \geq 2
+3x_1 + x_2' + 2x_3' - 2x_3'' \geq 2
 \quad\big|\cdot(-1)\quad\Longrightarrow\quad
-2x_1 - 3x_2 - x_3' - 2x_4' + 2x_4'' \leq -2
+-3x_1 - x_2' - 2x_3' + 2x_3'' \leq -2
 $$
 
 **2. Schlupfvariablen einführen:** Die beiden Ungleichungen erhalten je eine Schlupfvariable $s_1, s_2 \geq 0$:
@@ -450,22 +451,364 @@ $$
 $$
 \underbrace{
 \begin{aligned}
-\max \quad & z = -3x_1 + 4x_2 + 2x_3' + 5x_4' - 5x_4'' \\
-\text{u. d. N.} \quad & 4x_1 - x_2 - 2x_3' - x_4' + x_4'' = -2 \\
-& x_1 + x_2 - 3x_3' - x_4' + x_4'' \leq 14 \\
-& 2x_1 - 3x_2 - x_3' - 2x_4' + 2x_4'' \leq -2 \\
-& x_1,\ x_2,\ x_3',\ x_4',\ x_4'' \geq 0
+\max \quad & z = 4x_1 + 2x_2' + 5x_3' - 5x_3'' \\
+\text{u. d. N.} \quad & -x_1 - 2x_2' - x_3' + x_3'' = -2 \\
+& x_1 - 3x_2' - x_3' + x_3'' \leq 14 \\
+& -3x_1 - x_2' - 2x_3' + 2x_3'' \leq -2 \\
+& x_1,\ x_2',\ x_3',\ x_3'' \geq 0
 \end{aligned}
 }_{\text{Ausgangslage}}
 \qquad\Longrightarrow\qquad
 \underbrace{
 \begin{aligned}
-\max \quad & z = -3x_1 + 4x_2 + 2x_3' + 5x_4' - 5x_4'' \\
-\text{u. d. N.} \quad & 4x_1 - x_2 - 2x_3' - x_4' + x_4'' = -2 \\
-& x_1 + x_2 - 3x_3' - x_4' + x_4'' + s_1 = 14 \\
-& 2x_1 - 3x_2 - x_3' - 2x_4' + 2x_4'' + s_2 = -2 \\
-& x_1,\ x_2,\ x_3',\ x_4',\ x_4'',\ s_1,\ s_2 \geq 0
+\max \quad & z = 4x_1 + 2x_2' + 5x_3' - 5x_3'' \\
+\text{u. d. N.} \quad & -x_1 - 2x_2' - x_3' + x_3'' = -2 \\
+& x_1 - 3x_2' - x_3' + x_3'' + s_1 = 14 \\
+& -3x_1 - x_2' - 2x_3' + 2x_3'' + s_2 = -2 \\
+& x_1,\ x_2',\ x_3',\ x_3'',\ s_1,\ s_2 \geq 0
 \end{aligned}
 }_{\text{Ziel: nur Gleichungen}}
 $$
 :::
+
+Zusammengefasst läuft das Aufstellen der Normalform also immer in derselben Reihenfolge ab:
+
+<svg viewBox="0 0 700 430" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"700px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-nf" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2176AE"/>
+    </marker>
+  </defs>
+  <rect x="110" y="15" width="180" height="36" rx="18" fill="#eef5fb" stroke="#2176AE" strokeWidth="1.5"/>
+  <text x="200" y="38" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#1a5c8c">Ausgangs-LOP</text>
+  <line x1="200" y1="51" x2="200" y2="83" stroke="#2176AE" strokeWidth="1.8" markerEnd="url(#arr-nf)"/>
+  <rect x="40" y="85" width="320" height="60" rx="8" fill="#dbeeff" fillOpacity="0.5" stroke="#2176AE" strokeWidth="2"/>
+  <circle cx="40" cy="115" r="14" fill="#2176AE"/>
+  <text x="40" y="119" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">1</text>
+  <text x="70" y="110" fontSize="13.5" fontWeight="bold" fill="#1a5c8c">Vorzeichen prüfen</text>
+  <text x="70" y="130" fontSize="11" fill="#555">Voraussetzung 1 – keine negativen Variablen</text>
+  <line x1="200" y1="145" x2="200" y2="178" stroke="#2176AE" strokeWidth="1.8" markerEnd="url(#arr-nf)"/>
+  <rect x="40" y="180" width="320" height="60" rx="8" fill="#dbeeff" fillOpacity="0.5" stroke="#2176AE" strokeWidth="2"/>
+  <circle cx="40" cy="210" r="14" fill="#2176AE"/>
+  <text x="40" y="214" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">2</text>
+  <text x="70" y="205" fontSize="13.5" fontWeight="bold" fill="#1a5c8c">Ungleichungen vereinheitlichen</text>
+  <text x="70" y="225" fontSize="11" fill="#555">Voraussetzung 2 – Schritt 1</text>
+  <line x1="200" y1="240" x2="200" y2="273" stroke="#2176AE" strokeWidth="1.8" markerEnd="url(#arr-nf)"/>
+  <rect x="40" y="275" width="320" height="60" rx="8" fill="#dbeeff" fillOpacity="0.5" stroke="#2176AE" strokeWidth="2"/>
+  <circle cx="40" cy="305" r="14" fill="#2176AE"/>
+  <text x="40" y="309" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">3</text>
+  <text x="70" y="300" fontSize="13.5" fontWeight="bold" fill="#1a5c8c">Schlupfvariablen einführen</text>
+  <text x="70" y="320" fontSize="11" fill="#555">Voraussetzung 2 – Schritt 2</text>
+  <line x1="200" y1="335" x2="200" y2="368" stroke="#2176AE" strokeWidth="1.8" markerEnd="url(#arr-nf)"/>
+  <rect x="90" y="370" width="220" height="46" rx="23" fill="#2a9d6e" fillOpacity="0.15" stroke="#2a9d6e" strokeWidth="2"/>
+  <text x="200" y="390" textAnchor="middle" fontSize="13.5" fontWeight="bold" fill="#1a6644">Normalform ✓</text>
+  <text x="200" y="406" textAnchor="middle" fontSize="10.5" fill="#1a6644">nur Gleichungen, alle Variablen ≥ 0</text>
+  <line x1="360" y1="115" x2="400" y2="115" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
+  <rect x="400" y="85" width="290" height="60" rx="6" fill="white" stroke="#ccc" strokeWidth="1"/>
+  <text x="412" y="110" fontSize="11.5" fill="#333">x ≤ 0  →  x = −x′</text>
+  <text x="412" y="130" fontSize="11.5" fill="#333">x beliebig  →  x = x′ − x″</text>
+  <line x1="360" y1="210" x2="400" y2="210" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
+  <rect x="400" y="180" width="290" height="60" rx="6" fill="white" stroke="#ccc" strokeWidth="1"/>
+  <text x="412" y="205" fontSize="11.5" fill="#333">≥-Bedingung  →  mit (−1) multiplizieren</text>
+  <text x="412" y="225" fontSize="11.5" fill="#333">Gleichungen und ≤ bleiben unverändert</text>
+  <line x1="360" y1="305" x2="400" y2="305" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
+  <rect x="400" y="275" width="290" height="60" rx="6" fill="white" stroke="#ccc" strokeWidth="1"/>
+  <text x="412" y="300" fontSize="11.5" fill="#333">… ≤ b  →  … + s = b</text>
+  <text x="412" y="320" fontSize="11.5" fill="#333">je Ungleichung eine neue Variable s ≥ 0</text>
+</svg>
+
+
+### Schritt 2 - Tabellarisch lösen
+:::tip Unterschiedliche Lösungsverfahren
+Neben dem tabellarischen Ansatz gibt es ebenfalls die Möglichkeit, lineare Optimierungsprobleme mittels allgebraischer Umformung zu lösen (siehe _2.6 - Simplexalgorithmus algebraisch lösen_)
+:::
+
+#### Tabelle aufstellen
+
+Als Beispiel dient der Farbenhersteller in Normalform (siehe 2.4).
+
+- Jede **Nebenbedingung** wird eine Zeile, links steht ihre **Basisvariable** (zu Beginn die Schlupfvariablen).
+- Jede **Variable** wird eine Spalte, ganz rechts die rechte Seite **$b$**.
+- Die **Zielfunktion** kommt als letzte Zeile dazu — umgestellt auf $z - 3x_A - 2x_I = 0$. Dadurch **drehen sich die Vorzeichen** um.
+
+<svg viewBox="0 0 680 236" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"680px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <rect x="10" y="10" width="470" height="36" fill="#d5d5d5"/>
+  <rect x="10" y="46" width="60" height="180" fill="#ececec"/>
+  <rect x="10" y="10" width="470" height="216" fill="none" stroke="#333" strokeWidth="2"/>
+  <line x1="420" y1="10" x2="420" y2="226" stroke="#333" strokeWidth="2"/>
+  <line x1="10" y1="190" x2="480" y2="190" stroke="#333" strokeWidth="2"/>
+  <line x1="10" y1="46" x2="480" y2="46" stroke="#333" strokeWidth="1"/>
+  <g fontSize="13" fill="#333" textAnchor="middle" fontWeight="bold">
+    <text x="40" y="33">BV</text>
+    <text x="95" y="33">z</text>
+    <text x="145" y="33">xA</text>
+    <text x="195" y="33">xI</text>
+    <text x="245" y="33">s1</text>
+    <text x="295" y="33">s2</text>
+    <text x="345" y="33">s3</text>
+    <text x="395" y="33">s4</text>
+    <text x="450" y="33">b</text>
+    <text x="40" y="69">s1</text>
+    <text x="40" y="105">s2</text>
+    <text x="40" y="141">s3</text>
+    <text x="40" y="177">s4</text>
+    <text x="40" y="213">z</text>
+  </g>
+  <g fontSize="13" fill="#333" textAnchor="middle">
+    <text x="95" y="69">0</text><text x="145" y="69">1</text><text x="195" y="69">2</text><text x="245" y="69">1</text><text x="295" y="69">0</text><text x="345" y="69">0</text><text x="395" y="69">0</text><text x="450" y="69">6</text>
+    <text x="95" y="105">0</text><text x="145" y="105">2</text><text x="195" y="105">1</text><text x="245" y="105">0</text><text x="295" y="105">1</text><text x="345" y="105">0</text><text x="395" y="105">0</text><text x="450" y="105">8</text>
+    <text x="95" y="141">0</text><text x="145" y="141">−1</text><text x="195" y="141">1</text><text x="245" y="141">0</text><text x="295" y="141">0</text><text x="345" y="141">1</text><text x="395" y="141">0</text><text x="450" y="141">1</text>
+    <text x="95" y="177">0</text><text x="145" y="177">0</text><text x="195" y="177">1</text><text x="245" y="177">0</text><text x="295" y="177">0</text><text x="345" y="177">0</text><text x="395" y="177">1</text><text x="450" y="177">2</text>
+    <text x="95" y="213">1</text><text x="145" y="213">−3</text><text x="195" y="213">−2</text><text x="245" y="213">0</text><text x="295" y="213">0</text><text x="345" y="213">0</text><text x="395" y="213">0</text><text x="450" y="213">0</text>
+  </g>
+  <path d="M 490 50 L 498 50 L 498 186 L 490 186" fill="none" stroke="#555" strokeWidth="1.4"/>
+  <text x="508" y="114" fontSize="12" fontWeight="bold" fill="#1a5c8c">Nebenbedingungen</text>
+  <text x="508" y="130" fontSize="10.5" fill="#555">BV zu Beginn: s1 … s4</text>
+  <text x="508" y="204" fontSize="12" fontWeight="bold" fill="#1a5c8c">Zielfunktion</text>
+  <text x="508" y="220" fontSize="10.5" fill="#555">z − 3xA − 2xI = 0</text>
+</svg>
+
+#### Negativsten Wert der Zielfunktions-Zeile als Pivotspalte übernehmen
+
+Ein negativer Wert in der $z$-Zeile bedeutet: Diese Variable kann $z$ noch **erhöhen**. Man nimmt den **negativsten** — hier $-3$ bei $x_A$ (jede ME Außenfarbe bringt 3 T€). Also wird **$x_A$ die Pivotspalte**.
+
+:::warning
+Kein Negativer Wert -> Abbruchkriterium -> Optimum gefunden
+:::
+
+#### Q berechnen um Pivotzeile zu bestimmen
+
+Für jede Zeile mit positivem Eintrag in der Pivotspalte (**PSK** $> 0$) wird $Q = \dfrac{b}{\text{PSK}}$ gebildet. Das **kleinste $Q$** bestimmt die **Pivotzeile** — es ist der Engpass, der das Wachstum von $x_A$ zuerst stoppt.
+
+- $s_1$: $6 / 1 = 6$
+- $s_2$: $8 / 2 = \mathbf{4}$ ← kleinstes $Q$
+- $s_3$, $s_4$: PSK $\leq 0$ → kein $Q$
+
+<svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"680px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-tab" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="10" y="10" width="550" height="36" fill="#d5d5d5"/>
+  <rect x="10" y="46" width="60" height="180" fill="#ececec"/>
+  <rect x="120" y="46" width="50" height="144" fill="#c0392b" fillOpacity="0.08" stroke="#c0392b" strokeWidth="1.8"/>
+  <rect x="70" y="82" width="410" height="36" fill="#c0392b" fillOpacity="0.08" stroke="#c0392b" strokeWidth="1.8"/>
+  <rect x="120" y="190" width="50" height="36" fill="#2176AE" fillOpacity="0.12" stroke="#2176AE" strokeWidth="1.8"/>
+  <rect x="10" y="10" width="550" height="216" fill="none" stroke="#333" strokeWidth="2"/>
+  <line x1="420" y1="10" x2="420" y2="226" stroke="#333" strokeWidth="2"/>
+  <line x1="480" y1="10" x2="480" y2="226" stroke="#333" strokeWidth="2"/>
+  <line x1="10" y1="190" x2="560" y2="190" stroke="#333" strokeWidth="2"/>
+  <line x1="10" y1="46" x2="560" y2="46" stroke="#333" strokeWidth="1"/>
+  <g fontSize="13" fill="#333" textAnchor="middle" fontWeight="bold">
+    <text x="40" y="33">BV</text>
+    <text x="95" y="33">z</text>
+    <text x="145" y="33">xA</text>
+    <text x="195" y="33">xI</text>
+    <text x="245" y="33">s1</text>
+    <text x="295" y="33">s2</text>
+    <text x="345" y="33">s3</text>
+    <text x="395" y="33">s4</text>
+    <text x="450" y="33">b</text>
+    <text x="520" y="33">Q = b/PSK</text>
+    <text x="40" y="69">s1</text>
+    <text x="40" y="105">s2</text>
+    <text x="40" y="141">s3</text>
+    <text x="40" y="177">s4</text>
+    <text x="40" y="213">z</text>
+  </g>
+  <g fontSize="13" fill="#333" textAnchor="middle">
+    <text x="95" y="69">0</text><text x="145" y="69">1</text><text x="195" y="69">2</text><text x="245" y="69">1</text><text x="295" y="69">0</text><text x="345" y="69">0</text><text x="395" y="69">0</text><text x="450" y="69">6</text><text x="520" y="69">6</text>
+    <text x="95" y="105">0</text><text x="195" y="105">1</text><text x="245" y="105">0</text><text x="295" y="105">1</text><text x="345" y="105">0</text><text x="395" y="105">0</text><text x="450" y="105">8</text>
+    <text x="95" y="141">0</text><text x="145" y="141">−1</text><text x="195" y="141">1</text><text x="245" y="141">0</text><text x="295" y="141">0</text><text x="345" y="141">1</text><text x="395" y="141">0</text><text x="450" y="141">1</text><text x="520" y="141">{"< 0"}</text>
+    <text x="95" y="177">0</text><text x="145" y="177">0</text><text x="195" y="177">1</text><text x="245" y="177">0</text><text x="295" y="177">0</text><text x="345" y="177">0</text><text x="395" y="177">1</text><text x="450" y="177">2</text><text x="520" y="177">—</text>
+    <text x="95" y="213">1</text><text x="195" y="213">−2</text><text x="245" y="213">0</text><text x="295" y="213">0</text><text x="345" y="213">0</text><text x="395" y="213">0</text><text x="450" y="213">0</text><text x="520" y="213">—</text>
+  </g>
+  <circle cx="145" cy="100" r="14" fill="none" stroke="#c0392b" strokeWidth="2"/>
+  <text x="145" y="105" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#c0392b">2</text>
+  <text x="520" y="105" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#c0392b">4</text>
+  <text x="145" y="213" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#2176AE">−3</text>
+  <line x1="660" y1="100" x2="570" y2="100" stroke="#c0392b" strokeWidth="1.6" markerEnd="url(#arr-tab)"/>
+  <text x="615" y="90" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#c0392b">Pivotzeile</text>
+  <text x="615" y="120" textAnchor="middle" fontSize="10.5" fill="#555">kleinstes Q</text>
+  <line x1="145" y1="275" x2="145" y2="236" stroke="#c0392b" strokeWidth="1.6" markerEnd="url(#arr-tab)"/>
+  <text x="155" y="266" fontSize="12" fontWeight="bold" fill="#c0392b">Pivotspalte</text>
+  <text x="155" y="281" fontSize="10.5" fill="#555">negativster Wert in der z-Zeile (−3)</text>
+  <text x="330" y="266" fontSize="12" fontWeight="bold" fill="#c0392b">Pivotelement = 2</text>
+  <text x="330" y="281" fontSize="10.5" fill="#555">Schnitt von Pivotzeile und -spalte</text>
+</svg>
+
+:::note Variablentausch
+Die Variable der **Pivotspalte** wird zur neuen Basisvariable: Sie ersetzt in der BV-Spalte ganz links die Variable der **Pivotzeile** — hier wird $s_2$ durch $x_A$ ersetzt.
+:::
+
+#### Pivotverfahren anwenden
+
+Umgeformt wird mit dem Pivotverfahren aus [1.1 - Lineare Gleichungssysteme - Pivot Verfahren](./1-Einführung.md#11---lineare-gleichungssysteme---pivot-verfahren):
+
+:::tip Pivot-Regel
+$$
+\text{Neue Pivotzeile} = \frac{\text{Alte Pivotzeile}}{\text{Pivotelement}}
+\qquad\qquad
+\text{Neue Zeile} = \text{Alte Zeile} - \text{PSK} \cdot \text{Neue Pivotzeile}
+$$
+Die zweite Formel gilt für **alle übrigen Zeilen — auch die $z$-Zeile**.
+:::
+
+Zum Beispiel die $z$-Zeile (PSK $= -3$), gerechnet über die Spalten $x_A \dots s_4$ und $b$:
+
+$$
+(-3,\ -2,\ 0,\ 0,\ 0,\ 0 \;;\; 0) - (-3) \cdot (1,\ \tfrac{1}{2},\ 0,\ \tfrac{1}{2},\ 0,\ 0 \;;\; 4) = (0,\ -\tfrac{1}{2},\ 0,\ \tfrac{3}{2},\ 0,\ 0 \;;\; 12)
+$$
+
+Nach der ersten Iteration steht in der $z$-Zeile noch $-\tfrac{1}{2}$ → **nicht optimal**. Also dieselben Schritte noch einmal:
+
+<svg viewBox="0 0 680 300" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"680px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-tab2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect x="10" y="10" width="550" height="36" fill="#d5d5d5"/>
+  <rect x="10" y="46" width="60" height="180" fill="#ececec"/>
+  <rect x="10" y="82" width="60" height="36" fill="#2a9d6e" fillOpacity="0.25"/>
+  <rect x="170" y="46" width="50" height="144" fill="#c0392b" fillOpacity="0.08" stroke="#c0392b" strokeWidth="1.8"/>
+  <rect x="70" y="46" width="410" height="36" fill="#c0392b" fillOpacity="0.08" stroke="#c0392b" strokeWidth="1.8"/>
+  <rect x="170" y="190" width="50" height="36" fill="#2176AE" fillOpacity="0.12" stroke="#2176AE" strokeWidth="1.8"/>
+  <rect x="10" y="10" width="550" height="216" fill="none" stroke="#333" strokeWidth="2"/>
+  <line x1="420" y1="10" x2="420" y2="226" stroke="#333" strokeWidth="2"/>
+  <line x1="480" y1="10" x2="480" y2="226" stroke="#333" strokeWidth="2"/>
+  <line x1="10" y1="190" x2="560" y2="190" stroke="#333" strokeWidth="2"/>
+  <line x1="10" y1="46" x2="560" y2="46" stroke="#333" strokeWidth="1"/>
+  <g fontSize="13" fill="#333" textAnchor="middle" fontWeight="bold">
+    <text x="40" y="33">BV</text>
+    <text x="95" y="33">z</text>
+    <text x="145" y="33">xA</text>
+    <text x="195" y="33">xI</text>
+    <text x="245" y="33">s1</text>
+    <text x="295" y="33">s2</text>
+    <text x="345" y="33">s3</text>
+    <text x="395" y="33">s4</text>
+    <text x="450" y="33">b</text>
+    <text x="520" y="33">Q = b/PSK</text>
+    <text x="40" y="69">s1</text>
+    <text x="40" y="105" fill="#1a6644">xA</text>
+    <text x="40" y="141">s3</text>
+    <text x="40" y="177">s4</text>
+    <text x="40" y="213">z</text>
+  </g>
+  <g fontSize="13" fill="#333" textAnchor="middle">
+    <text x="95" y="69">0</text><text x="145" y="69">0</text><text x="245" y="69">1</text><text x="295" y="69">−1/2</text><text x="345" y="69">0</text><text x="395" y="69">0</text><text x="450" y="69">2</text>
+    <text x="95" y="105">0</text><text x="145" y="105">1</text><text x="195" y="105">1/2</text><text x="245" y="105">0</text><text x="295" y="105">1/2</text><text x="345" y="105">0</text><text x="395" y="105">0</text><text x="450" y="105">4</text><text x="520" y="105">8</text>
+    <text x="95" y="141">0</text><text x="145" y="141">0</text><text x="195" y="141">3/2</text><text x="245" y="141">0</text><text x="295" y="141">1/2</text><text x="345" y="141">1</text><text x="395" y="141">0</text><text x="450" y="141">5</text><text x="520" y="141">10/3</text>
+    <text x="95" y="177">0</text><text x="145" y="177">0</text><text x="195" y="177">1</text><text x="245" y="177">0</text><text x="295" y="177">0</text><text x="345" y="177">0</text><text x="395" y="177">1</text><text x="450" y="177">2</text><text x="520" y="177">2</text>
+    <text x="95" y="213">1</text><text x="145" y="213">0</text><text x="245" y="213">0</text><text x="295" y="213">3/2</text><text x="345" y="213">0</text><text x="395" y="213">0</text><text x="450" y="213">12</text><text x="520" y="213">—</text>
+  </g>
+  <circle cx="195" cy="64" r="17" fill="none" stroke="#c0392b" strokeWidth="2"/>
+  <text x="195" y="69" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#c0392b">3/2</text>
+  <text x="520" y="69" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#c0392b">4/3</text>
+  <text x="195" y="213" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#2176AE">−1/2</text>
+  <line x1="660" y1="64" x2="570" y2="64" stroke="#c0392b" strokeWidth="1.6" markerEnd="url(#arr-tab2)"/>
+  <text x="615" y="54" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#c0392b">Pivotzeile</text>
+  <text x="615" y="84" textAnchor="middle" fontSize="10.5" fill="#555">kleinstes Q</text>
+  <line x1="195" y1="275" x2="195" y2="236" stroke="#c0392b" strokeWidth="1.6" markerEnd="url(#arr-tab2)"/>
+  <text x="205" y="266" fontSize="12" fontWeight="bold" fill="#c0392b">Pivotspalte</text>
+  <text x="205" y="281" fontSize="10.5" fill="#555">einziger negativer Wert (−1/2)</text>
+  <text x="400" y="266" fontSize="12" fontWeight="bold" fill="#c0392b">Pivotelement = 3/2</text>
+  <text x="400" y="281" fontSize="10.5" fill="#555">Schnitt von Pivotzeile und -spalte</text>
+</svg>
+
+($x_A$ ist grün markiert — sie wurde in der ersten Iteration gegen $s_2$ getauscht.)
+
+Nach der zweiten Iteration ($x_I$ ersetzt $s_1$) erhält man das **Endtableau**:
+
+<svg viewBox="0 0 680 290" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"680px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-end-b" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2176AE"/>
+    </marker>
+    <marker id="arr-end-g" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2a9d6e"/>
+    </marker>
+  </defs>
+  <rect x="10" y="10" width="470" height="36" fill="#d5d5d5"/>
+  <rect x="10" y="46" width="60" height="180" fill="#ececec"/>
+  <rect x="420" y="46" width="60" height="144" fill="#2176AE" fillOpacity="0.12" stroke="#2176AE" strokeWidth="1.8"/>
+  <rect x="70" y="190" width="410" height="36" fill="#2a9d6e" fillOpacity="0.15" stroke="#2a9d6e" strokeWidth="1.8"/>
+  <rect x="10" y="10" width="470" height="216" fill="none" stroke="#333" strokeWidth="2"/>
+  <line x1="420" y1="10" x2="420" y2="226" stroke="#333" strokeWidth="2"/>
+  <line x1="10" y1="190" x2="480" y2="190" stroke="#333" strokeWidth="2"/>
+  <line x1="10" y1="46" x2="480" y2="46" stroke="#333" strokeWidth="1"/>
+  <g fontSize="13" fill="#333" textAnchor="middle" fontWeight="bold">
+    <text x="40" y="33">BV</text>
+    <text x="95" y="33">z</text>
+    <text x="145" y="33">xA</text>
+    <text x="195" y="33">xI</text>
+    <text x="245" y="33">s1</text>
+    <text x="295" y="33">s2</text>
+    <text x="345" y="33">s3</text>
+    <text x="395" y="33">s4</text>
+    <text x="450" y="33">b</text>
+    <text x="40" y="69">xI</text>
+    <text x="40" y="105">xA</text>
+    <text x="40" y="141">s3</text>
+    <text x="40" y="177">s4</text>
+    <text x="40" y="213">z</text>
+  </g>
+  <g fontSize="13" fill="#333" textAnchor="middle">
+    <text x="95" y="69">0</text><text x="145" y="69">0</text><text x="195" y="69">1</text><text x="245" y="69">2/3</text><text x="295" y="69">−1/3</text><text x="345" y="69">0</text><text x="395" y="69">0</text><text x="450" y="69">4/3</text>
+    <text x="95" y="105">0</text><text x="145" y="105">1</text><text x="195" y="105">0</text><text x="245" y="105">−1/3</text><text x="295" y="105">2/3</text><text x="345" y="105">0</text><text x="395" y="105">0</text><text x="450" y="105">10/3</text>
+    <text x="95" y="141">0</text><text x="145" y="141">0</text><text x="195" y="141">0</text><text x="245" y="141">−1</text><text x="295" y="141">1</text><text x="345" y="141">1</text><text x="395" y="141">0</text><text x="450" y="141">3</text>
+    <text x="95" y="177">0</text><text x="145" y="177">0</text><text x="195" y="177">0</text><text x="245" y="177">−2/3</text><text x="295" y="177">1/3</text><text x="345" y="177">0</text><text x="395" y="177">1</text><text x="450" y="177">2/3</text>
+    <text x="95" y="213">1</text><text x="145" y="213">0</text><text x="195" y="213">0</text><text x="245" y="213">1/3</text><text x="295" y="213">4/3</text><text x="345" y="213">0</text><text x="395" y="213">0</text>
+  </g>
+  <text x="450" y="213" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#1a6644">38/3</text>
+  <line x1="660" y1="118" x2="490" y2="118" stroke="#2176AE" strokeWidth="1.6" markerEnd="url(#arr-end-b)"/>
+  <text x="575" y="108" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#2176AE">Lösung ablesen</text>
+  <text x="575" y="138" textAnchor="middle" fontSize="10.5" fill="#555">Werte der BV stehen in b</text>
+  <line x1="260" y1="270" x2="260" y2="236" stroke="#2a9d6e" strokeWidth="1.6" markerEnd="url(#arr-end-g)"/>
+  <text x="270" y="261" fontSize="12" fontWeight="bold" fill="#1a6644">Optimum erreicht</text>
+  <text x="270" y="276" fontSize="10.5" fill="#555">kein negativer Wert mehr in der z-Zeile</text>
+</svg>
+
+Ablesen: $x_A = \tfrac{10}{3}$, $x_I = \tfrac{4}{3}$, $z = \tfrac{38}{3} \approx 12{,}67$ T€ — dasselbe Ergebnis wie bei der grafischen Lösung. Nichtbasisvariablen ($s_1, s_2$) sind $0$: Beide Rohstoffe sind voll ausgelastet.
+
+#### Zusammenfassung des Schritteablaufs
+<svg viewBox="0 0 700 390" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"700px",display:"block",margin:"0.5rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-sx" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+  <rect x="250" y="12" width="200" height="34" rx="17" fill="#f0f4f8" stroke="#888" strokeWidth="1.5"/>
+  <text x="350" y="34" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#333">Starttableau aufstellen</text>
+  <line x1="350" y1="46" x2="350" y2="65" stroke="#666" strokeWidth="1.5" markerEnd="url(#arr-sx)"/>
+  <polygon points="350,66 470,96 350,126 230,96" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="350" y="92" textAnchor="middle" fontSize="11" fill="#1a5c8c">Negativer Wert</text>
+  <text x="350" y="106" textAnchor="middle" fontSize="11" fill="#1a5c8c">in der z-Zeile?</text>
+  <path d="M 230 96 L 110 96 L 110 153" stroke="#666" strokeWidth="1.5" fill="none" markerEnd="url(#arr-sx)"/>
+  <text x="170" y="89" textAnchor="middle" fontSize="10" fill="#555" fontStyle="italic">NEIN</text>
+  <rect x="40" y="153" width="140" height="46" rx="5" fill="#27ae60" stroke="#1e8449" strokeWidth="1.5"/>
+  <text x="110" y="172" textAnchor="middle" fontSize="11" fontWeight="bold" fill="white">Optimum erreicht</text>
+  <text x="110" y="188" textAnchor="middle" fontSize="10.5" fontWeight="bold" fill="white">Werte ablesen</text>
+  <line x1="350" y1="126" x2="350" y2="151" stroke="#666" strokeWidth="1.5" markerEnd="url(#arr-sx)"/>
+  <text x="358" y="142" textAnchor="start" fontSize="10" fill="#555" fontStyle="italic">JA</text>
+  <rect x="230" y="152" width="240" height="40" rx="5" fill="#f0f4f8" stroke="#888" strokeWidth="1.5"/>
+  <text x="350" y="168" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Pivotspalte wählen</text>
+  <text x="350" y="184" textAnchor="middle" fontSize="10" fill="#555">negativster Wert der z-Zeile</text>
+  <line x1="350" y1="192" x2="350" y2="211" stroke="#666" strokeWidth="1.5" markerEnd="url(#arr-sx)"/>
+  <rect x="230" y="212" width="240" height="40" rx="5" fill="#f0f4f8" stroke="#888" strokeWidth="1.5"/>
+  <text x="350" y="228" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Q berechnen</text>
+  <text x="350" y="244" textAnchor="middle" fontSize="10" fill="#555">{"Q = b / PSK (nur für PSK > 0)"}</text>
+  <line x1="350" y1="252" x2="350" y2="271" stroke="#666" strokeWidth="1.5" markerEnd="url(#arr-sx)"/>
+  <rect x="230" y="272" width="240" height="40" rx="5" fill="#f0f4f8" stroke="#888" strokeWidth="1.5"/>
+  <text x="350" y="288" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Pivotzeile wählen</text>
+  <text x="350" y="304" textAnchor="middle" fontSize="10" fill="#555">kleinstes Q (≥ 0)</text>
+  <line x1="350" y1="312" x2="350" y2="331" stroke="#666" strokeWidth="1.5" markerEnd="url(#arr-sx)"/>
+  <rect x="230" y="332" width="240" height="40" rx="5" fill="#f0f4f8" stroke="#888" strokeWidth="1.5"/>
+  <text x="350" y="348" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Pivotverfahren anwenden</text>
+  <text x="350" y="364" textAnchor="middle" fontSize="10" fill="#555">BV tauschen, Tableau umformen</text>
+  <path d="M 470 352 L 560 352 L 560 96 L 472 96" stroke="#666" strokeWidth="1.5" fill="none" markerEnd="url(#arr-sx)"/>
+  <text x="568" y="220" textAnchor="start" fontSize="10" fill="#555" fontStyle="italic">nächste</text>
+  <text x="568" y="234" textAnchor="start" fontSize="10" fill="#555" fontStyle="italic">Iteration</text>
+</svg>
