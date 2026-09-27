@@ -347,7 +347,7 @@ $$
 :::tip Gewinn = Abstand zwischen U und K
 Zeichnet man Erlös $U$ und Kosten $K$ in ein Diagramm, ist der Gewinn bei jeder Menge einfach der **senkrechte Abstand** zwischen den beiden Kurven ($U - K$). Gesucht ist die Menge, bei der dieser Abstand **am größten** ist.
 
-<svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"520px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+<svg viewBox="0 0 775 300" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"775px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
   <defs>
     <marker id="arr-gw" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
       <polygon points="0 0, 8 3, 0 6" fill="#333"/>
@@ -355,22 +355,51 @@ Zeichnet man Erlös $U$ und Kosten $K$ in ein Diagramm, ist der Gewinn bei jeder
     <marker id="arr-gw-g" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto-start-reverse">
       <polygon points="0 0, 7 2.5, 0 5" fill="#1a6644"/>
     </marker>
+    <marker id="arr-gw-r" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto-start-reverse">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#c0392b"/>
+    </marker>
   </defs>
-  <line x1="60" y1="280" x2="490" y2="280" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-gw)"/>
-  <line x1="60" y1="280" x2="60" y2="20" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-gw)"/>
-  <text x="70" y="30" fontSize="13" fill="#333">U, K</text>
-  <text x="492" y="298" textAnchor="middle" fontSize="13" fill="#333">q<tspan dy="4" fontSize="10">x</tspan></text>
-  <line x1="60" y1="280" x2="450" y2="46" stroke="#2176AE" strokeWidth="2.2"/>
-  <text x="456" y="50" fontSize="13" fontWeight="bold" fill="#2176AE">U</text>
-  <path d="M 60 220 C 140 175, 240 180, 320 160 C 380 145, 410 110, 440 40" fill="none" stroke="#c0392b" strokeWidth="2.2"/>
-  <text x="432" y="44" textAnchor="end" fontSize="13" fontWeight="bold" fill="#c0392b">K</text>
-  <line x1="300" y1="180" x2="420" y2="108" stroke="#c0392b" strokeWidth="1.2" strokeDasharray="5,4"/>
-  <text x="426" y="112" fontSize="10.5" fontStyle="italic" fill="#555">parallel zu U</text>
-  <line x1="363" y1="142" x2="363" y2="280" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
-  <text x="363" y="297" textAnchor="middle" fontSize="12" fill="#333">q*</text>
-  <line x1="363" y1="104" x2="363" y2="136" stroke="#1a6644" strokeWidth="1.8" markerStart="url(#arr-gw-g)" markerEnd="url(#arr-gw-g)"/>
-  <text x="371" y="124" fontSize="12" fontWeight="bold" fill="#1a6644">G max.</text>
+
+  {/* Links: Gesamtgrößen */}
+  <text x="188" y="18" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">Gesamtgrößen: U und K</text>
+  <line x1="50" y1="260" x2="345" y2="260" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-gw)"/>
+  <line x1="50" y1="260" x2="50" y2="30" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-gw)"/>
+  <text x="58" y="40" fontSize="12" fill="#333">U, K</text>
+  <text x="348" y="276" fontSize="12" fill="#333">q<tspan dy="4" fontSize="9">x</tspan></text>
+  <line x1="50" y1="260" x2="314" y2="62" stroke="#2176AE" strokeWidth="2.2"/>
+  <path d="M 50 245 C 138 135, 226 218.6, 314 69.9" fill="none" stroke="#c0392b" strokeWidth="2.2"/>
+  <text x="320" y="60" fontSize="13" fontWeight="bold" fill="#2176AE">U</text>
+  <text x="320" y="80" fontSize="13" fontWeight="bold" fill="#c0392b">K</text>
+  <line x1="85" y1="234" x2="85" y2="260" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
+  <line x1="85" y1="213" x2="85" y2="231" stroke="#c0392b" strokeWidth="1.6" markerStart="url(#arr-gw-r)" markerEnd="url(#arr-gw-r)"/>
+  <line x1="255" y1="140" x2="255" y2="260" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
+  <line x1="255" y1="109" x2="255" y2="137" stroke="#1a6644" strokeWidth="1.8" markerStart="url(#arr-gw-g)" markerEnd="url(#arr-gw-g)"/>
+  <text x="85" y="276" textAnchor="middle" fontSize="12" fill="#333">q<tspan dy="3" fontSize="9">1</tspan></text>
+  <text x="85" y="291" textAnchor="middle" fontSize="10.5" fontWeight="bold" fill="#c0392b">G min</text>
+  <text x="255" y="276" textAnchor="middle" fontSize="12" fill="#333">q*</text>
+  <text x="255" y="291" textAnchor="middle" fontSize="10.5" fontWeight="bold" fill="#1a6644">G max</text>
+
+  {/* Rechts: Ableitungen */}
+  <text x="578" y="18" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">Ableitungen: U′ und K′</text>
+  <line x1="440" y1="260" x2="735" y2="260" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-gw)"/>
+  <line x1="440" y1="260" x2="440" y2="30" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-gw)"/>
+  <text x="448" y="40" fontSize="12" fill="#333">U′, K′</text>
+  <text x="738" y="276" fontSize="12" fill="#333">q<tspan dy="4" fontSize="9">x</tspan></text>
+  <line x1="440" y1="179" x2="716" y2="179" stroke="#2176AE" strokeWidth="2.2"/>
+  <path d="M 440 125 Q 578 373.4 716 50.5" fill="none" stroke="#c0392b" strokeWidth="2.2"/>
+  <text x="722" y="183" fontSize="12" fontWeight="bold" fill="#2176AE">U′ = p</text>
+  <text x="722" y="54" fontSize="13" fontWeight="bold" fill="#c0392b">K′</text>
+  <line x1="475" y1="179" x2="475" y2="260" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
+  <line x1="645" y1="179" x2="645" y2="260" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
+  <circle cx="475" cy="179" r="4.5" fill="#c0392b"/>
+  <circle cx="645" cy="179" r="4.5" fill="#1a6644"/>
+  <text x="475" y="276" textAnchor="middle" fontSize="12" fill="#333">q<tspan dy="3" fontSize="9">1</tspan></text>
+  <text x="475" y="291" textAnchor="middle" fontSize="10.5" fontWeight="bold" fill="#c0392b">K′ fällt</text>
+  <text x="645" y="276" textAnchor="middle" fontSize="12" fill="#333">q*</text>
+  <text x="645" y="291" textAnchor="middle" fontSize="10.5" fontWeight="bold" fill="#1a6644">K′ steigt</text>
 </svg>
+
+Links sieht man den Abstand, rechts die Steigungen: $U' = K'$ gilt bei $q_1$ **und** $q^*$ – maximal ist der Gewinn aber nur bei $q^*$, wo $K'$ steigt.
 
 Die **Steigung** einer Kurve sagt, um wie viel sie wächst, wenn man ein Stück mehr produziert:
 - Steigung von $U$ = was das nächste Stück zusätzlich **einbringt** (bei vollkommener Konkurrenz = Preis)
@@ -383,7 +412,11 @@ Daraus folgt:
 :::
 
 :::warning U′ = K′ allein reicht nicht
-Da $K'$ U-förmig ist, kann $U' = K'$ **zweimal** gelten. Ein Gewinnmaximum liegt nur vor, wenn $K'$ dort **steigt** (sonst ist es das Gewinnminimum). Ob sich die Produktion überhaupt lohnt, entscheidet zusätzlich die Preisuntergrenze (siehe 4.3.4).
+Da $K'$ U-förmig ist, kann $U' = K'$ **zweimal** gelten. Ein Gewinnmaximum liegt nur vor, wenn $K'$ dort **steigt** (sonst ist es das Gewinnminimum).
+
+Prüfen lässt sich das mit der **zweiten Ableitung des Gewinns**: Ist $G''(q) < 0$, liegt ein **Maximum** vor (bei $G''(q) > 0$ ein Minimum).
+
+Ob sich die Produktion überhaupt lohnt, entscheidet zusätzlich die Preisuntergrenze (siehe 4.3.4).
 :::
 
 
