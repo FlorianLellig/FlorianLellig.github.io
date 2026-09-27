@@ -148,6 +148,7 @@ Die S-Form entsteht nur, weil **ein Faktor erhöht wird, während die anderen fi
 ## 4.3 - Kostenfunktion
 >Beantwortet die Frage: _Wie kann ausgehend von den Produktionsgegebenheiten möglichst kostengünstig produziert werden?_
 
+### 4.3.1 - Grundlagen
 - Die Produktionsfunktion ist der **Ausgangspunkt** für die Kostenfunktion:
 $$
 K = f(q_x)
@@ -180,7 +181,6 @@ $$
 | 8 | 1 | 12 | 0 | 10 | 40 | 50 |
 
 Die Spalte **Zusatzoutput** (= Grenzertrag) ist ergänzt: Hier sieht man die S-Kurve aus 4.2.2 wieder – erst steigend (+1, +2, +3), dann fallend, am Ende $0$.
-:::
 
 <svg viewBox="0 0 580 340" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"580px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
   <defs>
@@ -243,8 +243,9 @@ Die Spalte **Zusatzoutput** (= Grenzertrag) ist ergänzt: Hier sieht man die S-K
 </svg>
 
 - Zu Beginn kostet jeder zusätzliche Papierflieger **wenig** (Arbeit ist sehr produktiv), am Ende **viel** – die 8. Arbeitskraft kostet 5 €, bringt aber keinen einzigen Flieger mehr
+:::
 
-**Verlauf der Kostenfunktion**
+### 4.3.2 - Verlauf der Kostenfunktion
 - **Proportionale Faktorvariation** (spielt nur bei sehr langfristiger Betrachtung eine Rolle)
   - Im einfachsten Fall **linearer** Kostenverlauf
   - Ausgehend von der Minimalkostenkombination: doppelter Output → doppelte Einsatzmengen der Produktionsfaktoren → **doppelte Kosten**
@@ -258,8 +259,131 @@ Die Spalte **Zusatzoutput** (= Grenzertrag) ist ergänzt: Hier sieht man die S-K
 Exakte Kostenfunktionen liegen in der Praxis selten vor. Mit **Erfahrungswerten** aus der Vergangenheit und **ingenieurwissenschaftlichen Schätzungen** lassen sich die Kostenverläufe aber in aller Regel gut approximieren.
 :::
 
+### 4.3.3 - Wichtige Kostenbegriffe
 
+| **Bezeichnung** | **Formel** | **Erläuterung** |
+|---|---|---|
+| Grenzkosten | $\begin{gathered} K' = \dfrac{\Delta K}{\Delta q_x} \\[4pt] \text{bzw. } K' = \dfrac{dK}{dq_x} \end{gathered}$ | Grenzkosten sind die Kosten, die für eine zusätzliche Outputeinheit anfallen (_Steigung_ von $K$) |
+| fixe Kosten | $K_f$ | Kosten, die unabhängig sind von der produzierten Menge (z.B. Miete) |
+| variable Kosten | $K_v$ | Kosten, die abhängig sind von der produzierten Menge (z.B. Materialkosten) |
+| Stückkosten | $k = \frac{K}{q_x}$ | Das Minimum der Stückkosten ist das Betriebsoptimum und bestimmt somit auch die langfristige Preisuntergrenze (Erläuterung siehe 4.3.4) |
+| fixe Stückkosten | $k_f = \frac{K_f}{q_x}$ | Die fixen Stückkosten fallen mit zunehmendem Output: _Fixkostendegression_ (Je mehr Output, desto mehr teilt sich die Miete auf) |
+| variable Stückkosten | $k_v = \frac{K_v}{q_x}$ | Das Minimum der variablen Stückkosten ist das Betriebsminimum und bestimmt somit auch die kurzfristige Preisuntergrenze (Erläuterung siehe 4.3.4) |
+
+### 4.3.4 - Kurz-/Langfristige Preisuntergrenze
+
+| | **Langfristige Preisuntergrenze** | **Kurzfristige Preisuntergrenze** |
+|---|---|---|
+| **Bedeutung** | Preis pro Stück, der _langfristig_ nicht unterschritten werden darf | Preis, ab dem es noch Sinn macht zu produzieren, obwohl nicht alle Kosten gedeckt sind |
+| **Liegt bei** | Minimum der Stückkosten $k$ → **Betriebsoptimum** (E) | Minimum der variablen Stückkosten $k_v$ → **Betriebsminimum** (D) |
+| **Gedeckt werden** | alle Stückkosten $k$ (100 %) | nur die variablen Stückkosten $k_v$ – aber jeder Euro darüber hilft, die Fixkosten zu decken |
+
+<svg viewBox="0 0 610 400" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"610px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-pug" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+    <marker id="arr-pug-grey" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#555"/>
+    </marker>
+  </defs>
+  <g transform="translate(40,0)">
+    <line x1="70" y1="360" x2="560" y2="360" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-pug)"/>
+    <line x1="70" y1="360" x2="70" y2="30" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-pug)"/>
+    <text x="80" y="40" fontSize="13" fill="#333">K′, k, k<tspan dy="4" fontSize="10">v</tspan></text>
+    <text x="560" y="380" fontSize="13" fill="#333">q<tspan dy="4" fontSize="10">x</tspan></text>
+    <line x1="70" y1="170" x2="410" y2="170" stroke="#999" strokeWidth="1.2" strokeDasharray="5,4"/>
+    <line x1="70" y1="235" x2="330" y2="235" stroke="#999" strokeWidth="1.2" strokeDasharray="5,4"/>
+    <text x="62" y="174" textAnchor="end" fontSize="10.5" fontWeight="bold" fill="#2176AE">langfr. PUG</text>
+    <text x="62" y="239" textAnchor="end" fontSize="10.5" fontWeight="bold" fill="#2a9d6e">kurzfr. PUG</text>
+    <path d="M 200 90 C 250 150, 330 170, 410 170 C 460 170, 500 150, 540 125" fill="none" stroke="#2176AE" strokeWidth="2.2"/>
+    <path d="M 190 165 C 240 205, 280 235, 330 235 C 380 235, 440 200, 510 160" fill="none" stroke="#2a9d6e" strokeWidth="2.2"/>
+    <path d="M 150 170 C 175 260, 210 290, 250 290 C 285 290, 310 262, 330 235 C 350 208, 385 200, 410 170 C 430 146, 445 90, 455 40" fill="none" stroke="#c0392b" strokeWidth="2.2"/>
+    <text x="462" y="44" fontSize="13" fontWeight="bold" fill="#c0392b">K′</text>
+    <text x="546" y="128" fontSize="13" fontWeight="bold" fill="#2176AE">k</text>
+    <text x="516" y="163" fontSize="13" fontWeight="bold" fill="#2a9d6e">k<tspan dy="4" fontSize="10">v</tspan></text>
+    <circle cx="250" cy="290" r="4.5" fill="#333"/>
+    <circle cx="330" cy="235" r="4.5" fill="#333"/>
+    <circle cx="410" cy="170" r="4.5" fill="#333"/>
+    <text x="238" y="282" textAnchor="end" fontSize="12" fontWeight="bold" fill="#333">C</text>
+    <text x="322" y="224" textAnchor="end" fontSize="12" fontWeight="bold" fill="#333">D</text>
+    <text x="402" y="159" textAnchor="end" fontSize="12" fontWeight="bold" fill="#333">E</text>
+    <line x1="350" y1="306" x2="333" y2="245" stroke="#555" strokeWidth="1.4" markerEnd="url(#arr-pug-grey)"/>
+    <text x="360" y="320" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Betriebsminimum</text>
+    <text x="360" y="335" textAnchor="middle" fontSize="10.5" fill="#555">nur variable Kosten gedeckt</text>
+    <line x1="460" y1="238" x2="416" y2="179" stroke="#555" strokeWidth="1.4" markerEnd="url(#arr-pug-grey)"/>
+    <text x="475" y="254" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Betriebsoptimum</text>
+    <text x="475" y="269" textAnchor="middle" fontSize="10.5" fill="#555">alle Kosten gedeckt</text>
+  </g>
+</svg>
+
+- Die Grenzkosten $K'$ schneiden $k_v$ und $k$ jeweils **in deren Minimum** (D bzw. E). Punkt C ist das Minimum der Grenzkosten selbst.
+- **Preis über E:** Gewinn
+- **Preis zwischen D und E:** Verlust – trotzdem weiter produzieren, da die Fixkosten ohnehin anfallen und so zumindest teilweise gedeckt werden
+- **Preis unter D:** Produktion einstellen, da nicht einmal die variablen Kosten gedeckt sind
 
 ## 4.4 - Erlös- und Gewinnanalyse
+>Beantwortet die Frage: _Welche Menge soll zu welchem Preis angeboten werden, um das Unternehmensziel (i.d.R. Gewinnmaximierung) zu erreichen?_
+
+:::warning Kostenminimierung ungleich Gewinnmaximierung
+- Aus der Kostenfunktion (Kapitel 4.3) ist bereits **Betriebsoptimum** bekannt
+  - Punkt, in dem die Stückkosten am niedrigsten sind
+- **I.d.R. ist es nicht das Ziel, das Betriebsoptimum zu erreichen**
+  - Das Ziel ist der größte Gewinn, und der liegt meist wo anders
+
+$$
+\begin{aligned}
+\text{Gewinn} &= \text{Erlös} - \text{Kosten} \\
+G(q) &= U(q) - K(q)
+\end{aligned}
+$$
+:::
+
+- Solange ein **zusätzliches Stück mehr einbringt, als es Kostet** (Steigung von Erlös $U$ größer als Steigung der Kosten $K$) **steigt der Gewinn**
+  - Weiterproduktion macht Sinn
+- Sobald ein **zusätzliches Stück mehr kostet, als es einbringt** (Steigung von Erlös $U$ kleiner als Steigung der Kosten $K$)
+- Der Beste Punkt ist also dort, wo sich beides Ausgleicht: die **Steigung von Erlös $U$ ist gleich der Steigung der Kosten $K$**
+
+:::tip Gewinn = Abstand zwischen U und K
+Zeichnet man Erlös $U$ und Kosten $K$ in ein Diagramm, ist der Gewinn bei jeder Menge einfach der **senkrechte Abstand** zwischen den beiden Kurven ($U - K$). Gesucht ist die Menge, bei der dieser Abstand **am größten** ist.
+
+<svg viewBox="0 0 520 310" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"520px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-gw" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+    <marker id="arr-gw-g" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto-start-reverse">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#1a6644"/>
+    </marker>
+  </defs>
+  <line x1="60" y1="280" x2="490" y2="280" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-gw)"/>
+  <line x1="60" y1="280" x2="60" y2="20" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-gw)"/>
+  <text x="70" y="30" fontSize="13" fill="#333">U, K</text>
+  <text x="492" y="298" textAnchor="middle" fontSize="13" fill="#333">q<tspan dy="4" fontSize="10">x</tspan></text>
+  <line x1="60" y1="280" x2="450" y2="46" stroke="#2176AE" strokeWidth="2.2"/>
+  <text x="456" y="50" fontSize="13" fontWeight="bold" fill="#2176AE">U</text>
+  <path d="M 60 220 C 140 175, 240 180, 320 160 C 380 145, 410 110, 440 40" fill="none" stroke="#c0392b" strokeWidth="2.2"/>
+  <text x="432" y="44" textAnchor="end" fontSize="13" fontWeight="bold" fill="#c0392b">K</text>
+  <line x1="300" y1="180" x2="420" y2="108" stroke="#c0392b" strokeWidth="1.2" strokeDasharray="5,4"/>
+  <text x="426" y="112" fontSize="10.5" fontStyle="italic" fill="#555">parallel zu U</text>
+  <line x1="363" y1="142" x2="363" y2="280" stroke="#999" strokeWidth="1.2" strokeDasharray="4,3"/>
+  <text x="363" y="297" textAnchor="middle" fontSize="12" fill="#333">q*</text>
+  <line x1="363" y1="104" x2="363" y2="136" stroke="#1a6644" strokeWidth="1.8" markerStart="url(#arr-gw-g)" markerEnd="url(#arr-gw-g)"/>
+  <text x="371" y="124" fontSize="12" fontWeight="bold" fill="#1a6644">G max.</text>
+</svg>
+
+Die **Steigung** einer Kurve sagt, um wie viel sie wächst, wenn man ein Stück mehr produziert:
+- Steigung von $U$ = was das nächste Stück zusätzlich **einbringt** (bei vollkommener Konkurrenz = Preis)
+- Steigung von $K$ = was das nächste Stück zusätzlich **kostet** (Grenzkosten)
+
+Daraus folgt:
+- **$U$ steigt steiler als $K$:** Der Abstand wird größer → mehr produzieren lohnt sich
+- **$K$ steigt steiler als $U$:** Der Abstand wird kleiner → mehr produzieren schadet
+- **Beide gleich steil:** Der Abstand wächst nicht mehr, schrumpft aber auch noch nicht → genau hier ist er **am größten** ($q^*$)
+:::
+
+:::warning U′ = K′ allein reicht nicht
+Da $K'$ U-förmig ist, kann $U' = K'$ **zweimal** gelten. Ein Gewinnmaximum liegt nur vor, wenn $K'$ dort **steigt** (sonst ist es das Gewinnminimum). Ob sich die Produktion überhaupt lohnt, entscheidet zusätzlich die Preisuntergrenze (siehe 4.3.4).
+:::
 
 
