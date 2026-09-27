@@ -322,6 +322,33 @@ Exakte Kostenfunktionen liegen in der Praxis selten vor. Mit **Erfahrungswerten*
 - **Preis zwischen D und E:** Verlust – trotzdem weiter produzieren, da die Fixkosten ohnehin anfallen und so zumindest teilweise gedeckt werden
 - **Preis unter D:** Produktion einstellen, da nicht einmal die variablen Kosten gedeckt sind
 
+### 4.3.5 - Exkurs: Lineare Kostenfunktion
+- Bisher: S-förmige Produktionsfunktion → jedes weitere Stück wird **teurer**
+- Jetzt der Gegenfall: **Jedes Stück kostet gleich viel**
+  - Passt zur proportionalen Faktorvariation (4.2.1): man vervielfacht einfach alles
+  - In der Praxis gar nicht so selten, z.B. Massenfertigung am Fließband
+
+$$
+K(q) = K_f + c \cdot q
+$$
+
+- $K_f$ = Fixkosten
+- $c$ = variable Kosten pro Stück (immer gleich)
+
+Daraus folgt:
+
+| Größe | Formel | Bedeutung |
+|---|---|---|
+| Grenzkosten | $K' = c$ | Jedes weitere Stück kostet $c$ |
+| variable Stückkosten | $k_v = \frac{K_v}{q} = c$ | Durchschnitt = jedes einzelne Stück, weil alle gleich teuer sind |
+| Stückkosten | $k = \frac{K_f}{q} + c$ | Sinkt immer weiter (Fixkostendegression) |
+
+:::tip Was bedeutet das?
+- **Variable Stückkosten = Grenzkosten:** Wenn jedes Stück gleich viel kostet, ist das nächste Stück genau so teuer wie der Durchschnitt.
+- **Das Minimum von $k$ liegt ganz rechts** (an der Kapazitätsgrenze): Die Fixkosten verteilen sich auf immer mehr Stücke, und nichts wirkt dagegen – es gibt kein steigendes $K'$ wie bei der S-Kurve.
+:::
+
+
 ## 4.4 - Erlös- und Gewinnanalyse
 >Beantwortet die Frage: _Welche Menge soll zu welchem Preis angeboten werden, um das Unternehmensziel (i.d.R. Gewinnmaximierung) zu erreichen?_
 
@@ -419,4 +446,282 @@ Prüfen lässt sich das mit der **zweiten Ableitung des Gewinns**: Ist $G''(q) <
 Ob sich die Produktion überhaupt lohnt, entscheidet zusätzlich die Preisuntergrenze (siehe 4.3.4).
 :::
 
+### 4.4.1 - Vollkommene Konkurrenz: Preis = Grenzkosten
+- Bei vollkommener Konkurrenz: sehr viele kleine Anbieter
+  -  Keiner kann den Preis beeinflussen
+- Beispiel:
+  - Ein einzelner Weizenbauer kann nicht sagen „mein Weizen kostet jetzt mehr“, dann kauft einfach niemand bei ihm. Er ist Preisnehmer: Er nimmt den Marktpreis als gegeben und entscheidet nur über seine Menge.
+- Das bedeutet: **Jedes zusätzliche Stück bringt genau den Marktpreis ein**
+  - $U(q) = p \cdot q$
+  - $U'(q) = p$ (Grenzerlös = Preis)
+- Es gilt also:
+  - **Gewinnmaximum: $p = K'(q)$**
+
+
+### 4.4.2 - Beispiel
+
+Ein Weizenbauer verkauft zum Marktpreis $p = 30$. Seine Kosten:
+
+$$
+K(q) = q^3 - 6q^2 + 15q + 20
+$$
+
+**1. Grenzkosten bilden**
+
+$$
+K'(q) = 3q^2 - 12q + 15
+$$
+
+**2. Bedingung $p = K'(q)$ aufstellen und lösen**
+
+$$
+\begin{aligned}
+30 &= 3q^2 - 12q + 15 \\
+0 &= 3q^2 - 12q - 15 \quad \big|\ :3 \\
+0 &= q^2 - 4q - 5 \\
+q &= 2 \pm \sqrt{4 + 5} = 2 \pm 3
+\end{aligned}
+$$
+
+→ $q = 5$ (die zweite Lösung $q = -1$ entfällt, negative Mengen gibt es nicht)
+
+**3. Prüfen, ob es ein Maximum ist**
+
+$$
+G''(q) = -K''(q) = -(6q - 12) \quad\Rightarrow\quad G''(5) = -18 < 0 \;\checkmark
+$$
+
+**4. Gewinn berechnen**
+
+$$
+\begin{aligned}
+U(5) &= 30 \cdot 5 = 150 \\
+K(5) &= 125 - 150 + 75 + 20 = 70 \\
+G(5) &= 150 - 70 = \mathbf{80}
+\end{aligned}
+$$
+
+**Probe:** Eine Einheit mehr oder weniger bringt weniger Gewinn:
+
+| $q$ | 4 | **5** | 6 |
+|---|:---:|:---:|:---:|
+| $G(q)$ | 72 | **80** | 70 |
+
+## 4.5 - Finales Aufstellen der Angebotsfunktion
+:::tip
+- Das Tolle ist: Wir müssen unsere Angebotsfunktion garnicht neu aufstellen, wir haben sie bereits vorliegen.
+- **Die Angebotsfunktion ist nämlich einfach die Grenzkostenfunktion $K'$**
+  - Diese Grenzkostenfunktion muss nurnoch in einzelne Bereiche geteilt werden
+:::
+
+- Die Grenzkostenfunktion sagt z.B. aus: _"Was kostet das 5. Stück zusätzlich?"_
+  - D.h. wir können daraus ablesen, ab wann uns ein x'tes Stück zu teuer wird
+  - **Beispiel: Kuchen**
+    - Grenzkosten sagen aus:
+      - 1. Kuchen kostet dich zusätzlich  2 €
+      - 2. Kuchen kostet dich zusätzlich  3 €
+      - 3. Kuchen kostet dich zusätzlich  4 €
+      - 4. Kuchen kostet dich zusätzlich  5 €
+      - 5. Kuchen kostet dich zusätzlich  6 €
+    - Bei Marktpreis pro Kuchen 4€ würde man also max. 3 Kuchen verkaufen. Es gilt also:
+      - Preis 3€ -> Menge 2
+      - Preis 4€ -> Menge 3
+      - Preis 5€ -> Menge 4
+      - Preis 6€ -> Menge 5
+  - Dies ist die Angebotsfunktion - Sie kann ins **Angebot-Nachfrage-Diagramm** eingetragen werden.
+
+<svg viewBox="0 0 440 275" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"440px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-kuchen" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+  <line x1="50" y1="240" x2="400" y2="240" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-kuchen)"/>
+  <line x1="50" y1="240" x2="50" y2="20" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-kuchen)"/>
+  <text x="58" y="28" fontSize="12" fill="#333">Preis p (€)</text>
+  <text x="404" y="244" fontSize="12" fill="#333">q</text>
+  <g fontSize="10.5" fill="#555" textAnchor="middle">
+    <text x="110" y="256">1</text>
+    <text x="170" y="256">2</text>
+    <text x="290" y="256">4</text>
+    <text x="350" y="256">5</text>
+  </g>
+  <g fontSize="10.5" fill="#555" textAnchor="end">
+    <text x="42" y="184">2</text>
+    <text x="42" y="154">3</text>
+    <text x="42" y="94">5</text>
+    <text x="42" y="64">6</text>
+  </g>
+  <text x="230" y="256" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#c0392b">3</text>
+  <text x="42" y="124" textAnchor="end" fontSize="11" fontWeight="bold" fill="#c0392b">4</text>
+  <text x="225" y="271" textAnchor="middle" fontSize="10.5" fill="#555">Menge (Kuchen)</text>
+  <line x1="50" y1="120" x2="230" y2="120" stroke="#c0392b" strokeWidth="1.2" strokeDasharray="5,4"/>
+  <line x1="230" y1="120" x2="230" y2="240" stroke="#c0392b" strokeWidth="1.2" strokeDasharray="5,4"/>
+  <polyline points="110,180 170,150 230,120 290,90 350,60" fill="none" stroke="#2176AE" strokeWidth="2.2"/>
+  <g fill="#2176AE">
+    <circle cx="110" cy="180" r="4"/>
+    <circle cx="170" cy="150" r="4"/>
+    <circle cx="290" cy="90" r="4"/>
+    <circle cx="350" cy="60" r="4"/>
+  </g>
+  <circle cx="230" cy="120" r="5" fill="#c0392b"/>
+  <text x="340" y="50" textAnchor="end" fontSize="12" fontWeight="bold" fill="#2176AE">Angebot = K′</text>
+  <text x="240" y="134" fontSize="10.5" fontStyle="italic" fill="#c0392b">p = 4 € → 3 Kuchen</text>
+</svg>
+
+:::danger Zuschneiden der Angebotsfunktion
+Die Angebotsfunktion **muss begrenzt werden**:
+1. **Unten Abschneiden:**
+    - Ist der Preis zu niedrig um den Preis zu decken (unter Betriebsminimum bzw. -optimum), wird kein Angebot gestellt
+    - Das Angebot ist dann **0**, egal was die Grenzkosten sagen
+2. **Oben Begrenzen:**
+    - Mehr als die maximal mögliche Produktionskapazität geht nicht, es greift eine **technische Grenze**
+    - _Es würde sich lohnen, mehr anzubieten. Es geht aber technisch nicht._
+    - 
+:::
+
+:::tip Sonderfall lineare Kostenfunktion (siehe 4.3.5): alles oder nichts
+Jedes Stück bringt denselben Überschuss $(p - c)$:
+- Lohnt sich das **erste** Stück, lohnt sich auch **jedes weitere** – bis zur Kapazität
+- Lohnt es sich nicht, lohnt sich **keins**
+- Einen Punkt „$p = K'$“ in der Mitte gibt es nicht, weil $K'$ waagrecht ist
+
+**Beispiel:** Fixkosten 1.000 €, variable Kosten 5 € pro Stück, Kapazität 500 Stück
+- Stückkosten an der Kapazität: $k = \frac{1000}{500} + 5 = 7$ €
+
+| | Maßstab | Preis darunter | Preis ab Maßstab |
+|---|---|:---:|:---:|
+| **Kurzfristig** | $k_v = 5$ € | Menge 0 | Menge 500 |
+| **Langfristig** | $k = 7$ € | Menge 0 | Menge 500 |
+
+Die Angebotskurve ist also keine ansteigende Kurve, sondern eine **Treppe**: bis zur Preisuntergrenze auf der y-Achse (Menge 0), dann waagrecht bis zur Kapazität und von dort senkrecht nach oben.
+
+<svg viewBox="0 0 490 275" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"490px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-treppe" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+  <line x1="50" y1="240" x2="400" y2="240" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-treppe)"/>
+  <line x1="50" y1="240" x2="50" y2="20" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-treppe)"/>
+  <text x="58" y="28" fontSize="12" fill="#333">Preis p (€)</text>
+  <text x="404" y="244" fontSize="12" fill="#333">q</text>
+  <text x="42" y="144" textAnchor="end" fontSize="11" fontWeight="bold" fill="#2a9d6e">5</text>
+  <text x="42" y="104" textAnchor="end" fontSize="11" fontWeight="bold" fill="#2176AE">7</text>
+  <text x="300" y="256" textAnchor="middle" fontSize="10.5" fill="#555">500</text>
+  <text x="300" y="270" textAnchor="middle" fontSize="10.5" fill="#555">(Kapazität)</text>
+  <path d="M 50 240 L 50 140 L 300 140 L 300 35" fill="none" stroke="#2a9d6e" strokeWidth="2.2" strokeDasharray="6,4"/>
+  <path d="M 50 240 L 50 100 L 300 100 L 300 35" fill="none" stroke="#2176AE" strokeWidth="2.4"/>
+  <text x="62" y="200" fontSize="10.5" fontStyle="italic" fill="#555">unter PUG: Menge 0</text>
+  <text x="308" y="200" fontSize="10.5" fontStyle="italic" fill="#555">ab PUG: Menge 500</text>
+  <line x1="320" y1="52" x2="346" y2="52" stroke="#2176AE" strokeWidth="2.4"/>
+  <text x="352" y="56" fontSize="10.5" fill="#333">langfristig (PUG 7 €)</text>
+  <line x1="320" y1="72" x2="346" y2="72" stroke="#2a9d6e" strokeWidth="2.2" strokeDasharray="6,4"/>
+  <text x="352" y="76" fontSize="10.5" fill="#333">kurzfristig (PUG 5 €)</text>
+</svg>
+
+> Die Angebotskurve beantwortet die Frage _Wie viel wird bei diesem Preisangeboten?_ Da unsere Kapazität auf 500 beschränkt ist wird selbst zu einem höheren Preis als der PUG weiterhin _nur_ 500 angeboten.
+:::
+
+### 4.5.1 - Zusammenfassung: Herleitung der individuellen Angebotsfunktion
+
+<svg viewBox="0 0 910 470" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"900px",display:"block",margin:"0.5rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-ang" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+    </marker>
+    <marker id="arr-ang-b" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2176AE"/>
+    </marker>
+  </defs>
+
+  {/* Ebene 1: Ergebnis */}
+  <rect x="315" y="15" width="280" height="50" rx="5" fill="#27ae60" stroke="#1e8449" strokeWidth="1.5"/>
+  <text x="455" y="37" textAnchor="middle" fontSize="13" fontWeight="bold" fill="white">Angebotsfunktion A<tspan dy="3" fontSize="9">x</tspan><tspan dy="-3"> = f(p</tspan><tspan dy="3" fontSize="9">x</tspan><tspan dy="-3">)</tspan></text>
+  <text x="455" y="55" textAnchor="middle" fontSize="10.5" fill="white">Preis → angebotene Menge</text>
+
+  {/* Ebene 2: Bausteine */}
+  <rect x="15" y="125" width="205" height="74" rx="5" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="117.5" y="155" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">Regel p = K′</text>
+  <text x="117.5" y="173" textAnchor="middle" fontSize="9.5" fill="#555">aus Gewinnanalyse (4.4)</text>
+
+  <rect x="240" y="125" width="205" height="74" rx="5" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="342.5" y="155" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">Kurve: Grenzkosten K′</text>
+  <text x="342.5" y="173" textAnchor="middle" fontSize="9.5" fill="#555">nur steigender Ast</text>
+
+  <rect x="465" y="125" width="205" height="74" rx="5" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="567.5" y="143" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">Untergrenze</text>
+  <text x="567.5" y="159" textAnchor="middle" fontSize="9" fill="#555">kurzfristig: min k<tspan dy="3" fontSize="7.5">v</tspan><tspan dy="-3"> (Betriebsminimum)</tspan></text>
+  <text x="567.5" y="173" textAnchor="middle" fontSize="9" fill="#555">langfristig: min k (Betriebsoptimum)</text>
+  <text x="567.5" y="187" textAnchor="middle" fontSize="9" fill="#555">darunter Menge 0</text>
+
+  <rect x="690" y="125" width="205" height="74" rx="5" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="792.5" y="150" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">Obergrenze</text>
+  <text x="792.5" y="167" textAnchor="middle" fontSize="9.5" fill="#555">Kapazitätsgrenze,</text>
+  <text x="792.5" y="181" textAnchor="middle" fontSize="9.5" fill="#555">darüber Menge konstant</text>
+
+  {/* Pfeile Ebene 2 → Ebene 1 */}
+  <path d="M 117.5 125 L 117.5 40 L 313 40" stroke="#666" strokeWidth="1.5" fill="none" markerEnd="url(#arr-ang)"/>
+  <line x1="342.5" y1="125" x2="342.5" y2="67" stroke="#2176AE" strokeWidth="2.5" markerEnd="url(#arr-ang-b)"/>
+  <line x1="567.5" y1="125" x2="567.5" y2="67" stroke="#666" strokeWidth="1.5" markerEnd="url(#arr-ang)"/>
+  <path d="M 792.5 125 L 792.5 40 L 597 40" stroke="#666" strokeWidth="1.5" fill="none" markerEnd="url(#arr-ang)"/>
+
+  {/* Ebene 3 */}
+  <rect x="15" y="265" width="205" height="56" rx="5" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="117.5" y="287" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">Gewinnmaximierung</text>
+  <text x="117.5" y="305" textAnchor="middle" fontSize="9.5" fill="#555">Grenzerlös U′ = Grenzkosten K′</text>
+
+  <rect x="240" y="265" width="205" height="56" rx="5" fill="#dbeeff" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="342.5" y="287" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#1a5c8c">Kostenfunktion K(q) (4.3)</text>
+  <text x="342.5" y="305" textAnchor="middle" fontSize="9.5" fill="#555">umgekipptes S</text>
+
+  {/* Pfeile Ebene 3 → Ebene 2 */}
+  <line x1="117.5" y1="265" x2="117.5" y2="201" stroke="#666" strokeWidth="1.5" markerEnd="url(#arr-ang)"/>
+  <line x1="342.5" y1="265" x2="342.5" y2="201" stroke="#2176AE" strokeWidth="2.5" markerEnd="url(#arr-ang-b)"/>
+  <text x="351" y="237" fontSize="10" fill="#555" fontStyle="italic">ableiten</text>
+  <path d="M 445 293 L 567.5 293 L 567.5 201" stroke="#666" strokeWidth="1.5" fill="none" markerEnd="url(#arr-ang)"/>
+  <text x="576" y="240" fontSize="10" fill="#555" fontStyle="italic">durch q teilen</text>
+  <text x="576" y="254" fontSize="9.5" fill="#555" fontStyle="italic">(k<tspan dy="3" fontSize="7.5">v</tspan><tspan dy="-3"> = K</tspan><tspan dy="3" fontSize="7.5">v</tspan><tspan dy="-3">/q, k = K/q)</tspan></text>
+
+  {/* Ebene 4: Grundlagen */}
+  <rect x="15" y="395" width="205" height="62" rx="5" fill="#f0f4f8" stroke="#888" strokeWidth="1.5"/>
+  <text x="117.5" y="415" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Vollkommene Konkurrenz</text>
+  <text x="117.5" y="432" textAnchor="middle" fontSize="9.5" fill="#555">Preisnehmer:</text>
+  <text x="117.5" y="446" textAnchor="middle" fontSize="9.5" fill="#555">Grenzerlös U′ = p</text>
+
+  <rect x="240" y="395" width="205" height="62" rx="5" fill="#f0f4f8" stroke="#888" strokeWidth="1.5"/>
+  <text x="342.5" y="415" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Produktionsfunktion (4.2)</text>
+  <text x="342.5" y="432" textAnchor="middle" fontSize="10" fill="#333">q = f(v<tspan dy="3" fontSize="7.5">1</tspan><tspan dy="-3">, …, v</tspan><tspan dy="3" fontSize="7.5">n</tspan><tspan dy="-3">)</tspan></text>
+  <text x="342.5" y="446" textAnchor="middle" fontSize="9.5" fill="#555">S-förmig, Ertragsgesetz</text>
+
+  {/* Pfeile Ebene 4 → Ebene 3 / 2 */}
+  <line x1="117.5" y1="395" x2="117.5" y2="323" stroke="#666" strokeWidth="1.5" markerEnd="url(#arr-ang)"/>
+  <text x="126" y="357" fontSize="10" fill="#555" fontStyle="italic">U′ = p einsetzen</text>
+  <text x="126" y="371" fontSize="10" fill="#555" fontStyle="italic">→ ergibt p = K′</text>
+  <line x1="342.5" y1="395" x2="342.5" y2="323" stroke="#2176AE" strokeWidth="2.5" markerEnd="url(#arr-ang-b)"/>
+  <text x="351" y="363" fontSize="10" fill="#555" fontStyle="italic">mit Faktorpreisen bewerten</text>
+  <path d="M 445 426 L 792.5 426 L 792.5 201" stroke="#666" strokeWidth="1.5" fill="none" markerEnd="url(#arr-ang)"/>
+  <text x="620" y="418" textAnchor="middle" fontSize="10" fill="#555" fontStyle="italic">technische Grenze</text>
+</svg>
+
+## 4.6 - Add-On: Angebotselastizität
+Die **Preiselastizität des Angebots** gibt an, um wie viel **Prozent** sich die angebotene Menge verändert, wenn sich der Preis um **ein Prozent** verändert – also das Gegenstück zur Preiselastizität der Nachfrage (siehe 3.3.2).
+
+$$
+\varepsilon = \frac{\dfrac{dA_x}{A_x}}{\dfrac{dp_x}{p_x}} = \frac{dA_x}{dp_x} \cdot \frac{p_x}{A_x}
+$$
+
+- Bei einer steigenden Angebotsfunktion ist $\varepsilon$ **positiv** (Preis rauf → Menge rauf)
+- Auch bei einer **linearen** Angebotsfunktion ist $\varepsilon$ an **jedem Punkt anders**: Die Steigung $\frac{dA_x}{dp_x}$ ist zwar überall gleich, das Verhältnis $\frac{p_x}{A_x}$ aber nicht
+
+:::info Beispiel: $A_x = 2p_x - 4$
+Steigung $\frac{dA_x}{dp_x} = 2$, also $\varepsilon = 2 \cdot \frac{p_x}{A_x}$:
+
+| $p_x$ | $A_x$ | $\varepsilon$ |
+|:---:|:---:|:---:|
+| 5 | 6 | $2 \cdot \frac{5}{6} \approx 1{,}67$ |
+| 10 | 16 | $2 \cdot \frac{10}{16} = 1{,}25$ |
+
+Bei $p_x = 5$ führt 1 % mehr Preis zu ca. 1,67 % mehr Angebot.
+:::
 
