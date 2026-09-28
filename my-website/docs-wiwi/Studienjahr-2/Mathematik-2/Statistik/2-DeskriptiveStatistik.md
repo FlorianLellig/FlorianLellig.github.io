@@ -193,7 +193,7 @@ $$
 $$
 Das prozentuale Gewinnwachstum ist also 44,2 %.
 
-Hinweis, die _3_ unter der Wurzel lässt sich auch mittels $\frac{Anfangswert}{Endwert}$ bestimmen.
+Hinweis, die _3_ unter der Wurzel lässt sich auch mittels $\frac{\text{Endwert}}{\text{Anfangswert}} = \frac{3 \text{ Mio}}{1 \text{ Mio}}$ bestimmen.
 
 Probe: $1 Mio \cdot 1,442 \cdot 1,442 \cdot 1,442 = 3 Mio$
 :::

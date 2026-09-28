@@ -714,8 +714,8 @@ $$
 - Bei einer steigenden Angebotsfunktion ist $\varepsilon$ **positiv** (Preis rauf → Menge rauf)
 - Auch bei einer **linearen** Angebotsfunktion ist $\varepsilon$ an **jedem Punkt anders**: Die Steigung $\frac{dA_x}{dp_x}$ ist zwar überall gleich, das Verhältnis $\frac{p_x}{A_x}$ aber nicht
 
-:::info Beispiel: $A_x = 2p_x - 4$
-Steigung $\frac{dA_x}{dp_x} = 2$, also $\varepsilon = 2 \cdot \frac{p_x}{A_x}$:
+:::info Beispiel
+Angebotsfunktion $A_x = 2p_x - 4$ mit Steigung $\frac{dA_x}{dp_x} = 2$, also $\varepsilon = 2 \cdot \frac{p_x}{A_x}$:
 
 | $p_x$ | $A_x$ | $\varepsilon$ |
 |:---:|:---:|:---:|
