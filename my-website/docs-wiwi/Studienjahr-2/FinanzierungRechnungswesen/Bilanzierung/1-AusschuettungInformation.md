@@ -74,8 +74,9 @@ $$
 
 :::tip
 Zahlungsmittel sowie Geldvermögen können manipuliert werden - diese Manipulation wird jeweils unterschiedlich genannt:
-- Auf **Zahlungsmittel** kann eine _Ein**gabe** und/oder eine Aus**gabe** erfolgen_
-- Auf **Geldvermögen** kann eine _Ein**nahme** und/oder eine Ent**nahme** erfolgen_
+- Auf **Zahlungsmittel** kann eine _Ein**zahlung** und/oder eine Aus**zahlung** erfolgen_
+- Auf **Geldvermögen** kann eine _Ein**nahme** und/oder eine Aus**gabe** erfolgen_
+- Auf **Reinvermögen** kann ein _**Ertrag** und/oder ein **Aufwand** erfolgen_
 :::
 
 ## 1.4 - Perioden- und Totalerfolg

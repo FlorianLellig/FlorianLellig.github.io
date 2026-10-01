@@ -20,8 +20,8 @@ Die Aussage kodifiziert bzw. nicht kodifiziert beantwortet die Frage, ob ein Gru
     - Vor allem in §§ 243 ff. und besonders in § 252 HGB (allgemeine Bewertungsgrundsätze). 
 - Beispiele für kodifizierte GOBs:
     - Vorsichtsprinzip (§ 252 Abs. 1 Nr. 4): im Zweifel eher vorsichtig bewerten, also Vermögen nicht zu hoch und Schulden nicht zu niedrig ansetzen.
-    - Realisationsprinzip (§ 252 Abs. 1 Nr. 4): wird in Abschnitt 2.2.1 näher erläutert
-    - Imparitätsprinzip (§ 252 Abs. 1 Nr. 4): wird in Abschnitt 2.2.2 näher erläutert
+    - Realisationsprinzip (§ 252 Abs. 1 Nr. 4): wird in Abschnitt 2.2.2 näher erläutert
+    - Imparitätsprinzip (§ 252 Abs. 1 Nr. 4): wird in Abschnitt 2.2.3 näher erläutert
 
 #### Nicht kodifizierte GOBs
 - Grundsätze stehen nicht ausdrücklich im Gesetz, gelten aber trotzdem verbindlich
@@ -574,11 +574,11 @@ Zahlungszeitpunkt und Erfolgswirkung sind **entkoppelt**. Die Bilanz ist das Zwi
 
 ### 2.2.3 - Imparitätsprinzip
 :::tip
-Das Realisationsprinzip ist nur von Relevanz, wenn es um **Verluste** geht.
+Das Imparitätsprinzip ist nur von Relevanz, wenn es um **Verluste** geht.
 :::
 
 - Ebenfalls **Folgeprinzip des Vorsichtsprinzips**
-  - Gesetz: es _"sind alle vorhersehbaren Risiken und Verluste, die bis zum Abschlussstichtag entstanden sind, zu berücksichtigen"_ (§252 Abs. 1 Nr. 1 HGB)
+  - Gesetz: es _"sind alle vorhersehbaren Risiken und Verluste, die bis zum Abschlussstichtag entstanden sind, zu berücksichtigen"_ (§252 Abs. 1 Nr. 4 HGB)
 - Ziel: Verhindern von Ausschüttungen und Auszahlungen, die im Verlustfall nicht mehr rückgängig gemacht werden können
   - Besonders wichtig bei haftungsbeschränkten Unternehmen wie GmbH oder AG, da das Geld nach Ausschüttung i.d.R. nicht wieder zurückzuholen ist
   - Wir **rechnen uns arm**
