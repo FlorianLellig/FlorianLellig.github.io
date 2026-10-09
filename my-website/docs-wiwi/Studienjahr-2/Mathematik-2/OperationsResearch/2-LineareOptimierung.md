@@ -812,3 +812,153 @@ Ablesen: $x_A = \tfrac{10}{3}$, $x_I = \tfrac{4}{3}$, $z = \tfrac{38}{3} \approx
   <text x="568" y="220" textAnchor="start" fontSize="10" fill="#555" fontStyle="italic">nächste</text>
   <text x="568" y="234" textAnchor="start" fontSize="10" fill="#555" fontStyle="italic">Iteration</text>
 </svg>
+
+
+## 2.6 - Sensitivitätsanalyse
+
+Die Sensitivitätsanalyse fragt: **Welche Nebenbedingungen bremsen die Lösung aus?** — also welche Ressourcen den erreichbaren Zielfunktionswert begrenzen.
+
+Dazu schaut man sich die **Schlupfvariablen im Optimum** an:
+- **Knappe Ressource:** Schlupfvariable $= 0$ → die Ressource ist voll ausgelastet und bildet einen Engpass (in unserem Beispiel $s_1$ und $s_2$).
+- **Reichliche Ressource:** Schlupfvariable $> 0$ → es bleibt etwas übrig, die Ressource ist kein Engpass.
+
+### Schattenpreise
+
+Der **Schattenpreis** ist der Koeffizient, der in der optimierten Zielfunktion vor einer Schlupfvariablen steht. Im Beispiel lautet die Zielfunktion am Ende:
+
+$$ z = \frac{38}{3} - \frac{1}{3}s_1 - \frac{4}{3}s_2 $$
+
+Die Schattenpreise sind hier also $-\tfrac{1}{3}$ (für $s_1$) und $-\tfrac{4}{3}$ (für $s_2$).
+
+Ein Schattenpreis gibt an, **um wie viel sich der Zielfunktionswert ändern würde, wenn von der Ressource eine Einheit mehr zur Verfügung stünde.** Je größer er (betragsmäßig) ist, desto mehr lohnt es sich, genau diese Ressource aufzustocken.
+
+:::tip Und die reichlichen Ressourcen?
+Reichlich vorhandene Ressourcen haben einen **Schattenpreis von 0**: Von ihnen ist ohnehin genug da (Schlupf $> 0$), eine zusätzliche Einheit bringt für die Zielfunktion also nichts.
+:::
+
+## 2.7 - Sonderfälle bei linerarer Optimierung
+
+Nicht jedes LOP hat genau eine saubere Ecklösung. Vier Sonderfälle können auftreten — und jeder zeigt sich im **Simplex-Tableau** auf charakteristische Weise (rechnerisch) und lässt sich zugleich grafisch (anschaulich) deuten.
+
+<details>
+  <summary><strong>1. Es gibt keine zulässige Lösung</strong></summary>
+
+$$ \max\ z = x_1 \quad\text{u.d.N.}\quad x_1 \leq 2,\quad x_1 \geq 4,\quad x_1 \geq 0 $$
+
+Normalform: $x_1 + s_1 = 2$ und (nach $\cdot(-1)$) $-x_1 + s_2 = -4$.
+
+| BV | x₁ | s₁ | s₂ | b |
+|----|----|----|----|----|
+| s₁ |  1 |  1 |  0 |  2 |
+| s₂ | −1 |  0 |  1 | **−4** |
+| z  | −1 |  0 |  0 |  0 |
+
+**Erkennung:** In der Spalte $b$ steht ein **negativer Wert** ($s_2 = -4$), der den Startpunkt unzulässig macht ($s_2 \geq 0$ ist verletzt). Es gibt keine Pivotwahl, die alle $b \geq 0$ bekommt → der zulässige Bereich ist **leer**. Anschaulich widersprechen sich $x_1 \leq 2$ und $x_1 \geq 4$ — die Halbebenen überlappen nirgends.
+
+</details>
+
+<details>
+  <summary><strong>2. Die optimale Lösung ist nicht eindeutig</strong></summary>
+
+$$ \max\ z = x_1 + x_2 \quad\text{u.d.N.}\quad x_1 + x_2 \leq 4,\quad x_1 \leq 3,\quad x_1, x_2 \geq 0 $$
+
+Endtableau (optimal, $z = 4$ bei $x_1 = 3,\ x_2 = 1$):
+
+| BV | x₁ | x₂ | s₁ | s₂ | b |
+|----|----|----|----|----|----|
+| x₁ |  1 |  0 |  0 |  1 |  3 |
+| x₂ |  0 |  1 |  1 | −1 |  1 |
+| z  |  0 |  0 |  1 | **0** |  4 |
+
+**Erkennung:** Die $z$-Zeile hat keine negativen Werte mehr (⇒ optimal), aber eine **Nichtbasisvariable hat dort eine $0$** (hier $s_2$). Man könnte $s_2$ in die Basis holen, ohne dass sich $z$ ändert → es gibt **mehrere optimale Ecken**, und die ganze Verbindungskante ist optimal. Anschaulich ist die Zielfunktionsgerade **parallel** zur Begrenzung $x_1 + x_2 \leq 4$.
+
+</details>
+
+<details>
+  <summary><strong>3. Es gibt kein Optimum (unbeschränkt)</strong></summary>
+
+$$ \max\ z = x_2 \quad\text{u.d.N.}\quad x_1 - x_2 \leq 2,\quad x_1, x_2 \geq 0 $$
+
+| BV | x₁ | x₂ | s₁ | b |
+|----|----|----|----|----|
+| s₁ |  1 | −1 |  1 |  2 |
+| z  |  0 | **−1** |  0 |  0 |
+
+**Erkennung:** Die $z$-Zeile hat bei $x_2$ eine $-1$ (⇒ $x_2$ würde $z$ weiter erhöhen), aber die **ganze Spalte $x_2$ enthält keinen positiven Eintrag**. Damit lässt sich **kein $Q$** und keine Pivotzeile bilden → $x_2$ darf unbegrenzt wachsen → $z \to \infty$. Anschaulich ist der zulässige Bereich in Richtung wachsendem $x_2$ **offen**.
+
+</details>
+
+<details>
+  <summary><strong>4. Entartung (Degeneration)</strong></summary>
+
+$$ \max\ z = x_1 + x_2 \quad\text{u.d.N.}\quad x_1 \leq 2,\quad x_2 \leq 2,\quad x_1 + x_2 \leq 4,\quad x_1, x_2 \geq 0 $$
+
+Alle drei Nebenbedingungen schneiden sich im Punkt $(2,2)$. Endtableau (optimal, $z = 4$):
+
+| BV | x₁ | x₂ | s₁ | s₂ | s₃ | b |
+|----|----|----|----|----|----|----|
+| x₁ |  1 |  0 |  1 |  0 |  0 |  2 |
+| x₂ |  0 |  1 |  0 |  1 |  0 |  2 |
+| s₃ |  0 |  0 | −1 | −1 |  1 | **0** |
+| z  |  0 |  0 |  1 |  1 |  0 |  4 |
+
+**Erkennung:** Beim $Q$-Test tritt ein **Gleichstand** auf (zwei kleinste $Q$ sind gleich). Nach dem Pivot steht eine **Basisvariable auf $0$** (hier $s_3 = 0$). Anschaulich treffen sich **drei Begrenzungsgeraden in einer Ecke** — die Ecke ist „überbestimmt". Folge: Es kann Pivotschritte geben, die $z$ nicht verändern (Gefahr des „Kreisens").
+
+</details>
+
+## 2.8 - Dualität
+
+Zu jedem LOP (dem **Primal**) gehört ein zweites, gespiegeltes LOP — das **Dual**. Beide beschreiben dasselbe Szenario aus entgegengesetzter Richtung:
+- Ist das Primal ein **Minimierungsproblem** mit $\geq$-Bedingungen, so ist das Dual ein **Maximierungsproblem** mit $\leq$-Bedingungen (und umgekehrt).
+- Beide haben **denselben optimalen Zielfunktionswert** (starke Dualität) — man darf also das rechnerisch bequemere von beiden lösen.
+- Die **Dualvariablen entsprechen den Schattenpreisen** (siehe 2.6) der Primal-Nebenbedingungen: Sie bewerten, wie viel jede Restriktion „wert" ist.
+
+### Wie bildet man das Dual?
+
+Daumenregel: **Zeilen und Spalten tauschen die Rollen.**
+
+| Primal (min) | wird im Dual (max) zu |
+|---|---|
+| jede **Nebenbedingung** | einer **Variablen** $p_i$ |
+| jede **Variable** $x_j$ | einer **Nebenbedingung** |
+| rechte Seite $\vec{b}$ | den Zielfunktions-Koeffizienten |
+| Zielfunktions-Koeffizienten $\vec{c}$ | der rechten Seite |
+| Koeffizientenmatrix $\underline{A}$ | der **transponierten** Matrix $\underline{A}^{T}$ |
+| $\geq$-Bedingung | $\leq$-Bedingung |
+
+In Matrixschreibweise:
+
+$$
+\text{Primal:}\quad \min\ z = \vec{c}^{\,T}\vec{x},\ \ \underline{A}\,\vec{x} \geq \vec{b},\ \ \vec{x} \geq \vec{0}
+\qquad\Longleftrightarrow\qquad
+\text{Dual:}\quad \max\ z = \vec{b}^{\,T}\vec{p},\ \ \underline{A}^{T}\vec{p} \leq \vec{c},\ \ \vec{p} \geq \vec{0}
+$$
+
+:::info Beispiel
+**Primal (gegeben):**
+
+$$
+\begin{aligned}
+\min\ & z = 5x_1 + 7x_2 \\
+\text{u.d.N.}\ & 2x_1 + x_2 \geq 6 \\
+& 2x_1 + 4x_2 \geq 12 \\
+& 0x_1 + 4x_2 \geq 4 \\
+& x_1,\, x_2 \geq 0
+\end{aligned}
+$$
+
+**3 Nebenbedingungen** → 3 Dualvariablen $p_1, p_2, p_3$; **2 Variablen** → 2 Dual-Nebenbedingungen. Die rechte Seite $\vec{b} = (6, 12, 4)$ wird zur Zielfunktion, die Koeffizienten $\vec{c} = (5, 7)$ werden zur rechten Seite, und $\underline{A}$ wird spaltenweise ausgelesen ($= \underline{A}^{T}$).
+
+**Dual:**
+
+$$
+\begin{aligned}
+\max\ & z = 6p_1 + 12p_2 + 4p_3 \\
+\text{u.d.N.}\ & 2p_1 + 2p_2 + 0p_3 \leq 5 \\
+& 1p_1 + 4p_2 + 4p_3 \leq 7 \\
+& p_1,\, p_2,\, p_3 \geq 0
+\end{aligned}
+$$
+
+Die erste Dual-Nebenbedingung stammt aus der $x_1$-Spalte ($2, 2, 0$ mit Schranke $c_1 = 5$), die zweite aus der $x_2$-Spalte ($1, 4, 4$ mit Schranke $c_2 = 7$).
+:::

@@ -1426,3 +1426,157 @@ v(mutex);                 // Austritt: ctr wieder erhöhen bzw. nächsten Warten
 - Die Java-Implementierung **basiert nicht auf TSL** bzw. dem Spin-Lock aus Abschnitt 3.5.3, sondern nutzt einen **eigenen Mechanismus** der JVM
 - `acquire()` setzt Threads, die nicht laufen sollen, auf **Blocked**. Wieder aufgerufen werden sie über einen **System-Call** (ausgelöst durch `release()`), **nicht** über einen Interrupt
 :::
+
+## 3.7 - Lösen der Synchonisationsprobleme
+Im Folgenden werden die in Kapitel 3.1 thematisierten _wiederkehrenden Synchronisationsprobleme_ der Nebenläufigkeit aufgegriffen und mögliche Lösungen vorgestellt.
+
+### 3.7.1 - Lösen des Erzeuger-Verbraucher-Problems
+:::info Recap - Was war das Erzeuger-Verbraucher-Problem?
+- Bei dem Erzeiger-Verbraucher-Problem kommunizieren zwei Akteure (Erzeuger, Verbraucher) über einen gemeinsamen Pufferspeicher. 
+- Für eine reibungslose Kommunikation müssen unkontrollierte Zugriffe auf einen Vollen oder Leeren Puffer vermieden werden
+  - Demnach sind die Stellen, wo Daten in einen Puffer hineingeschreiben bzw. ausgelesen werden **als kritischer Abschnitt zu charakterisieren**
+:::
+
+#### Schritt 1 - Konzept überlegen
+- Ziel ist der Bau eines Ringpuffers, der zu puffernde Inhalte speichert
+
+>SVG mit einem Kreis der in Vier Teile unterteilt ist, dieser Kreis soll nummern haben sprich jede Zelle hat eine Nummer. Wir brauchen außerdem iwie etwas das signalisiert das es einen integer wert gibt der "NextFree" als ZellenID beschreibt und "NextFull" als ZellenID beschreibt. schau dir einmal den Code an den ich in Schritt 2 und Schritt 3 geschreiben habe dann weißt du was ich meine
+
+#### Schritt 2 - Code OHNE Semaphore (kritische Abschnitte identifizieren)
+```java
+class Ringpuffer {
+  int counter = 0;                            // Anzahl Elemente in Puffer
+  int nextfree = 0;                           // Nächste freie Zelle
+  int nextfull = 0;                           // Nächste volle Zelle
+  String[] buffer = new String[4];            // Hier werden die Daten gespeichert
+
+  // Hier werden später die Semaphore angelegt
+
+  public void append (String s) {
+    if (this.counter == 4) {warten...}        // Wenn Ringpuffer voll -> Warten
+    // ⚠️ ⚠️ Beginn Kritischer Abschnitt ⚠️ ⚠️ 
+    this.buffer[this.nextfree] = s;
+    this.nextfree = (this.nextfree + 1) % 4;  // Nextfree anpassen
+    this.counter++;                           // Counter anpassen
+    // ⚠️ ⚠️ Ende Kritischer Abschnitt ⚠️ ⚠️ 
+  }
+
+  public String remove () {
+    String s = "";                            
+    if (this.counter == 0) {warten...}        // Wenn Ringpuffer leer -> warten
+    // ⚠️ ⚠️ Beginn Kritischer Abschnitt ⚠️ ⚠️ 
+    s = this.buffer[this.nextfull];           // Wert auslesen aus Puffer
+    this.nextfull = (this.nextfull + 1) % 4;  // Nextfull anpassen
+    this.counter--;                           // Counter anpassen
+    // ⚠️ ⚠️ Ende Kritischer Abschnitt ⚠️ ⚠️ 
+    return s;
+  }
+}
+```
+:::danger Offene Probleme
+- Aktuell gibt es in den zwei Methoden `append()` und `remove()` jeweils **kritische Abschnitte**
+  - Diese kritischen Abschnitte dürfen NICHT gleichzeitig ausgeführt werden
+  - Lösung in Schritt 3
+- Aktuell gibt es in den zwei Methoden `append()` und `remove()` jeweils **Stellen, an denen gewartet werden muss**
+  - Lösung in Schritt 4
+:::
+
+#### Schritt 3 - Kritische Abschnitte behandeln
+```java
+class Ringpuffer {
+  int counter = 0;                             
+  int nextfree = 0;                           
+  int nextfull = 0;                           
+  String[] buffer = new String[4];            
+
+  // Semaphore zur Behandlung der kritischen Abschnitte
+  Semaphore mutex = new Semaphore(1, true);                 //NEW
+
+  public void append (String s) {
+    try {                                                   //NEW
+      if (this.counter == 4) {warten...}        
+      this.mutex.acquire();                                 //NEW
+      this.buffer[this.nextfree] = s;
+      this.nextfree = (this.nextfree + 1) % 4;  
+      this.counter++;
+      this.mutex.release();                                 //NEW
+    } catch (InterruptedException e){e.printStackTrace();}  //NEW
+  }
+
+  public String remove () {
+    String s = "";
+    try {                                                   //NEW
+      if (this.counter == 0) {warten...}
+      this.mutex.acquire();                                 //NEW
+      s = this.buffer[this.nextfull]
+      this.nextfull = (this.nextfull + 1) % 4;
+      this.counter--;
+      this.mutex.release();                                 //NEW
+    } catch (InterruptedException e){e.printStackTrace();}  //NEW
+    return s;
+  }
+}
+```
+:::danger Offene Probleme
+- Aktuell gibt es in den zwei Methoden `append()` und `remove()` jeweils **Stellen, an denen gewartet werden muss**
+  - Lösung in Schritt 4
+:::
+#### Schritt 4 - Wartestellen einbauen
+```java
+class Ringpuffer {
+  int counter = 0;
+  int nextfree = 0;
+  int nextfull = 0;   
+  String[] buffer = new String[4];
+
+  // Semaphore zur Behandlung der kritischen Abschnitte
+  Semaphore mutex = new Semaphore(1, true);
+
+  // Semaphore zum Einbauen der Wartepausen
+  Semaphore freeSlots = new Semaphore(4, true);             //NEW
+  Semaphore fullSlots = new Semaphore(0, true);             //NEW
+
+  public void append (String s) {
+    try {                                                   
+      this.freeSlots.acquire();                             //NEW
+      this.mutex.acquire();
+      this.buffer[this.nextfree] = s;
+      this.nextfree = (this.nextfree + 1) % 4;  
+      this.counter++;
+      this.mutex.release();
+      this.fullSlots.release();                             //NEW
+    } catch (InterruptedException e){e.printStackTrace();}  
+  }
+
+  public String remove () {
+    String s = "";
+    try {
+      this.fullSlots.acquire();                             //NEW
+      this.mutex.acquire();
+      s = this.buffer[this.nextfull];
+      this.nextfull = (this.nextfull + 1) % 4;
+      this.counter--;
+      this.mutex.release();
+      this.freeSlots.release();                             //NEW
+    } catch (InterruptedException e){e.printStackTrace();}
+    return s;
+  }
+}
+```
+
+### 3.7.2 - Lösen des Betriebsmittelverwaltungsproblems
+:::info Recap - Was war das Betriebsmittelverwaltungsproblem?
+- Es gibt nur eine begrenzte Anzahl an Betriebsmitteln die von mehreren Threads/Prozessen verwendet werden wollen
+- Solange ein Prozess ein Betriebsmittel beansprucht blockieren die anderen Threads/Prozesse -> Sie warten auf das Freigeben des Betriebsmittels
+- Zu viele wartende Prozesse verlangsamen das System und führen im schlimmsten Fall zu einem Deadlock
+:::
+
+#### Lösung für _einfaches_ Betriebsmittelverwaltungsproblem
+> Hier bitte genauso aufbauen wie das in 3.7.1 gemacht wurde
+
+#### Lösung für Betriebsmittelverwaltungsproblem mit Zuweisung eines Betriebsmittels
+
+### 3.7.3 - Lösen des Lerser-Schreiber-Problems
+:::info Recap - Was war das Leser-Schreiber-Problem?
+
+:::
