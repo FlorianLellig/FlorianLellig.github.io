@@ -1580,3 +1580,229 @@ class Ringpuffer {
 :::info Recap - Was war das Leser-Schreiber-Problem?
 
 :::
+
+
+## 3.8 - Monitorkonzept
+
+### 3.8.1 - Grundlagen
+- Ein Monitor ist ein in zahlreiche Programmiersprachen eingebautes **Konzept, das dazu verhilft, auf komplexere Synchronisationsprobleme eine komfortable Lösung zu finden**
+- Im Kontext eines Monitors gibt es zwei relevante Begriffe:
+  - **Monitordaten** ist die Menge _kritischer Daten_
+  - **Monitoroperationen** sind _kritische Abschnitte_, in denen auf Monitordaten zugegriffen wird
+  
+### 3.8.2 - Funktionsweise
+- Den Monitor kann man sich wie eine Art geschlossenen Raum vorstellen
+  - Innerhalb dieses geschlossenem Raums befinden sich die kritischen Daten
+  - In dem Raum kann sich immer nur ein einziger Thread aufhalten, dieser Thread besitzt dann die Monitorkontrolle
+- **Condition-Variablen**
+  - Mechanismus für Threads, die sich im Monitor befinden, allerdings gerade nicht weiter arbeiten können
+  - Vergleichbar zu einer _Wartebank_, die außerhalb des Raumes steht
+  - Die auf der Wartebank befindlichen Threads können wieder _aufgerufen_ werden, sie reihen sich dann vor einem neuen Eingang (_urgent_) ein.
+
+<svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-mon" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+  </defs>
+
+  {/* Monitor */}
+  <rect x="240" y="30" width="320" height="320" rx="8" fill="#dbeeff" fillOpacity="0.35" stroke="#2176AE" strokeWidth="2"/>
+  <text x="400" y="54" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#1a5c8c">Monitor</text>
+
+  {/* Daten */}
+  <ellipse cx="400" cy="105" rx="62" ry="28" fill="white" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="400" y="102" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#1a5c8c">Daten</text>
+  <text x="400" y="118" textAnchor="middle" fontSize="10" fill="#555">kritische Daten</text>
+
+  {/* Entry Queue */}
+  <text x="90" y="196" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Entry Queue</text>
+  <rect x="30" y="205" width="120" height="40" fill="#f5f5f5" stroke="#555" strokeWidth="1.5"/>
+  <g stroke="#555" strokeWidth="1.2">
+    <line x1="50" y1="205" x2="50" y2="245"/>
+    <line x1="70" y1="205" x2="70" y2="245"/>
+    <line x1="90" y1="205" x2="90" y2="245"/>
+    <line x1="110" y1="205" x2="110" y2="245"/>
+    <line x1="130" y1="205" x2="130" y2="245"/>
+  </g>
+  <path d="M 152 215 Q 175 200 196 175" fill="none" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-mon)"/>
+  <path d="M 152 235 Q 175 250 196 278" fill="none" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-mon)"/>
+
+  {/* Eingänge */}
+  <rect x="200" y="150" width="120" height="36" rx="4" fill="white" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="260" y="173" textAnchor="middle" fontSize="12.5" fontWeight="bold" fill="#1a5c8c">entry 1</text>
+  <text x="260" y="234" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#2176AE">⋮</text>
+  <rect x="200" y="262" width="120" height="36" rx="4" fill="white" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="260" y="285" textAnchor="middle" fontSize="12.5" fontWeight="bold" fill="#1a5c8c">entry n</text>
+
+  {/* Condition-Variablen */}
+  <rect x="430" y="150" width="100" height="32" rx="4" fill="#f5f5f5" stroke="#999" strokeWidth="1.5"/>
+  <text x="480" y="171" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#555">Cond. 1</text>
+  <text x="480" y="222" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#999">⋮</text>
+  <rect x="430" y="240" width="100" height="32" rx="4" fill="#f5f5f5" stroke="#999" strokeWidth="1.5"/>
+  <text x="480" y="261" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#555">Cond. n</text>
+  <rect x="430" y="298" width="100" height="32" rx="4" fill="#fff3e0" stroke="#e67e22" strokeWidth="1.5"/>
+  <text x="480" y="319" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#a0521a">urgent</text>
+
+  {/* Warteschlangen außen */}
+  <line x1="530" y1="166" x2="600" y2="166" stroke="#555" strokeWidth="1.4"/>
+  <text x="650" y="146" textAnchor="middle" fontSize="11.5" fontWeight="bold" fill="#555">condQ</text>
+  <rect x="600" y="152" width="100" height="28" fill="#f5f5f5" stroke="#555" strokeWidth="1.4"/>
+  <g stroke="#555" strokeWidth="1.1">
+    <line x1="620" y1="152" x2="620" y2="180"/>
+    <line x1="640" y1="152" x2="640" y2="180"/>
+    <line x1="660" y1="152" x2="660" y2="180"/>
+    <line x1="680" y1="152" x2="680" y2="180"/>
+  </g>
+
+  <line x1="530" y1="256" x2="600" y2="256" stroke="#555" strokeWidth="1.4"/>
+  <text x="650" y="236" textAnchor="middle" fontSize="11.5" fontWeight="bold" fill="#555">condQ</text>
+  <rect x="600" y="242" width="100" height="28" fill="#f5f5f5" stroke="#555" strokeWidth="1.4"/>
+  <g stroke="#555" strokeWidth="1.1">
+    <line x1="620" y1="242" x2="620" y2="270"/>
+    <line x1="640" y1="242" x2="640" y2="270"/>
+    <line x1="660" y1="242" x2="660" y2="270"/>
+    <line x1="680" y1="242" x2="680" y2="270"/>
+  </g>
+
+  <line x1="530" y1="314" x2="600" y2="314" stroke="#e67e22" strokeWidth="1.4"/>
+  <rect x="600" y="300" width="100" height="28" fill="#fff3e0" stroke="#e67e22" strokeWidth="1.4"/>
+  <g stroke="#e67e22" strokeWidth="1.1">
+    <line x1="620" y1="300" x2="620" y2="328"/>
+    <line x1="640" y1="300" x2="640" y2="328"/>
+    <line x1="660" y1="300" x2="660" y2="328"/>
+    <line x1="680" y1="300" x2="680" y2="328"/>
+  </g>
+  <text x="650" y="346" textAnchor="middle" fontSize="11.5" fontWeight="bold" fill="#a0521a">urgentQ</text>
+
+  {/* Legende */}
+  <line x1="20" y1="366" x2="740" y2="366" stroke="#ddd" strokeWidth="1"/>
+  <text x="380" y="386" textAnchor="middle" fontSize="11" fill="#555">Nur ein Thread gleichzeitig im Monitor · Wartende Threads stehen außerhalb in den Queues</text>
+</svg>
+
+### 3.8.3 - Umsetzung in Java
+
+#### Grundlegendes
+- Objekte, die aus Klassen erzeugt wurden, bestehend aus mindestens einer _synchronized_ Methode
+  - _Synchonized Methoden_ entsprechen den Monitoroperationen
+  - _Synchonized Methoden_ werden unter gegenseitigem Ausschluss durchlaufen
+- Es gibt **keine Conditions**
+  - Jeder Monitor **besitzt genau eine (namenlose) Warteschlange**, an der Threads warten können
+  - Beim Warten wird die Monitorkontrolle aufgegeben
+
+:::warning
+- Theoretisch lassen sich auch einzelne Codeblöcke in synchronized setzen, jedoch leidet darunter die Übersichtlichkeit extrem - damit steigt auch das Risiko für Deadlocks
+- **Synchronized als Code-Block ist _nicht_ empfohlen**
+:::
+
+<svg viewBox="0 0 760 430" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"760px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-jmon" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+    <marker id="arr-jmon-o" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#e67e22"/>
+    </marker>
+  </defs>
+
+  {/* Monitor = Objekt */}
+  <rect x="240" y="30" width="320" height="320" rx="8" fill="#dbeeff" fillOpacity="0.35" stroke="#2176AE" strokeWidth="2"/>
+  <text x="400" y="54" textAnchor="middle" fontSize="14" fontWeight="bold" fill="#1a5c8c">Monitor (Java-Objekt)</text>
+
+  {/* Daten */}
+  <ellipse cx="400" cy="105" rx="62" ry="28" fill="white" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="400" y="102" textAnchor="middle" fontSize="13" fontWeight="bold" fill="#1a5c8c">Daten</text>
+  <text x="400" y="118" textAnchor="middle" fontSize="10" fill="#555">Attribute</text>
+
+  {/* Entry Set */}
+  <text x="90" y="196" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#333">Entry Set</text>
+  <rect x="30" y="205" width="120" height="40" fill="#f5f5f5" stroke="#555" strokeWidth="1.5"/>
+  <g stroke="#555" strokeWidth="1.2">
+    <line x1="50" y1="205" x2="50" y2="245"/>
+    <line x1="70" y1="205" x2="70" y2="245"/>
+    <line x1="90" y1="205" x2="90" y2="245"/>
+    <line x1="110" y1="205" x2="110" y2="245"/>
+    <line x1="130" y1="205" x2="130" y2="245"/>
+  </g>
+  <path d="M 152 215 Q 175 200 196 175" fill="none" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-jmon)"/>
+  <path d="M 152 235 Q 175 250 196 278" fill="none" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-jmon)"/>
+
+  {/* synchronized Methoden */}
+  <rect x="200" y="148" width="120" height="40" rx="4" fill="white" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="260" y="164" textAnchor="middle" fontSize="10" fill="#555">synchronized</text>
+  <text x="260" y="181" textAnchor="middle" fontSize="12.5" fontWeight="bold" fill="#1a5c8c">methode1()</text>
+  <text x="260" y="234" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#2176AE">⋮</text>
+  <rect x="200" y="260" width="120" height="40" rx="4" fill="white" stroke="#2176AE" strokeWidth="1.8"/>
+  <text x="260" y="276" textAnchor="middle" fontSize="10" fill="#555">synchronized</text>
+  <text x="260" y="293" textAnchor="middle" fontSize="12.5" fontWeight="bold" fill="#1a5c8c">methodeN()</text>
+
+  {/* wait() */}
+  <rect x="410" y="168" width="130" height="38" rx="4" fill="#f5f5f5" stroke="#999" strokeWidth="1.5"/>
+  <text x="475" y="184" textAnchor="middle" fontSize="12" fontWeight="bold" fill="#555">wait()</text>
+  <text x="475" y="199" textAnchor="middle" fontSize="9.5" fill="#777">gibt Monitor frei</text>
+  <line x1="540" y1="187" x2="597" y2="187" stroke="#555" strokeWidth="1.5" markerEnd="url(#arr-jmon)"/>
+
+  {/* Wait Set (die eine, namenlose Warteschlange) */}
+  <text x="650" y="158" textAnchor="middle" fontSize="11.5" fontWeight="bold" fill="#555">Wait Set</text>
+  <rect x="600" y="173" width="100" height="28" fill="#f5f5f5" stroke="#555" strokeWidth="1.4"/>
+  <g stroke="#555" strokeWidth="1.1">
+    <line x1="620" y1="173" x2="620" y2="201"/>
+    <line x1="640" y1="173" x2="640" y2="201"/>
+    <line x1="660" y1="173" x2="660" y2="201"/>
+    <line x1="680" y1="173" x2="680" y2="201"/>
+  </g>
+  <text x="650" y="216" textAnchor="middle" fontSize="9.5" fill="#777">genau eine, namenlos</text>
+
+  {/* notify / notifyAll zurück in den Entry Set */}
+  <path d="M 650 222 L 650 375 L 90 375 L 90 249" fill="none" stroke="#e67e22" strokeWidth="1.6" strokeDasharray="6,4" markerEnd="url(#arr-jmon-o)"/>
+  <text x="400" y="368" textAnchor="middle" fontSize="11" fontWeight="bold" fill="#a0521a">notify() / notifyAll() → zurück in den Entry Set</text>
+
+  {/* Legende */}
+  <line x1="20" y1="394" x2="740" y2="394" stroke="#ddd" strokeWidth="1"/>
+  <text x="380" y="414" textAnchor="middle" fontSize="11" fill="#555">Keine Conditions, keine urgent-Queue · geweckte Threads müssen sich neu um den Monitor bewerben</text>
+</svg>
+
+#### Methoden in Java
+
+| Methode | Was passiert? |
+|---|---|
+| `wait()` | Der Thread **gibt den Monitor frei** und legt sich in die Warteschlange (Wait Set), bis er geweckt wird |
+| `notify()` | Weckt **einen** wartenden Thread aus dem Wait Set |
+| `notifyAll()` | Weckt **alle** wartenden Threads aus dem Wait Set |
+
+- Alle drei dürfen nur **innerhalb einer `synchronized`-Methode** aufgerufen werden
+- Der weckende Thread läuft **weiter**, bis er die Methode verlässt – erst dann wird der Monitor frei
+- Geweckte Threads kommen zurück in den **Entry Set** und müssen sich dort **neu um den Monitor bewerben**
+
+:::danger Reihenfolge ist zufällig
+- **Welcher** Thread von `notify()` geweckt wird, ist **nicht festgelegt** – nicht zwingend der, der am längsten wartet
+- Auch im Entry Set gibt es **keine Reihenfolge**: Wer als Nächstes den Monitor bekommt, entscheiden JVM und Betriebssystem
+- Man darf sich also **nie auf eine bestimmte Reihenfolge verlassen** (im Extremfall kann ein Thread sogar „verhungern")
+:::
+
+
+#### Mini-Beispiel: Parkhaus mit 3 Plätzen
+```java
+class Parkhaus {
+    private int frei = 3;                 // Monitordaten
+
+    synchronized void einfahren() throws InterruptedException {
+        while (frei == 0)
+            wait();                       // voll → auf die Wartebank, Raum freigeben
+        frei--;
+    }
+
+    synchronized void ausfahren() {
+        frei++;
+        notify();                         // einen Wartenden wecken
+    }
+}
+```
+
+
+:::tip While statt if
+Zwischen dem Wecken und dem Moment, in dem der Thread den Monitor **wirklich wieder bekommt**, kann ein anderer Thread drangekommen sein und die Bedingung wieder verändert haben.
+- Beispiel: Ein Platz wird frei, Auto A wird geweckt – aber Auto B fährt aus dem Entry Set zuerst ein und nimmt den Platz
+- Mit `if` würde A trotzdem einfahren → `frei` wird **negativ**
+- Mit `while` prüft A nach dem Aufwachen **erneut** und legt sich, falls nötig, wieder schlafen
+:::
