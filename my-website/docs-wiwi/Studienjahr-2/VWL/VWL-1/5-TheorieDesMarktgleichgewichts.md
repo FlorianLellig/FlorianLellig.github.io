@@ -403,21 +403,93 @@ Streng genommen müsste man noch prüfen, ob es wirklich ein Maximum ist: $G''(q
 
 :::warning Nicht nur ein Verteilungsproblem
 - Der bisherige Vergleich mit dem Polypol ermöglicht lediglich die Aussage eines Verteilungsproblems
-  - In der Praxis hat man jedoch sogar eine **gesamtwirtschaftliche Wohlfahrtsminimierung!**
+  - In der Praxis hat man jedoch sogar einen **gesamtwirtschaftlichen Wohlfahrtsverlust!**
 
-> Bild hier hin
+<svg viewBox="0 0 480 350" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"480px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-wv" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+    <marker id="arr-wv-g" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <polygon points="0 0, 7 2.5, 0 5" fill="#555"/>
+    </marker>
+  </defs>
+  {/* Flächen (Farben = Situation im Monopol) */}
+  <polygon points="60,60 130,108 60,108" fill="#dbeeff"/>
+  <rect x="60" y="108" width="70" height="55" fill="#fff3e0"/>
+  <polygon points="60,163 130,163 130,209.2 60,250" fill="#fff3e0"/>
+  <polygon points="130,108 210,163 130,163" fill="#fdecea"/>
+  <polygon points="130,163 210,163 130,209.2" fill="#fdecea"/>
+  {/* Achsen */}
+  <line x1="60" y1="300" x2="460" y2="300" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-wv)"/>
+  <line x1="60" y1="300" x2="60" y2="20" stroke="#333" strokeWidth="1.5" markerEnd="url(#arr-wv)"/>
+  <text x="68" y="28" fontSize="13" fill="#333">p<tspan fontSize="9" dy="3">x</tspan></text>
+  <text x="466" y="304" fontSize="13" fill="#333">q<tspan fontSize="9" dy="3">x</tspan></text>
+  {/* Hilfslinien */}
+  <g stroke="#999" strokeWidth="1.2" strokeDasharray="5,4">
+    <line x1="60" y1="108" x2="130" y2="108"/>
+    <line x1="130" y1="108" x2="130" y2="300"/>
+    <line x1="60" y1="163" x2="210" y2="163"/>
+    <line x1="210" y1="163" x2="210" y2="300"/>
+  </g>
+  <g fontSize="12" fill="#555" textAnchor="end">
+    <text x="52" y="112">p<tspan fontSize="8.5" dy="3">M</tspan></text>
+    <text x="52" y="167">p<tspan fontSize="8.5" dy="3">x</tspan><tspan dy="-6">{"*"}</tspan></text>
+  </g>
+  <g fontSize="12" fill="#555" textAnchor="middle">
+    <text x="130" y="317">q<tspan fontSize="8.5" dy="3">M</tspan></text>
+    <text x="210" y="317">q<tspan fontSize="8.5" dy="3">x</tspan><tspan dy="-6">{"*"}</tspan></text>
+  </g>
+  {/* Kurven */}
+  <line x1="60" y1="60" x2="410" y2="300" stroke="#2176AE" strokeWidth="2.2"/>
+  <line x1="60" y1="250" x2="420" y2="40" stroke="#e67e22" strokeWidth="2.2"/>
+  <text x="396" y="272" fontSize="13" fontWeight="bold" fill="#2176AE">N<tspan fontSize="9" dy="3">x</tspan></text>
+  <text x="392" y="40" fontSize="13" fontWeight="bold" fill="#e67e22">A<tspan fontSize="9" dy="3">x</tspan></text>
+  {/* Flächenbuchstaben */}
+  <g fontSize="14" fontWeight="bold" textAnchor="middle">
+    <text x="78" y="100" fill="#1a5c8c">A</text>
+    <text x="95" y="141" fill="#a0521a">B</text>
+    <text x="95" y="210" fill="#a0521a">C</text>
+    <text x="150" y="146" fill="#c0392b">D</text>
+    <text x="150" y="187" fill="#c0392b">E</text>
+  </g>
+  {/* Punkte */}
+  <circle cx="130" cy="108" r="5" fill="#c0392b"/>
+  <circle cx="210" cy="163" r="5" fill="#555"/>
+  {/* Hinweispfeile */}
+  <line x1="178" y1="62" x2="137" y2="101" stroke="#c0392b" strokeWidth="1.3" markerEnd="url(#arr-wv)"/>
+  <g fontSize="11" fontWeight="bold" fill="#c0392b">
+    <text x="182" y="46">Cournotscher Punkt</text>
+    <text x="182" y="59">im Monopol</text>
+  </g>
+  <line x1="300" y1="166" x2="220" y2="164" stroke="#555" strokeWidth="1.2" markerEnd="url(#arr-wv-g)"/>
+  <g fontSize="11" fill="#555">
+    <text x="305" y="164">Marktgleichgewicht im</text>
+    <text x="305" y="178">homogenen Polypol</text>
+  </g>
+  {/* Legende */}
+  <line x1="20" y1="327" x2="460" y2="327" stroke="#ddd" strokeWidth="1"/>
+  <g fontSize="10.5" fill="#555">
+    <rect x="40" y="335" width="12" height="10" fill="#dbeeff" stroke="#2176AE" strokeWidth="0.8"/>
+    <text x="57" y="344">KR im Monopol</text>
+    <rect x="160" y="335" width="12" height="10" fill="#fff3e0" stroke="#e67e22" strokeWidth="0.8"/>
+    <text x="177" y="344">PR im Monopol</text>
+    <rect x="280" y="335" width="12" height="10" fill="#fdecea" stroke="#c0392b" strokeWidth="0.8"/>
+    <text x="297" y="344">Wohlfahrtsverlust</text>
+  </g>
+</svg>
 
+| | **Homogenes Polypol** | **Monopol** |
+|---|---|---|
+| Konsumentenrente $KR$ | $A + B + D$ | $A$ |
+| Produzentenrente $PR$ | $C + E$ | $B + C$ |
+| Wohlfahrt $KR + PR$ | $A + B + C + D + E$ | $A + B + C$ |
 
-- **Im homogenen Polypol würde gelten:**
-  - $Konsumentenrente (KR) = A + B + C$
-  - $Produzentenrente (PR) = D + E$
-  - $Gesamtwirtschaftl. Wohlfahrt = KR + PR = A+B+C+D+E$
-- **Im Monopol würde gelten:**
-  - $Konsumentenrente (KR) = A$
-  - $Produzentenrente (PR) = B+C$
-  - $Gesamtwirtschaftl. Wohlfahrt = KR + PR = A + B+ C$
+$$
+\text{Wohlfahrtsverlust im Monopol} = (A + B + C + D + E) - (A + B + C) = D + E
+$$
 
-**Ein homogenes Polypol hat eine _höhere gesamtwirtschaftliche Wohlfahrt_ als ein Monopol. Die PR fällt im Monopol jedoch größer aus als im homogenen Polypol ($B+C > D+E$).**
+**Ein homogenes Polypol hat eine _höhere gesamtwirtschaftliche Wohlfahrt_ als ein Monopol. Die PR fällt im Monopol jedoch größer aus als im homogenen Polypol ($B + C > C + E$, also $B > E$).**
 
-**Trotzdem gilt:** Der Merhzuwachs der PR im Monopol kompensiert Nicht den Verlust der in der KR entsteht.
+**Trotzdem gilt:** Der Mehrzuwachs der PR im Monopol ($B$) kompensiert nicht den Verlust, der in der KR entsteht ($B + D$).
 :::
