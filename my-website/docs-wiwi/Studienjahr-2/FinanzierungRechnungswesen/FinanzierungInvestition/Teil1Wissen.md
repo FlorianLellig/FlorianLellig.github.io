@@ -81,9 +81,9 @@ Hier ist nur das Wissen drin was wir für die Klausur können müssen.
 ### 1.3 - Grundlagen der Investition
 - **Investition** = Verwendung finanzieller Mittel zur Beschaffung von Vermögensgegenständen
 - **Merkmale:**
-  - Anfangsauszahlung
-  - Langfristige Kapitalbindung
-  - Spätere Einzahlungsüberschüsse
+  - Anfangsauszahlung (Man bekommt Geld am Anfang)
+  - Langfristige Kapitalbindung (Geld steckt lange in der Investition)
+  - Spätere Einzahlungsüberschüsse (Der Gewinn den die Investion erwirtschaftet)
 - **Arten:**
 
 | Art | Beispiel |
