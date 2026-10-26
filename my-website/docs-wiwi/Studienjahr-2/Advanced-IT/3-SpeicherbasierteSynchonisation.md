@@ -1440,7 +1440,56 @@ Im Folgenden werden die in Kapitel 3.1 thematisierten _wiederkehrenden Synchroni
 #### Schritt 1 - Konzept überlegen
 - Ziel ist der Bau eines Ringpuffers, der zu puffernde Inhalte speichert
 
->SVG mit einem Kreis der in Vier Teile unterteilt ist, dieser Kreis soll nummern haben sprich jede Zelle hat eine Nummer. Wir brauchen außerdem iwie etwas das signalisiert das es einen integer wert gibt der "NextFree" als ZellenID beschreibt und "NextFull" als ZellenID beschreibt. schau dir einmal den Code an den ich in Schritt 2 und Schritt 3 geschreiben habe dann weißt du was ich meine
+<svg viewBox="0 0 560 400" xmlns="http://www.w3.org/2000/svg" style={{width:"100%",maxWidth:"560px",display:"block",margin:"1rem auto",fontFamily:"sans-serif"}}>
+  <defs>
+    <marker id="arr-free" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2176AE"/>
+    </marker>
+    <marker id="arr-full" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#27ae60"/>
+    </marker>
+    <marker id="arr-dir" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#999"/>
+    </marker>
+  </defs>
+
+  <text x="20" y="28" fontSize="13" fontWeight="bold" fill="#333">Ringpuffer (4 Zellen)</text>
+
+  {/* Vier Zellen als Kreis-Quadranten – belegt (blau) / frei (grau) */}
+  <path d="M250 200 L250 80 A120 120 0 0 1 370 200 Z" fill="#dbeeff" stroke="#333" strokeWidth="2"/>
+  <path d="M250 200 L370 200 A120 120 0 0 1 250 320 Z" fill="#dbeeff" stroke="#333" strokeWidth="2"/>
+  <path d="M250 200 L250 320 A120 120 0 0 1 130 200 Z" fill="#f5f5f5" stroke="#333" strokeWidth="2"/>
+  <path d="M250 200 L130 200 A120 120 0 0 1 250 80 Z" fill="#f5f5f5" stroke="#333" strokeWidth="2"/>
+
+  {/* Zellennummern + Status */}
+  <text x="297" y="150" textAnchor="middle" fontSize="22" fontWeight="bold" fill="#1a5c8c">0</text>
+  <text x="297" y="168" textAnchor="middle" fontSize="10" fill="#1a5c8c">belegt</text>
+  <text x="297" y="244" textAnchor="middle" fontSize="22" fontWeight="bold" fill="#1a5c8c">1</text>
+  <text x="297" y="262" textAnchor="middle" fontSize="10" fill="#1a5c8c">belegt</text>
+  <text x="203" y="244" textAnchor="middle" fontSize="22" fontWeight="bold" fill="#777">2</text>
+  <text x="203" y="262" textAnchor="middle" fontSize="10" fill="#777">frei</text>
+  <text x="203" y="150" textAnchor="middle" fontSize="22" fontWeight="bold" fill="#777">3</text>
+  <text x="203" y="168" textAnchor="middle" fontSize="10" fill="#777">frei</text>
+
+  {/* Laufrichtung des Rings */}
+  <path d="M170 102 Q250 48 330 102" fill="none" stroke="#999" strokeWidth="1.4" strokeDasharray="4,3" markerEnd="url(#arr-dir)"/>
+  <text x="250" y="52" textAnchor="middle" fontSize="10.5" fill="#555">Index läuft im Kreis: (i + 1) % 4</text>
+
+  {/* nextFull -> zeigt auf die nächste volle Zelle (lesen) */}
+  <line x1="455" y1="110" x2="332" y2="132" stroke="#27ae60" strokeWidth="2" markerEnd="url(#arr-full)"/>
+  <text x="520" y="92" textAnchor="end" fontSize="13" fontWeight="bold" fill="#1a6b3c">nextFull = 0</text>
+  <text x="520" y="107" textAnchor="end" fontSize="10" fill="#1a6b3c">nächste volle Zelle → lesen</text>
+
+  {/* nextFree -> zeigt auf die nächste freie Zelle (schreiben) */}
+  <line x1="75" y1="300" x2="178" y2="258" stroke="#2176AE" strokeWidth="2" markerEnd="url(#arr-free)"/>
+  <text x="40" y="320" fontSize="13" fontWeight="bold" fill="#1a5c8c">nextFree = 2</text>
+  <text x="40" y="335" fontSize="10" fill="#1a5c8c">nächste freie Zelle → schreiben</text>
+
+  {/* Legende */}
+  <line x1="30" y1="360" x2="530" y2="360" stroke="#ddd" strokeWidth="1"/>
+  <text x="280" y="378" textAnchor="middle" fontSize="10.5" fill="#555">nextFree und nextFull sind Integer, die als Zellen-ID auf eine Puffer-Zelle zeigen</text>
+  <text x="280" y="393" textAnchor="middle" fontSize="10.5" fill="#555">Hier: Zellen 0 und 1 belegt (counter = 2), 2 und 3 frei</text>
+</svg>
 
 #### Schritt 2 - Code OHNE Semaphore (kritische Abschnitte identifizieren)
 ```java
