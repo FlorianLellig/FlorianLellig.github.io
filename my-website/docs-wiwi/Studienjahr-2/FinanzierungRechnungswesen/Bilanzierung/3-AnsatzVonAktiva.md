@@ -480,4 +480,3 @@ Zinsaufwand   10.000   an   Verbindlichkeiten   100.000
 - **ARAP nach § 250 Abs. 1 HGB** → **Pflicht**, wenn alle drei Voraussetzungen erfüllt sind
 - **Disagio nach § 250 Abs. 3 HGB** → **Wahlrecht**
 :::
-
